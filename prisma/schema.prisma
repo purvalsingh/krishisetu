@@ -1,0 +1,417 @@
+// KrishiSetu data model.
+// Units: money is always integer paise, weight is always integer grams, timestamps are UTC.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+
+}
+
+enum Role {
+  FARMER
+  TRANSPORTER
+  CUSTOMER
+  ADMIN
+}
+
+enum Grade {
+  A
+  B
+  IMPERFECT
+}
+
+enum ListingStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  SOLD_OUT
+  EXPIRED
+}
+
+enum OrderStatus {
+  DRAFT
+  CONFIRMED
+  BATCHED
+  COLLECTED
+  IN_TRANSIT
+  READY_FOR_PICKUP
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  AUTHORISED
+  CAPTURED
+  REFUNDED
+  FAILED
+}
+
+enum FulfilmentTier {
+  CLUSTER_PICKUP // Tier A: buyer collects from the cluster point
+  LAST_LEG       // Tier B: delivered inside the society from that point
+}
+
+enum BatchStatus {
+  PROPOSED
+  AWAITING_TRANSPORTER
+  ACCEPTED
+  DISPATCHED
+  COMPLETED
+  CANCELLED
+  INFEASIBLE
+}
+
+enum StopKind {
+  PICKUP
+  DROP
+}
+
+enum BenchmarkSource {
+  LIVE
+  CACHED
+  SYNTHETIC
+  FIXTURE
+}
+
+model User {
+  id           String   @id @default(cuid())
+  phone        String   @unique
+  name         String
+  passwordHash String
+  role         Role
+  language     String   @default("en")
+  createdAt    DateTime @default(now())
+
+  farmer         FarmerProfile?
+  transporter    TransporterProfile?
+  customer       CustomerProfile?
+  auditLogs      AuditLog[]
+  qualityReports QualityReport[]
+}
+
+model FarmerProfile {
+  id         String  @id @default(cuid())
+  userId     String  @unique
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  village    String
+  district   String
+  lat        Float
+  lng        Float
+  fpoName    String?
+  // Self-declared evidence state only. No government integration is implemented.
+  evidenceNote String?
+  verified   Boolean @default(false)
+
+  listings     Listing[]
+  allocations  Allocation[]
+}
+
+model TransporterProfile {
+  id            String  @id @default(cuid())
+  userId        String  @unique
+  user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicleReg    String
+  vehicleType   String
+  capacityGrams Int
+  baseLat       Float
+  baseLng       Float
+  ratePaisePerKm Int
+  refrigerated  Boolean @default(false)
+
+  batches Batch[]
+}
+
+model CustomerProfile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clusterId String
+  cluster   Cluster  @relation(fields: [clusterId], references: [id])
+  flatNote  String?
+
+  orders Order[]
+}
+
+/// A delivery cluster: one neighbourhood pickup point serving nearby households.
+model Cluster {
+  id                  String  @id @default(cuid())
+  name                String
+  city                String
+  lat                 Float
+  lng                 Float
+  hostName            String
+  hostCommissionPaise Int     @default(1000) // per order, Tier A
+  lastLegFeePaise     Int     @default(2000) // per order, Tier B
+  active              Boolean @default(true)
+
+  customers CustomerProfile[]
+  orders    Order[]
+  batches   Batch[]
+}
+
+model Commodity {
+  id             String  @id @default(cuid())
+  name           String  @unique
+  agmarknetName  String
+  /// Smallest sellable increment, in grams. Supports exact-quantity buying such as 700 g.
+  stepGrams      Int     @default(250)
+  minOrderGrams  Int     @default(500)
+  /// Hours from pickup within which the commodity must reach the buyer without refrigeration.
+  freshnessHours Int     @default(36)
+  /// Reference retail price used only for the quick-commerce comparison shown to buyers.
+  quickCommercePaisePerKg Int @default(0)
+  imageEmoji     String  @default("🥗")
+
+  listings   Listing[]
+  orderLines OrderLine[]
+  benchmarks BenchmarkObservation[]
+  forecasts  DemandForecast[]
+}
+
+model Listing {
+  id             String        @id @default(cuid())
+  farmerId       String
+  farmer         FarmerProfile @relation(fields: [farmerId], references: [id], onDelete: Cascade)
+  commodityId    String
+  commodity      Commodity     @relation(fields: [commodityId], references: [id])
+  grade          Grade         @default(A)
+  variety        String?
+  /// Total quantity the farmer put up.
+  totalGrams     Int
+  /// Quantity held by confirmed but not yet collected orders.
+  reservedGrams  Int           @default(0)
+  /// Quantity already picked up and delivered.
+  completedGrams Int           @default(0)
+  /// Net amount per kg the farmer accepts. The platform never deducts from this.
+  askPaisePerKg  Int
+  harvestDate    DateTime
+  /// A prebooked listing is an expected harvest, not stock in hand.
+  prebooking     Boolean       @default(false)
+  status         ListingStatus @default(ACTIVE)
+  notes          String?
+  createdAt      DateTime      @default(now())
+
+  allocations Allocation[]
+
+  @@index([commodityId, status])
+}
+
+model Order {
+  id            String         @id @default(cuid())
+  customerId    String
+  customer      CustomerProfile @relation(fields: [customerId], references: [id])
+  clusterId     String
+  cluster       Cluster        @relation(fields: [clusterId], references: [id])
+  /// The run this order is scheduled against.
+  windowDate    DateTime
+  tier          FulfilmentTier @default(CLUSTER_PICKUP)
+  status        OrderStatus    @default(DRAFT)
+  paymentStatus PaymentStatus  @default(PENDING)
+  /// Idempotency key for repeated payment callbacks.
+  paymentRef    String?        @unique
+
+  // Itemised bill, all integer paise. farmerProceeds + logistics + handling + siteFee = total.
+  farmerProceedsPaise Int @default(0)
+  logisticsPaise      Int @default(0)
+  handlingPaise       Int @default(0)
+  siteFeePaise        Int @default(0)
+  totalPaise          Int @default(0)
+
+  batchId   String?
+  batch     Batch?   @relation(fields: [batchId], references: [id])
+  createdAt DateTime @default(now())
+
+  lines          OrderLine[]
+  qualityReports QualityReport[]
+
+  @@index([clusterId, windowDate, status])
+}
+
+model OrderLine {
+  id          String    @id @default(cuid())
+  orderId     String
+  order       Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  commodityId String
+  commodity   Commodity @relation(fields: [commodityId], references: [id])
+  grams       Int
+  grade       Grade     @default(A)
+  /// Landed price charged to the buyer for this line, per kg.
+  pricePaisePerKg Int
+
+  allocations Allocation[]
+}
+
+/// One farmer's share of one order line. This is what preserves lot traceability
+/// when a single buyer requirement is filled from several farms.
+model Allocation {
+  id          String        @id @default(cuid())
+  orderLineId String
+  orderLine   OrderLine     @relation(fields: [orderLineId], references: [id], onDelete: Cascade)
+  listingId   String
+  listing     Listing       @relation(fields: [listingId], references: [id])
+  farmerId    String
+  farmer      FarmerProfile @relation(fields: [farmerId], references: [id])
+  grams       Int
+  /// Exactly what this farmer receives for this allocation.
+  proceedsPaise Int
+  settled     Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+
+  qualityReports QualityReport[]
+
+  @@index([farmerId, settled])
+}
+
+/// One consolidated collection-and-delivery run for one cluster and one window.
+model Batch {
+  id            String      @id @default(cuid())
+  clusterId     String
+  cluster       Cluster     @relation(fields: [clusterId], references: [id])
+  windowDate    DateTime
+  status        BatchStatus @default(PROPOSED)
+  /// Incremented whenever the batch is replanned before dispatch.
+  version       Int         @default(1)
+  transporterId String?
+  transporter   TransporterProfile? @relation(fields: [transporterId], references: [id])
+
+  capacityGrams Int
+  loadGrams     Int
+  fillFraction  Float
+  distanceKm    Float
+  transportCostPaise Int
+  /// Human-readable record of what was accepted and what was rejected, and why.
+  explanation   Json
+  dispatchedAt  DateTime?
+  createdAt     DateTime    @default(now())
+
+  orders Order[]
+  stops  BatchStop[]
+
+  @@index([clusterId, windowDate])
+}
+
+model BatchStop {
+  id            String   @id @default(cuid())
+  batchId       String
+  batch         Batch    @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  seq           Int
+  kind          StopKind
+  label         String
+  lat           Float
+  lng           Float
+  /// Farm listing collected here, or the cluster point delivered to.
+  refId         String?
+  grams         Int
+  etaMinutes    Int
+  loadAfterGrams Int
+  /// Handover evidence recorded by the transporter.
+  handoverAt    DateTime?
+  handoverNote  String?
+
+  @@index([batchId, seq])
+}
+
+/// A dated mandi price observation. Never presented without its date and source.
+model BenchmarkObservation {
+  id          String          @id @default(cuid())
+  commodityId String
+  commodity   Commodity       @relation(fields: [commodityId], references: [id])
+  market      String
+  district    String
+  state       String
+  observedOn  DateTime
+  minPaisePerKg   Int
+  maxPaisePerKg   Int
+  modalPaisePerKg Int
+  source      BenchmarkSource
+  fetchedAt   DateTime        @default(now())
+
+  @@unique([commodityId, market, observedOn, source])
+  @@index([commodityId, observedOn])
+}
+
+/// Demand estimate for one commodity in one cluster for one future week.
+model DemandForecast {
+  id           String    @id @default(cuid())
+  commodityId  String
+  commodity    Commodity @relation(fields: [commodityId], references: [id])
+  clusterId    String?
+  periodStart  DateTime
+  predictedGrams Int
+  loGrams      Int
+  hiGrams      Int
+  /// Holdout error of the fitted model and of the naive baseline it must beat.
+  modelMape    Float
+  baselineMape Float
+  modelName    String
+  sampleSize   Int
+  computedAt   DateTime  @default(now())
+
+  @@unique([commodityId, clusterId, periodStart])
+}
+
+/// Weekly fulfilled quantity per commodity per cluster. The only honest input to forecasting.
+model DemandHistory {
+  id          String   @id @default(cuid())
+  commodityId String
+  clusterId   String
+  weekStart   DateTime
+  grams       Int
+  /// SYNTHETIC until the pilot produces real fulfilled orders.
+  source      BenchmarkSource @default(SYNTHETIC)
+
+  @@unique([commodityId, clusterId, weekStart])
+  @@index([commodityId, weekStart])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String?
+  actor     User?    @relation(fields: [actorId], references: [id])
+  action    String
+  subject   String
+  detail    Json
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+enum QualityStatus {
+  OPEN
+  RESOLVED
+  DISMISSED
+}
+
+/**
+ * A recorded quality or shortage complaint. Physical grading and disputes still
+ * need a person; this model exists so the outcome is written down rather than
+ * settled in a phone call. A farmer's accepted proceeds change only when
+ * `farmerAgreed` is true, and the reason is stored with the change.
+ */
+model QualityReport {
+  id           String        @id @default(cuid())
+  orderId      String
+  order        Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  allocationId String?
+  allocation   Allocation?   @relation(fields: [allocationId], references: [id])
+  reporterId   String
+  reporter     User          @relation(fields: [reporterId], references: [id])
+  reason       String
+  description  String
+  status       QualityStatus @default(OPEN)
+
+  /** Amount refunded to the buyer, in paise. */
+  buyerRefundPaise Int @default(0)
+  /** Amount deducted from the farmer's proceeds. Zero unless the farmer agreed. */
+  farmerAdjustmentPaise Int @default(0)
+  farmerAgreed Boolean @default(false)
+  resolutionNote String?
+  resolvedAt   DateTime?
+  createdAt    DateTime      @default(now())
+
+  @@index([status, createdAt])
+}

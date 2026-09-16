@@ -31,7 +31,7 @@ export type Opportunity = {
   benchmarkSource: string | null;
   benchmarkAgeDays: number | null;
   demandFit: Pick<Fit, "chosen" | "modelMape" | "baselineMape" | "sampleSize" | "usable">;
-  /** Last 26 observed weeks, then the four predicted weeks with their band. */
+  /** Last 16 observed weeks, then the four predicted weeks with their band. */
   recentSeries: number[];
   forecastSeries: { mid: number; lo: number; hi: number }[];
   topClusters: { clusterId: string; name: string; predictedGrams: number }[];
@@ -131,7 +131,7 @@ export const getOpportunities = cache(async (): Promise<Opportunity[]> => {
         usable: demandFit.usable,
       },
       topClusters,
-      recentSeries: series.slice(-26),
+      recentSeries: series.slice(-16),
       forecastSeries: demandFit.predictions.map((mid, i) => ({
         mid: Math.round(mid),
         lo: Math.round(demandFit.lo[i]),

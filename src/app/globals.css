@@ -288,3 +288,41 @@ h1{font-size:2.35rem}
 }
 /* Unread notice count on the bell. */
 .unread{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;padding:0 4px;border-radius:9px;background:var(--amber);color:#fff;font-size:9px;font-weight:800;display:grid;place-items:center}
+
+/* --- Demand chart -------------------------------------------------------
+   Drawn from real values, so the styling lives here rather than in the
+   component. The band is the holdout-residual spread, not a confidence
+   interval from a distributional assumption. */
+.spark{position:relative;height:66px;background:var(--bg);border:1px solid var(--line);border-radius:8px;margin:14px 0 6px;padding:7px 8px 16px}
+.spark svg{position:relative;width:100%;height:100%;overflow:visible}
+.spark-area{fill:var(--green);opacity:.07}
+.spark-band{fill:var(--green-light);opacity:.24}
+.spark-now{stroke:var(--line);stroke-width:1;vector-effect:non-scaling-stroke}
+.spark-observed{fill:none;stroke:var(--green);stroke-width:1.5}
+.spark-predicted{fill:none;stroke:var(--green);stroke-width:1.5;stroke-dasharray:4 3;opacity:.75}
+.spark-legend{position:absolute;right:9px;bottom:3px;display:flex;align-items:center;gap:5px;font-size:9px;color:var(--muted);letter-spacing:.04em}
+.spark-legend i{display:inline-block;width:12px;height:0;border-top:1.5px solid var(--green);margin-left:6px}
+.spark-legend i:first-child{margin-left:0}
+.spark-legend i.dashed{border-top-style:dashed;opacity:.75}
+
+/* Interior pages share the hero's type family but not its scale: only the
+   landing page gets the full display size. */
+.page-title h1{font-size:clamp(1.9rem,3vw,2.6rem)}
+.landing-hero h1{font-size:clamp(2.15rem,4.5vw,4rem)}
+
+/* The provenance note reads as a label, not as stranded text. */
+.data-note{border:1px solid var(--line);border-radius:20px;padding:5px 11px;white-space:nowrap}
+
+/* The method footnote is a footnote: full width, ruled off from the card body. */
+.demand-card .method.bottom{grid-column:1 / -1;border-top:1px solid var(--line);padding-top:13px;margin-top:2px}
+
+/* Navigation labels stay on one line, including the longer Marathi and Hindi ones. */
+.main-nav a{white-space:nowrap}
+
+/* Longer Marathi and Hindi labels must never push the header wider than the
+   viewport: the bar scrolls within itself instead of scrolling the page. */
+.topbar{gap:20px}
+.main-nav{min-width:0;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.main-nav::-webkit-scrollbar{display:none}
+.top-actions{flex:none}
+body{overflow-x:hidden}

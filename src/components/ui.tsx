@@ -134,8 +134,10 @@ export function MicroNote({ children }: { children: ReactNode }) {
 
 /**
  * Observed history followed by the predicted band, drawn from real values.
+ *
  * The shaded region is the holdout-residual band, not a confidence interval
- * derived from a distributional assumption.
+ * from a distributional assumption. The vertical rule marks today: everything
+ * left of it happened, everything right of it is an estimate.
  */
 export function Spark({
   history,
@@ -149,19 +151,28 @@ export function Spark({
 
   const W = 100;
   const H = 40;
-  const min = Math.min(...all);
-  const max = Math.max(...all);
+  const rawMin = Math.min(...all);
+  const rawMax = Math.max(...all);
+  // Breathing room top and bottom, so the line never sits on the frame and a
+  // gently trending series still reads as a shape rather than a flat edge.
+  const pad = (rawMax - rawMin || rawMax || 1) * 0.18;
+  const min = Math.max(0, rawMin - pad);
+  const max = rawMax + pad;
   const span = max - min || 1;
+
   const n = history.length + forecast.length;
   const x = (i: number) => (i / (n - 1)) * W;
   const y = (v: number) => H - ((v - min) / span) * H;
 
   const observed = history.map((v, i) => `${x(i).toFixed(2)},${y(v).toFixed(2)}`).join(" ");
+  const area = `0,${H} ${observed} ${x(history.length - 1).toFixed(2)},${H}`;
+
   const join = history.length - 1;
   const predicted = [history.at(-1)!, ...forecast.map((f) => f.mid)]
     .map((v, i) => `${x(join + i).toFixed(2)},${y(v).toFixed(2)}`)
     .join(" ");
   const band =
+    `${x(join).toFixed(2)},${y(history.at(-1)!).toFixed(2)} ` +
     forecast.map((f, i) => `${x(join + 1 + i).toFixed(2)},${y(f.hi).toFixed(2)}`).join(" ") +
     " " +
     forecast
@@ -174,17 +185,16 @@ export function Spark({
   return (
     <div className="spark">
       <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img" aria-label="Observed demand followed by the predicted range">
-        <polygon points={band} fill="var(--green-light)" opacity="0.28" />
-        <polyline points={observed} fill="none" stroke="var(--muted)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-        <polyline
-          points={predicted}
-          fill="none"
-          stroke="var(--green)"
-          strokeWidth="1.6"
-          strokeDasharray="4 3"
-          vectorEffect="non-scaling-stroke"
-        />
+        <polygon points={area} className="spark-area" />
+        <polygon points={band} className="spark-band" />
+        <line x1={x(join)} y1="0" x2={x(join)} y2={H} className="spark-now" />
+        <polyline points={observed} className="spark-observed" vectorEffect="non-scaling-stroke" />
+        <polyline points={predicted} className="spark-predicted" vectorEffect="non-scaling-stroke" />
       </svg>
+      <span className="spark-legend">
+        <i /> observed
+        <i className="dashed" /> predicted
+      </span>
     </div>
   );
 }

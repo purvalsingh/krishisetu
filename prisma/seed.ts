@@ -154,7 +154,6 @@ async function main() {
         name: f.name,
         passwordHash,
         role: "FARMER",
-        language: "mr",
         farmer: {
           create: {
             village: f.village,

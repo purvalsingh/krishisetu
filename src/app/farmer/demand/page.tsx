@@ -45,7 +45,6 @@ export default async function DemandPage() {
                   {o.priceChangePct.toFixed(1)}%
                 </span>
                 <span className="pill">{o.demandSupplyRatio.toFixed(2)}× listed supply</span>
-                <span className="pill">{o.demandFit.chosen === "ridge" ? "fitted model" : "naive baseline"}</span>
               </div>
 
               <p>
@@ -60,8 +59,7 @@ export default async function DemandPage() {
 
               <Spark history={o.recentSeries} forecast={o.forecastSeries} />
               <small>
-                26 weeks observed · 4 weeks predicted · {o.demandFit.chosen === "ridge" ? "fitted model" : "naive baseline"} over{" "}
-                {o.demandFit.sampleSize} weeks
+                16 weeks observed · 4 weeks predicted · {o.demandFit.chosen === "ridge" ? "fitted model" : "naive baseline"} over {o.demandFit.sampleSize} weeks
               </small>
             </div>
 

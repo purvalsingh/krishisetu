@@ -24,7 +24,7 @@ export default async function FarmerHome() {
       <Nav />
       <Shell>
         <PageTitle
-          eyebrow="FARMER DESK"
+          eyebrow={t("deskEyebrow")}
           title={`${t("greeting")}, ${data.profile.user.name}`}
           subtitle={`${data.profile.village}, ${data.profile.district}${data.profile.fpoName ? ` · ${data.profile.fpoName}` : ""}`}
           action={
@@ -49,7 +49,7 @@ export default async function FarmerHome() {
           <Card className="decision">
             <div className="decision-copy">
               <div className="eyebrow">
-                DECISION SUPPORT · {top.benchmarkSource ?? "NO BENCHMARK"}
+                {t("decisionEyebrow")} · {top.benchmarkSource ?? "NO BENCHMARK"}
               </div>
               <div className="crop-hero">
                 <span>{top.emoji}</span>
@@ -103,8 +103,8 @@ export default async function FarmerHome() {
         <div className="two-col">
           <Card>
             <SectionHead
-              eyebrow="MY PRODUCE"
-              title={active.length === 1 ? "One listing is live" : `${active.length} listings are live`}
+              eyebrow={t("produceEyebrow")}
+              title={active.length === 1 ? t("oneListingLive") : `${active.length} ${t("listingsAreLive")}`}
               action={
                 <Link href="/farmer/listings" className="text-link">
                   {t("manage")} <Arrow />
@@ -136,7 +136,7 @@ export default async function FarmerHome() {
           </Card>
 
           <Card>
-            <SectionHead eyebrow="POOLED RUN" title={t("transportArranged")} />
+            <SectionHead eyebrow={t("runEyebrow")} title={t("transportArranged")} />
             {!run || !runStop ? (
               <Empty icon="🚚">{t("noRun")}</Empty>
             ) : (
@@ -148,12 +148,12 @@ export default async function FarmerHome() {
                   {run.windowDate.toISOString().slice(0, 10)} · stop {runStop.seq} of {run.stops.length} ·{" "}
                   {run.cluster.name}
                 </span>
-                <strong>{kg(runStop.grams)} being collected</strong>
+                <strong>{kg(runStop.grams)} {t("beingCollected")}</strong>
                 <div className="progress">
                   <i style={{ width: `${Math.min(100, run.fillFraction * 100)}%` }} />
                 </div>
                 <small className="method">
-                  Run is {(run.fillFraction * 100).toFixed(0)}% full. {t("transportArrangedNote")}.
+                  {(run.fillFraction * 100).toFixed(0)}% {t("runIsFull")} · {t("transportArrangedNote")}.
                 </small>
               </div>
             )}
@@ -162,8 +162,8 @@ export default async function FarmerHome() {
 
         <Card>
           <SectionHead
-            eyebrow="RECENT ALLOCATIONS"
-            title="Where the produce went"
+            eyebrow={t("allocationsEyebrow")}
+            title={t("whereProduceWent")}
             action={
               <Link href="/farmer/earnings" className="text-link">
                 {t("allEarnings")} <Arrow />

@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Nav, Shell } from "@/components/nav";
-import { Badge, Card, Empty, SourceNote, Stat } from "@/components/ui";
+import { Footer, Nav, Shell } from "@/components/nav";
+import { Arrow, Card, Empty, MicroNote, PageTitle, Status, TableWrap } from "@/components/ui";
 import { requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { ECONOMICS } from "@/lib/config";
@@ -17,7 +17,7 @@ export default async function AdminHome() {
     prisma.transporterProfile.findMany({ include: { user: true } }),
     prisma.order.findMany({
       where: { status: "CONFIRMED", batchId: null },
-      include: { lines: true, cluster: true, customer: { include: { user: true } } },
+      include: { lines: true },
     }),
     prisma.batch.findMany({
       where: { status: { notIn: ["CANCELLED"] } },
@@ -27,78 +27,80 @@ export default async function AdminHome() {
     }),
   ]);
 
-  const pendingByCluster = clusters.map((c) => {
-    const orders = pending.filter((o) => o.clusterId === c.id);
-    const grams = orders.reduce((s, o) => s + o.lines.reduce((t, l) => t + l.grams, 0), 0);
-    // Preview the fill against the vehicle that would actually be hired: the
-    // smallest one that can carry the waiting load.
-    const capacities = transporters.map((t) => t.capacityGrams).sort((a, b) => a - b);
-    const bestFit = capacities.find((c) => c >= grams) ?? capacities.at(-1) ?? 0;
-    return { cluster: c, orders, grams, fill: bestFit ? grams / bestFit : 0, largest: bestFit };
-  });
+  const capacities = transporters.map((t) => t.capacityGrams).sort((a, b) => a - b);
+  const waitingGrams = pending.reduce((s, o) => s + o.lines.reduce((t, l) => t + l.grams, 0), 0);
 
   return (
     <>
       <Nav />
       <Shell>
-        <h1 className="text-2xl font-semibold tracking-tight">Operations</h1>
-        <p className="mt-1 max-w-3xl text-sm text-inksoft">
-          Plan one run per cluster per window. A run is only worth dispatching above{" "}
-          {ECONOMICS.MIN_FILL_FRACTION * 100}% of vehicle capacity; below that the orders are held and rolled to the
-          next window rather than delivered at a loss.
-        </p>
+        <PageTitle
+          eyebrow="OPERATOR DESK · RUN PLANNING"
+          title="Plan the next shared run"
+          subtitle={`Orders fit first. The vehicle moves only when the load is worth moving: below ${ECONOMICS.MIN_FILL_FRACTION * 100}% of capacity the run is held and the orders roll to the next window, rather than being delivered at a loss.`}
+          action={
+            batches[0] ? (
+              <Link href={`/admin/batches/${batches[0].id}`} className="btn btn-primary">
+                Open planned run <Arrow />
+              </Link>
+            ) : undefined
+          }
+        />
 
-        <div className="mt-5 grid gap-4 sm:grid-cols-3">
-          <Stat label="Orders waiting to be planned" value={String(pending.length)} />
-          <Stat label="Quantity waiting" value={kg(pending.reduce((s, o) => s + o.lines.reduce((t, l) => t + l.grams, 0), 0))} />
-          <Stat label="Next window" value={window.toISOString().slice(0, 10)} note="06:00 UTC collection start" />
+        <div className="stats three">
+          <div className="stat">
+            <div className="eyebrow">Orders waiting</div>
+            <strong>{pending.length}</strong>
+          </div>
+          <div className="stat">
+            <div className="eyebrow">Quantity waiting</div>
+            <strong>{kg(waitingGrams)}</strong>
+          </div>
+          <div className="stat">
+            <div className="eyebrow">Next window</div>
+            <strong>
+              {window.toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}
+            </strong>
+            <small>06:00 UTC collection start</small>
+          </div>
         </div>
 
-        <div className="mt-5 grid gap-4 lg:grid-cols-3">
-          {pendingByCluster.map(({ cluster, orders, grams, fill, largest }) => {
+        <div className="cluster-grid">
+          {clusters.map((cluster) => {
+            const orders = pending.filter((o) => o.clusterId === cluster.id);
+            const grams = orders.reduce((s, o) => s + o.lines.reduce((t, l) => t + l.grams, 0), 0);
+            // Preview the fill against the vehicle that would actually be hired:
+            // the smallest one that can carry the waiting load.
+            const bestFit = capacities.find((c) => c >= grams) ?? capacities.at(-1) ?? 0;
+            const fill = bestFit ? grams / bestFit : 0;
             const ready = fill >= ECONOMICS.MIN_FILL_FRACTION;
+
             return (
-              <Card key={cluster.id} title={cluster.name} subtitle={`Host: ${cluster.hostName}`}>
-                <div className="tabular text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-inksoft">Waiting orders</span>
-                    <span>{orders.length}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-inksoft">Quantity</span>
-                    <span>{kg(grams)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-inksoft">Fill against {kg(largest)} vehicle</span>
-                    <span className={ready ? "font-semibold text-brand" : "font-semibold text-accent"}>
-                      {(fill * 100).toFixed(0)}%
-                    </span>
-                  </div>
+              <Card key={cluster.id} className={`cluster ${ready ? "" : "held-card"}`.trim()}>
+                <div className="eyebrow">CLUSTER</div>
+                <h2>{cluster.name.replace(" pickup point", "")}</h2>
+                <p>
+                  Host: <span>{cluster.hostName}</span> · {orders.length} waiting orders · {kg(grams)}
+                </p>
+
+                <div className="fill-line">
+                  <span>Fill against {kg(bestFit)} vehicle</span>
+                  <b>{(fill * 100).toFixed(0)}%</b>
+                </div>
+                <div className="progress">
+                  <i className={ready ? "" : "amber-fill"} style={{ width: `${Math.min(100, fill * 100)}%` }} />
                 </div>
 
-                <div className="mt-3 h-2 overflow-hidden rounded-full bg-panel2">
-                  <div
-                    className="h-full rounded-full"
-                    style={{
-                      width: `${Math.min(100, fill * 100)}%`,
-                      background: ready ? "var(--brand)" : "var(--accent)",
-                    }}
-                  />
-                </div>
-                <p className="mt-1.5 text-[11px] text-inksoft">
+                <p className={ready ? "positive-text" : "warning-text"}>
                   {ready
                     ? "Above the minimum fill. This run pays for itself."
                     : `Below the ${ECONOMICS.MIN_FILL_FRACTION * 100}% threshold. Planning it will show the shortfall and hold the run.`}
                 </p>
 
-                <form action={planRunAction} className="mt-3 space-y-2">
+                <form action={planRunAction}>
                   <input type="hidden" name="clusterId" value={cluster.id} />
                   <input type="hidden" name="windowDate" value={window.toISOString()} />
-                  <select
-                    name="transporterId"
-                    className="w-full rounded-lg border border-line bg-panel px-3 py-2 text-sm outline-none focus:border-brand"
-                    defaultValue=""
-                  >
+                  <select name="transporterId" defaultValue="">
                     <option value="">Choose the vehicle automatically</option>
                     {transporters.map((t) => (
                       <option key={t.id} value={t.id}>
@@ -107,10 +109,7 @@ export default async function AdminHome() {
                       </option>
                     ))}
                   </select>
-                  <button
-                    disabled={orders.length === 0}
-                    className="w-full rounded-lg bg-brand px-3 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-40"
-                  >
+                  <button className="btn btn-primary" disabled={orders.length === 0}>
                     Plan this run
                   </button>
                 </form>
@@ -119,71 +118,71 @@ export default async function AdminHome() {
           })}
         </div>
 
-        <Card className="mt-5" title="Planned and running">
+        <Card>
+          <div className="eyebrow">PLANNED AND RUNNING</div>
+          <h2>Every run and what it carries</h2>
+
           {batches.length === 0 ? (
-            <Empty>No run has been planned yet. Plan one above to see the accepted and rejected orders.</Empty>
+            <Empty icon="🚚">No run has been planned yet. Plan one above to see the accepted and rejected orders.</Empty>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="tabular w-full text-sm">
-                <thead className="text-left text-xs uppercase tracking-wide text-inksoft">
-                  <tr>
-                    <th className="py-2 pr-4 font-medium">Cluster</th>
-                    <th className="py-2 pr-4 font-medium">Window</th>
-                    <th className="py-2 pr-4 font-medium">Orders</th>
-                    <th className="py-2 pr-4 font-medium">Load</th>
-                    <th className="py-2 pr-4 font-medium">Fill</th>
-                    <th className="py-2 pr-4 font-medium">Stops</th>
-                    <th className="py-2 pr-4 font-medium">Distance</th>
-                    <th className="py-2 pr-4 font-medium">Transport</th>
-                    <th className="py-2 pr-4 font-medium">Status</th>
-                    <th className="py-2 font-medium"></th>
+            <TableWrap>
+              <thead>
+                <tr>
+                  <th>Cluster</th>
+                  <th>Window</th>
+                  <th>Orders</th>
+                  <th>Load</th>
+                  <th>Fill</th>
+                  <th>Stops</th>
+                  <th>Distance</th>
+                  <th>Transport</th>
+                  <th>Status</th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                {batches.map((b) => (
+                  <tr key={b.id}>
+                    <td>
+                      <Link href={`/admin/batches/${b.id}`} className="text-link">
+                        {b.cluster.name.replace(" pickup point", "")}
+                      </Link>
+                    </td>
+                    <td>{b.windowDate.toISOString().slice(0, 10)}</td>
+                    <td>{b.orders.length}</td>
+                    <td>{kg(b.loadGrams)}</td>
+                    <td className={b.fillFraction >= ECONOMICS.MIN_FILL_FRACTION ? "positive-text" : "warning-text"}>
+                      {(b.fillFraction * 100).toFixed(0)}%
+                    </td>
+                    <td>{b.stops.length}</td>
+                    <td>{b.distanceKm} km</td>
+                    <td>{rupees(b.transportCostPaise)}</td>
+                    <td>
+                      <Status tone={b.status === "COMPLETED" ? "good" : b.status === "PROPOSED" ? "warning" : "pending"}>
+                        {b.status.replaceAll("_", " ").toLowerCase()}
+                      </Status>
+                    </td>
+                    <td>
+                      {!b.dispatchedAt && b.status !== "COMPLETED" && (
+                        <form action={releaseBatchAction}>
+                          <input type="hidden" name="batchId" value={b.id} />
+                          <button className="text-btn danger">Release</button>
+                        </form>
+                      )}
+                    </td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-line">
-                  {batches.map((b) => (
-                    <tr key={b.id}>
-                      <td className="py-2 pr-4">
-                        <Link href={`/admin/batches/${b.id}`} className="text-brand hover:underline">
-                          {b.cluster.name.replace(" pickup point", "")}
-                        </Link>
-                      </td>
-                      <td className="py-2 pr-4 text-inksoft">{b.windowDate.toISOString().slice(0, 10)}</td>
-                      <td className="py-2 pr-4">{b.orders.length}</td>
-                      <td className="py-2 pr-4">{kg(b.loadGrams)}</td>
-                      <td className={`py-2 pr-4 ${b.fillFraction >= ECONOMICS.MIN_FILL_FRACTION ? "text-brand" : "text-accent"}`}>
-                        {(b.fillFraction * 100).toFixed(0)}%
-                      </td>
-                      <td className="py-2 pr-4">{b.stops.length}</td>
-                      <td className="py-2 pr-4">{b.distanceKm} km</td>
-                      <td className="py-2 pr-4">{rupees(b.transportCostPaise)}</td>
-                      <td className="py-2 pr-4">
-                        <Badge tone={b.status === "COMPLETED" ? "good" : b.status === "PROPOSED" ? "warn" : "brand"}>
-                          {b.status.replaceAll("_", " ").toLowerCase()}
-                        </Badge>
-                      </td>
-                      <td className="py-2">
-                        {!b.dispatchedAt && b.status !== "COMPLETED" && (
-                          <form action={releaseBatchAction}>
-                            <input type="hidden" name="batchId" value={b.id} />
-                            <button className="rounded-lg border border-line px-2.5 py-1 text-xs hover:bg-panel2">
-                              Release
-                            </button>
-                          </form>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </TableWrap>
           )}
-          <SourceNote>
-            Releasing a run returns every reserved kilogram to its listing and puts the orders back in the queue. A
-            run that has already been dispatched cannot be released this way; it needs an operator exception with a
-            recorded reason.
-          </SourceNote>
+
+          <MicroNote>
+            Releasing a run returns every reserved kilogram to its listing and puts the orders back in the queue. A run
+            already dispatched cannot be released this way; it needs an operator exception with a recorded reason.
+          </MicroNote>
         </Card>
       </Shell>
+      <Footer />
     </>
   );
 }

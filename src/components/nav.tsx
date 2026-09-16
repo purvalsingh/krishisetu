@@ -4,6 +4,8 @@ import { prisma } from "@/lib/db";
 import { LOCALES, translator } from "@/lib/i18n";
 import { signOutAction } from "@/app/actions/auth";
 import { setLanguage } from "@/app/actions/language";
+import { ThemeToggle } from "./theme-toggle";
+import { unreadCount } from "@/lib/notify";
 
 const LINKS = {
   FARMER: [
@@ -17,9 +19,7 @@ const LINKS = {
     ["/cart", "Basket"],
     ["/orders", "My orders"],
   ],
-  TRANSPORTER: [
-    ["/transporter", "Runs"],
-  ],
+  TRANSPORTER: [["/transporter", "Runs"]],
   ADMIN: [
     ["/admin", "Operations"],
     ["/admin/quality", "Quality"],
@@ -28,42 +28,86 @@ const LINKS = {
   ],
 } as const;
 
+const PUBLIC_LINKS = [
+  ["/market", "Shop"],
+  ["/positioning", "How we differ"],
+] as const;
+
+function initials(name: string) {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase())
+    .join("");
+}
+
 export async function Nav() {
   const session = await getSession();
-  const links = session ? LINKS[session.role] : [];
-  // Language choice is offered where it matters most: the farmer's own screens.
+  const links = session ? LINKS[session.role] : PUBLIC_LINKS;
+
+  // The language choice is offered where it matters most: the farmer's screens.
   const user =
     session?.role === "FARMER"
       ? await prisma.user.findUnique({ where: { id: session.userId }, select: { language: true } })
       : null;
-  // Farmer navigation is translated; the other roles stay in English for now.
   const t = translator(user?.language ?? "en");
+  const unread = session ? await unreadCount(session.userId) : 0;
 
   return (
-    <header className="sticky top-0 z-20 border-b border-line bg-panel/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-5 gap-y-2 px-4 py-3">
-        <Link href={session ? homeFor(session.role) : "/"} className="text-sm font-semibold tracking-tight">
-          <span className="text-brand">Krishi</span>Setu
-        </Link>
-        <nav className="flex flex-1 flex-wrap items-center gap-x-4 gap-y-1 text-sm text-inksoft">
-          {links.map(([href, label]) => (
-            <Link key={href} href={href} className="hover:text-ink">
-              {session?.role === "FARMER" ? t(label as "navDashboard") : label}
-            </Link>
-          ))}
-        </nav>
-        {user && <LanguagePicker current={user.language} />}
+    <header className="topbar">
+      <Link href={session ? homeFor(session.role) : "/"} className="brand">
+        <span className="brand-mark">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+            <path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-9a9 9 0 0 1 7 3c0 7-4 13-9 13Z" />
+            <path d="M11 20c0-4 2-8 6-11" />
+          </svg>
+        </span>
+        KrishiSetu
+      </Link>
+
+      <nav className="main-nav">
+        {links.map(([href, label]) => (
+          <Link key={href} href={href}>
+            {session?.role === "FARMER" ? t(label as "navDashboard") : label}
+          </Link>
+        ))}
+      </nav>
+
+      <div className="top-actions">
+        {user && (
+          <form action={setLanguage} className="language">
+            {Object.entries(LOCALES).map(([code, label]) => (
+              <button key={code} name="language" value={code} className={user.language === code ? "active" : ""}>
+                {label}
+              </button>
+            ))}
+          </form>
+        )}
+
+        {session && (
+          <Link href="/notifications" className="icon-btn" aria-label={`Notices${unread ? `, ${unread} unread` : ""}`} style={{ position: "relative" }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+              <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.7 21a2 2 0 0 1-3.4 0" />
+            </svg>
+            {unread > 0 && <span className="unread">{unread > 9 ? "9+" : unread}</span>}
+          </Link>
+        )}
+
+        <ThemeToggle />
+
         {session ? (
-          <form action={signOutAction} className="flex items-center gap-3">
-            <span className="text-xs text-inksoft">
-              {session.name} · {session.role.toLowerCase()}
-            </span>
-            <button className="rounded-lg border border-line px-2.5 py-1.5 text-xs hover:bg-panel2">
+          <form action={signOutAction} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <button className="text-btn" title={session.name}>
               {session.role === "FARMER" ? t("signOut") : "Sign out"}
             </button>
+            <span className="avatar" title={`${session.name} · ${session.role.toLowerCase()}`}>
+              {initials(session.name)}
+            </span>
           </form>
         ) : (
-          <Link href="/login" className="rounded-lg border border-line px-3 py-1.5 text-sm hover:bg-panel2">
+          <Link href="/login" className="btn btn-secondary">
             Sign in
           </Link>
         )}
@@ -72,26 +116,15 @@ export async function Nav() {
   );
 }
 
-/** A plain form so the choice works without client-side JavaScript. */
-function LanguagePicker({ current }: { current: string }) {
-  return (
-    <form action={setLanguage} className="flex items-center gap-1">
-      {Object.entries(LOCALES).map(([code, label]) => (
-        <button
-          key={code}
-          name="language"
-          value={code}
-          className={`rounded-lg px-2 py-1 text-xs transition ${
-            current === code ? "bg-brandsoft text-brand" : "text-inksoft hover:bg-panel2"
-          }`}
-        >
-          {label}
-        </button>
-      ))}
-    </form>
-  );
+export function Shell({ children }: { children: React.ReactNode }) {
+  return <main className="page-wrap">{children}</main>;
 }
 
-export function Shell({ children }: { children: React.ReactNode }) {
-  return <main className="mx-auto max-w-6xl px-4 py-6">{children}</main>;
+export function Footer() {
+  return (
+    <footer className="footer">
+      <span>KrishiSetu · Navi Mumbai pooled delivery</span>
+      <span>All prices carry their source and date</span>
+    </footer>
+  );
 }

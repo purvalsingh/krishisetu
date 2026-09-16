@@ -14,7 +14,10 @@ Four roles, each with their own screens and their own view of the same transacti
 | Farmer | `/farmer`, `/farmer/listings`, `/farmer/demand`, `/farmer/earnings` | List ready stock or a prebooked harvest, set the net rate they accept, see predicted demand per crop and per neighbourhood, see which farm stop collects from them, and compare every allocation against a dated mandi observation. |
 | Household and bulk buyer | `/market`, `/cart`, `/orders` | Buy exact quantities, read the itemised bill, choose collection or door delivery, and see which farms filled the order. |
 | Transporter | `/transporter`, `/transporter/runs/[id]` | Accept a full run with distance, load and payment known in advance, work the stop list, record handovers, complete the run. |
-| Operator | `/admin`, `/admin/batches/[id]`, `/admin/economics`, `/admin/data` | Plan runs, read why each order was accepted or rejected, release an undispatched run, watch break-even, and refresh live mandi prices. |
+| Operator | `/admin`, `/admin/batches/[id]`, `/admin/economics`, `/admin/quality`, `/admin/data` | Plan runs, read why each order was accepted or rejected, release an undispatched run, watch break-even, and refresh live mandi prices. |
+
+Shared across roles: `/notifications` for in-app run notices, and `/join/[cluster]` — a public page showing how far
+the next run is from the minimum fill, meant to be forwarded to neighbours.
 
 The decision layer is `src/lib/pooling.ts`. It takes confirmed orders, available lots and offered
 vehicles, and returns a shipment plus an explanation of everything it left out. It is pure data in,

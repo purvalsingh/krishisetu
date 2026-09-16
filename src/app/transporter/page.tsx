@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Nav, Shell } from "@/components/nav";
-import { Badge, Card, Empty, SourceNote, Stat } from "@/components/ui";
+import { Footer, Nav, Shell } from "@/components/nav";
+import { Arrow, Card, Empty, MicroNote, PageTitle, SectionHead, Stat, Stats, Status } from "@/components/ui";
 import { requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { ECONOMICS } from "@/lib/config";
@@ -22,7 +22,7 @@ export default async function TransporterHome() {
   });
 
   const offered = batches.filter((b) => b.status === "AWAITING_TRANSPORTER" || b.status === "PROPOSED");
-  const mine = batches.filter((b) => ["ACCEPTED", "DISPATCHED"].includes(b.status));
+  const inHand = batches.filter((b) => ["ACCEPTED", "DISPATCHED"].includes(b.status));
   const done = batches.filter((b) => b.status === "COMPLETED");
   const earned = done.reduce((s, b) => s + b.transportCostPaise, 0);
 
@@ -30,100 +30,138 @@ export default async function TransporterHome() {
     <>
       <Nav />
       <Shell>
-        <h1 className="text-2xl font-semibold tracking-tight">{profile.user.name}</h1>
-        <p className="mt-1 text-sm text-inksoft">
-          {profile.vehicleType} · {profile.vehicleReg} · {kg(profile.capacityGrams)} capacity ·{" "}
-          {rupees(profile.ratePaisePerKm)}/km{profile.refrigerated ? " · refrigerated" : ""}
-        </p>
+        <PageTitle
+          eyebrow="TRANSPORTER DESK"
+          title={profile.user.name}
+          subtitle={`${profile.vehicleType} · ${profile.vehicleReg} · ${kg(profile.capacityGrams)} capacity · ${rupees(profile.ratePaisePerKm)}/km${profile.refrigerated ? " · refrigerated" : ""}`}
+          action={
+            inHand[0] ? (
+              <Link href={`/transporter/runs/${inHand[0].id}`} className="btn btn-secondary">
+                Open run sheet <Arrow />
+              </Link>
+            ) : undefined
+          }
+        />
 
-        <div className="mt-5 grid gap-4 sm:grid-cols-3">
-          <Stat label="Runs offered to me" value={String(offered.length)} />
-          <Stat label="Runs in hand" value={String(mine.length)} />
-          <Stat label="Earned on completed runs" value={rupees(earned)} tone="good" />
-        </div>
+        <Stats count={3}>
+          <Stat label="Runs offered" value={String(offered.length)} />
+          <Stat label="Runs in hand" value={String(inHand.length)} tone="positive" />
+          <Stat label="Earned on completed runs" value={rupees(earned)} />
+        </Stats>
 
-        <Card className="mt-5" title="Offered runs" subtitle="Distance, load and payment are known before you accept">
-          {offered.length === 0 ? (
-            <Empty>No run is waiting for you. The operator plans runs once enough orders share a cluster.</Empty>
-          ) : (
-            <ul className="space-y-3">
-              {offered.map((b) => {
-                const belowFill = b.fillFraction < ECONOMICS.MIN_FILL_FRACTION;
-                return (
-                  <li key={b.id} className="rounded-lg border border-line p-3">
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <div>
-                        <div className="text-sm font-medium">{b.cluster.name}</div>
-                        <div className="tabular text-xs text-inksoft">
-                          {b.windowDate.toISOString().slice(0, 10)} · {b.stops.filter((s) => s.kind === "PICKUP").length} farm
-                          pickups, one drop · {kg(b.loadGrams)} · {b.distanceKm} km · {b.orders.length} buyer orders
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <span className="tabular text-sm font-semibold">{rupees(b.transportCostPaise)}</span>
-                        {belowFill ? (
-                          <Badge tone="warn">held below minimum fill</Badge>
-                        ) : (
-                          <form action={acceptRunAction}>
-                            <input type="hidden" name="batchId" value={b.id} />
-                            <button className="rounded-lg bg-brand px-3 py-2 text-sm font-medium text-white hover:opacity-90">
-                              Accept this run
-                            </button>
-                          </form>
-                        )}
-                      </div>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-          <SourceNote>
-            Payment is the planned route distance at your own per-kilometre rate. A run held below{" "}
-            {ECONOMICS.MIN_FILL_FRACTION * 100}% fill is not offered for acceptance, because a half-empty trip does
-            not pay for itself for you either.
-          </SourceNote>
-        </Card>
-
-        {mine.length > 0 && (
-          <Card className="mt-5" title="Runs in hand">
-            <ul className="space-y-3">
-              {mine.map((b) => (
-                <li key={b.id} className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-line p-3">
-                  <div>
-                    <div className="text-sm font-medium">{b.cluster.name}</div>
-                    <div className="tabular text-xs text-inksoft">
-                      {b.windowDate.toISOString().slice(0, 10)} · {b.stops.length} stops · {kg(b.loadGrams)} ·{" "}
-                      {b.distanceKm} km
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Badge tone={b.status === "DISPATCHED" ? "warn" : "brand"}>{b.status.toLowerCase()}</Badge>
-                    <Link href={`/transporter/runs/${b.id}`} className="rounded-lg border border-line px-3 py-2 text-sm hover:bg-panel2">
-                      Open run sheet
-                    </Link>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </Card>
+        {offered.length === 0 && inHand.length === 0 && (
+          <Empty icon="🚚">No run is waiting for you. The operator plans runs once enough orders share a cluster.</Empty>
         )}
+
+        {offered.map((b) => {
+          const held = b.fillFraction < ECONOMICS.MIN_FILL_FRACTION;
+          const pickups = b.stops.filter((s) => s.kind === "PICKUP").length;
+
+          return held ? (
+            <Card key={b.id} className="held-card">
+              <SectionHead
+                eyebrow={`HELD RUN · ${b.cluster.name.replace(" pickup point", "").toUpperCase()}`}
+                title="Below minimum vehicle fill"
+                action={<Status tone="warning">Held · {(b.fillFraction * 100).toFixed(0)}% fill</Status>}
+              />
+              <p>
+                {kg(b.loadGrams)} across {b.orders.length} orders. This run is not dispatched, because a half-empty
+                trip does not pay for itself for you either. The orders roll to the next window.
+              </p>
+            </Card>
+          ) : (
+            <Card key={b.id} className="offer-card">
+              <SectionHead
+                eyebrow={`OFFERED RUN · ${b.cluster.name.replace(" pickup point", "").toUpperCase()}`}
+                title={`${b.windowDate.toISOString().slice(0, 10)} · ${pickups} farm pickups, one drop`}
+                action={<Status tone="good">Above minimum fill</Status>}
+              />
+
+              <div className="offer-grid">
+                <div>
+                  <b>{kg(b.loadGrams)}</b>
+                  <small>load</small>
+                </div>
+                <div>
+                  <b>{b.distanceKm} km</b>
+                  <small>distance</small>
+                </div>
+                <div>
+                  <b>{b.orders.length}</b>
+                  <small>buyer orders</small>
+                </div>
+                <div>
+                  <b>{rupees(b.transportCostPaise)}</b>
+                  <small>your payment</small>
+                </div>
+              </div>
+
+              <form action={acceptRunAction}>
+                <input type="hidden" name="batchId" value={b.id} />
+                <button className="btn btn-primary">
+                  Accept this run <Arrow />
+                </button>
+              </form>
+            </Card>
+          );
+        })}
+
+        {inHand.map((b) => (
+          <Card key={b.id}>
+            <SectionHead
+              eyebrow={`IN HAND · ${b.cluster.name.replace(" pickup point", "").toUpperCase()}`}
+              title={`${b.windowDate.toISOString().slice(0, 10)} · ${b.stops.length} stops`}
+              action={<Status tone={b.status === "DISPATCHED" ? "warning" : "pending"}>{b.status.toLowerCase()}</Status>}
+            />
+            <div className="offer-grid">
+              <div>
+                <b>{kg(b.loadGrams)}</b>
+                <small>load</small>
+              </div>
+              <div>
+                <b>{b.distanceKm} km</b>
+                <small>distance</small>
+              </div>
+              <div>
+                <b>{(b.fillFraction * 100).toFixed(0)}%</b>
+                <small>of your vehicle</small>
+              </div>
+              <div>
+                <b>{rupees(b.transportCostPaise)}</b>
+                <small>your payment</small>
+              </div>
+            </div>
+            <Link href={`/transporter/runs/${b.id}`} className="btn btn-secondary">
+              Open run sheet <Arrow />
+            </Link>
+          </Card>
+        ))}
 
         {done.length > 0 && (
-          <Card className="mt-5" title="Completed">
-            <ul className="divide-y divide-line">
-              {done.map((b) => (
-                <li key={b.id} className="flex items-center justify-between py-2 text-sm first:pt-0">
-                  <span>
-                    {b.cluster.name} · {b.windowDate.toISOString().slice(0, 10)}
-                  </span>
-                  <span className="tabular font-medium">{rupees(b.transportCostPaise)}</span>
-                </li>
-              ))}
-            </ul>
+          <Card>
+            <div className="eyebrow">COMPLETED</div>
+            <h2>Runs finished</h2>
+            {done.map((b) => (
+              <div key={b.id} className="mini-stop">
+                <b>✓</b>
+                <span>
+                  {b.cluster.name.replace(" pickup point", "")}
+                  <small>
+                    {b.windowDate.toISOString().slice(0, 10)} · {kg(b.loadGrams)} · {b.distanceKm} km
+                  </small>
+                </span>
+                <strong style={{ marginLeft: "auto" }}>{rupees(b.transportCostPaise)}</strong>
+              </div>
+            ))}
           </Card>
         )}
+
+        <MicroNote>
+          Payment is the planned route distance at your own per-kilometre rate, agreed before you accept. A run held
+          below {ECONOMICS.MIN_FILL_FRACTION * 100}% fill is never offered for acceptance.
+        </MicroNote>
       </Shell>
+      <Footer />
     </>
   );
 }

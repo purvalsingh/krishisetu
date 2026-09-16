@@ -1,11 +1,12 @@
-import { Nav, Shell } from "@/components/nav";
-import { Badge, Card, Empty, SourceNote } from "@/components/ui";
+import Link from "next/link";
+import { Footer, Nav, Shell } from "@/components/nav";
+import { Arrow, Card, Empty, MicroNote, PageTitle, Tag } from "@/components/ui";
 import { requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { availableGrams } from "@/lib/farmer";
 import { getOpportunities } from "@/lib/insights";
 import { suggestFarmerBand } from "@/lib/pricing";
-import { kg, perKg } from "@/lib/money";
+import { kg, rupees } from "@/lib/money";
 import { setListingStatus } from "@/app/actions/listing";
 import { NewListingForm } from "./form";
 
@@ -24,9 +25,8 @@ export default async function ListingsPage() {
     getOpportunities(),
   ]);
 
-  // The suggested band is built per commodity from the dated mandi observation
-  // and the current demand pressure. It is a suggestion, and the farmer types
-  // whatever number they are actually willing to accept.
+  // The band is built per commodity from the dated mandi observation and the
+  // current demand pressure. It is a suggestion; the farmer types what they will accept.
   const suggestions = Object.fromEntries(
     commodities.map((c) => {
       const o = opportunities.find((x) => x.commodityId === c.id);
@@ -49,65 +49,78 @@ export default async function ListingsPage() {
     }),
   );
 
+  const live = listings.filter((l) => l.status === "ACTIVE");
+
   return (
     <>
       <Nav />
       <Shell>
-        <h1 className="text-2xl font-semibold tracking-tight">My produce</h1>
-        <p className="mt-1 max-w-2xl text-sm text-inksoft">
-          List what is ready, or publish an expected harvest as a prebooking. The rate you enter is the amount you
-          receive per kilogram. Transport, packing and the site fee are added on top for the buyer and are never
-          taken out of your amount.
-        </p>
+        <PageTitle
+          eyebrow="FARMER DESK · INVENTORY"
+          title="List produce"
+          subtitle="Set the rate you are willing to accept. The shared run adds transport, packing and the site fee on top of it for the buyer; nothing is taken out of your amount."
+          action={
+            <Link href="/farmer/demand" className="btn btn-secondary">
+              See what is worth sending <Arrow />
+            </Link>
+          }
+        />
 
-        <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,380px)_1fr]">
-          <Card title="List produce">
-            <NewListingForm commodities={commodities.map((c) => ({ id: c.id, name: c.name, emoji: c.imageEmoji }))} suggestions={suggestions} />
+        <div className="two-col listing-layout">
+          <Card>
+            <div className="eyebrow">NEW LISTING</div>
+            <h2>What are you bringing?</h2>
+            <NewListingForm
+              commodities={commodities.map((c) => ({ id: c.id, name: c.name, emoji: c.imageEmoji }))}
+              suggestions={suggestions}
+            />
           </Card>
 
-          <Card title="Everything I have listed">
+          <Card>
+            <div className="eyebrow">LIVE LISTINGS · {live.length}</div>
+            <h2>My produce</h2>
+
             {listings.length === 0 ? (
-              <Empty>Nothing listed yet.</Empty>
+              <Empty icon="🌱">Nothing listed yet. List what you have ready and buyers in the pickup clusters see it.</Empty>
             ) : (
-              <ul className="divide-y divide-line">
-                {listings.map((l) => {
-                  const sold = l.allocations.reduce((s, a) => s + a.grams, 0);
-                  return (
-                    <li key={l.id} className="flex flex-wrap items-center justify-between gap-3 py-3 first:pt-0">
-                      <div className="min-w-[180px]">
-                        <div className="text-sm font-medium">
-                          {l.commodity.imageEmoji} {l.commodity.name}{" "}
-                          <Badge tone={l.grade === "IMPERFECT" ? "warn" : "neutral"}>Grade {l.grade}</Badge>{" "}
-                          {l.prebooking && <Badge tone="brand">prebooking</Badge>}
-                        </div>
-                        <div className="tabular mt-0.5 text-xs text-inksoft">
-                          {kg(availableGrams(l))} available of {kg(l.totalGrams)} · {kg(sold)} allocated to buyers ·
-                          harvested {l.harvestDate.toISOString().slice(0, 10)}
-                        </div>
-                        {l.notes && <p className="mt-1 text-xs text-inksoft">{l.notes}</p>}
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <span className="tabular text-sm font-semibold">{perKg(l.askPaisePerKg)}</span>
-                        <form action={setListingStatus}>
-                          <input type="hidden" name="id" value={l.id} />
-                          <input type="hidden" name="status" value={l.status === "ACTIVE" ? "PAUSED" : "ACTIVE"} />
-                          <button className="rounded-lg border border-line px-2.5 py-1.5 text-xs hover:bg-panel2">
-                            {l.status === "ACTIVE" ? "Pause" : "Resume"}
-                          </button>
-                        </form>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
+              listings.map((l) => {
+                const allocated = l.allocations.reduce((s, a) => s + a.grams, 0);
+                return (
+                  <div key={l.id} className="listing-row">
+                    <div>
+                      <span className="crop-emoji small">{l.commodity.imageEmoji}</span>
+                      <b>{l.commodity.name}</b> <Tag tone={l.grade === "IMPERFECT" ? "amber" : undefined}>Grade {l.grade}</Tag>
+                      {l.prebooking && <Tag tone="green">prebooking</Tag>}
+                    </div>
+                    <span>
+                      {kg(availableGrams(l))} of {kg(l.totalGrams)}
+                      <br />
+                      <small>
+                        {kg(allocated)} allocated · harvested {l.harvestDate.toISOString().slice(0, 10)}
+                      </small>
+                    </span>
+                    <strong>
+                      {rupees(l.askPaisePerKg)}
+                      <small>/kg</small>
+                    </strong>
+                    <form action={setListingStatus}>
+                      <input type="hidden" name="id" value={l.id} />
+                      <input type="hidden" name="status" value={l.status === "ACTIVE" ? "PAUSED" : "ACTIVE"} />
+                      <button className="text-btn">{l.status === "ACTIVE" ? "Pause" : "Resume"}</button>
+                    </form>
+                  </div>
+                );
+              })
             )}
-            <SourceNote>
-              Reserved quantity belongs to a confirmed order and cannot be sold again. Pausing a listing hides the
-              remaining quantity from buyers; it does not cancel anything already reserved.
-            </SourceNote>
+
+            <MicroNote>
+              Reserved quantity belongs to a confirmed order and cannot be sold again. Pausing hides the remaining
+              quantity from buyers; it does not cancel anything already reserved.
+            </MicroNote>
           </Card>
         </div>
       </Shell>
+      <Footer />
     </>
   );
 }

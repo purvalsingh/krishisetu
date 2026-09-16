@@ -1,39 +1,34 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { signInAction } from "@/app/actions/auth";
-import { Button } from "@/components/ui";
+import { Arrow } from "@/components/ui";
 
-export function LoginForm({ defaultPhone }: { defaultPhone: string }) {
+export function LoginForm({
+  accounts,
+  defaultPhone,
+}: {
+  accounts: { phone: string; name: string; role: string }[];
+  defaultPhone: string;
+}) {
   const [state, action, pending] = useActionState(signInAction, undefined);
+  const [phone, setPhone] = useState(defaultPhone);
+  const chosen = accounts.find((a) => a.phone === phone);
 
   return (
-    <form action={action} className="space-y-3">
-      <label className="block">
-        <span className="text-xs font-medium text-inksoft">Mobile number</span>
-        <input
-          name="phone"
-          defaultValue={defaultPhone}
-          inputMode="numeric"
-          autoComplete="username"
-          className="tabular mt-1 w-full rounded-lg border border-line bg-panel px-3 py-2 text-sm outline-none focus:border-brand"
-          placeholder="98xxxxxxxx"
-        />
+    <form action={action} className="login-form">
+      <label>
+        Mobile number
+        <input name="phone" value={phone} onChange={(e) => setPhone(e.target.value)} inputMode="numeric" autoComplete="username" />
       </label>
-      <label className="block">
-        <span className="text-xs font-medium text-inksoft">Password</span>
-        <input
-          name="password"
-          type="password"
-          defaultValue="demo1234"
-          autoComplete="current-password"
-          className="mt-1 w-full rounded-lg border border-line bg-panel px-3 py-2 text-sm outline-none focus:border-brand"
-        />
+      <label>
+        Password
+        <input name="password" type="password" defaultValue="demo1234" autoComplete="current-password" />
       </label>
-      {state?.error && <p className="text-xs text-danger">{state.error}</p>}
-      <Button disabled={pending} className="w-full">
-        {pending ? "Signing in…" : "Sign in"}
-      </Button>
+      {state?.error && <p className="warning-text">{state.error}</p>}
+      <button className="btn btn-primary" disabled={pending}>
+        {pending ? "Signing in…" : `Sign in${chosen ? ` as ${chosen.role}` : ""}`} <Arrow />
+      </button>
     </form>
   );
 }

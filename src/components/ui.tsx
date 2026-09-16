@@ -1,170 +1,190 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-export function Card({
+/**
+ * Primitives for the KrishiSetu design system.
+ *
+ * Every visual decision lives in globals.css. These components exist only to
+ * stop the class vocabulary being retyped on twenty pages.
+ */
+
+export function PageTitle({
+  eyebrow,
   title,
   subtitle,
   action,
-  children,
-  className = "",
 }: {
-  title?: ReactNode;
+  eyebrow?: string;
+  title: ReactNode;
   subtitle?: ReactNode;
   action?: ReactNode;
-  children: ReactNode;
-  className?: string;
 }) {
   return (
-    <section className={`rounded-xl border border-line bg-panel ${className}`}>
-      {(title || action) && (
-        <header className="flex items-start justify-between gap-4 border-b border-line px-4 py-3">
-          <div>
-            {title && <h2 className="text-sm font-semibold tracking-tight">{title}</h2>}
-            {subtitle && <p className="mt-0.5 text-xs text-inksoft">{subtitle}</p>}
-          </div>
-          {action}
-        </header>
-      )}
-      <div className="p-4">{children}</div>
-    </section>
-  );
-}
-
-export function Stat({ label, value, note, tone = "default" }: { label: string; value: ReactNode; note?: ReactNode; tone?: "default" | "good" | "warn" | "bad" }) {
-  const toneClass = {
-    default: "text-ink",
-    good: "text-brand",
-    warn: "text-accent",
-    bad: "text-danger",
-  }[tone];
-  return (
-    <div className="rounded-lg border border-line bg-panel2 px-3 py-2.5">
-      <div className="text-[11px] uppercase tracking-wide text-inksoft">{label}</div>
-      <div className={`tabular mt-1 text-lg font-semibold ${toneClass}`}>{value}</div>
-      {note && <div className="mt-0.5 text-[11px] leading-snug text-inksoft">{note}</div>}
+    <div className="page-title">
+      <div>
+        {eyebrow && <div className="eyebrow">{eyebrow}</div>}
+        <h1>{title}</h1>
+        {subtitle && <p className="subtitle">{subtitle}</p>}
+      </div>
+      {action}
     </div>
   );
 }
 
-export function Badge({ children, tone = "neutral" }: { children: ReactNode; tone?: "neutral" | "good" | "warn" | "bad" | "brand" }) {
-  const cls = {
-    neutral: "border-line bg-panel2 text-inksoft",
-    good: "border-transparent bg-brandsoft text-brand",
-    brand: "border-transparent bg-brandsoft text-brand",
-    warn: "border-transparent bg-accentsoft text-accent",
-    bad: "border-transparent bg-dangersoft text-danger",
-  }[tone];
+export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <section className={`card ${className}`.trim()}>{children}</section>;
+}
+
+export function SectionHead({
+  eyebrow,
+  title,
+  action,
+}: {
+  eyebrow?: string;
+  title: ReactNode;
+  action?: ReactNode;
+}) {
   return (
-    <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-medium ${cls}`}>
-      {children}
-    </span>
+    <div className="section-head">
+      <div>
+        {eyebrow && <div className="eyebrow">{eyebrow}</div>}
+        <h2>{title}</h2>
+      </div>
+      {action}
+    </div>
   );
 }
 
-export function Button({
-  children,
-  variant = "primary",
-  ...rest
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "ghost" | "danger" }) {
-  const cls = {
-    primary: "bg-brand text-white hover:opacity-90",
-    ghost: "border border-line bg-panel hover:bg-panel2",
-    danger: "bg-danger text-white hover:opacity-90",
-  }[variant];
+export function Stats({ count, children }: { count: 2 | 3 | 4; children: ReactNode }) {
+  const word = { 2: "two", 3: "three", 4: "four" }[count];
+  return <div className={`stats ${word}`}>{children}</div>;
+}
+
+export function Stat({
+  label,
+  value,
+  note,
+  tone,
+}: {
+  label: string;
+  value: ReactNode;
+  note?: ReactNode;
+  tone?: "positive" | "warning";
+}) {
   return (
-    <button
-      {...rest}
-      className={`inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium transition disabled:opacity-50 ${cls} ${rest.className ?? ""}`}
-    >
-      {children}
-    </button>
+    <div className={`stat ${tone ?? ""}`.trim()}>
+      <div className="eyebrow">{label}</div>
+      <strong>{value}</strong>
+      {note && <small>{note}</small>}
+    </div>
   );
 }
 
-export function LinkButton({ href, children, variant = "ghost" }: { href: string; children: ReactNode; variant?: "primary" | "ghost" }) {
-  const cls = variant === "primary" ? "bg-brand text-white hover:opacity-90" : "border border-line bg-panel hover:bg-panel2";
+export function Tag({ children, tone }: { children: ReactNode; tone?: "green" | "amber" | "old" }) {
+  return <span className={`tag ${tone ?? ""}`.trim()}>{children}</span>;
+}
+
+export function Status({ children, tone }: { children: ReactNode; tone: "good" | "pending" | "warning" }) {
+  return <span className={`status ${tone}`}>{children}</span>;
+}
+
+/** Pill row. The first pill renders green and the second amber by design. */
+export function Pills({ children }: { children: ReactNode }) {
+  return <div className="pills">{children}</div>;
+}
+
+export function TableWrap({ children }: { children: ReactNode }) {
   return (
-    <Link href={href} className={`inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium transition ${cls}`}>
-      {children}
+    <div className="table-wrap">
+      <table>{children}</table>
+    </div>
+  );
+}
+
+export function Empty({ icon = "🌾", children }: { icon?: string; children: ReactNode }) {
+  return (
+    <div className="empty">
+      <span>{icon}</span>
+      <p>{children}</p>
+    </div>
+  );
+}
+
+export function TextLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <Link href={href} className="text-link">
+      {children} <Arrow />
     </Link>
   );
 }
 
-/** A labelled disclosure of where a number came from. Used wherever data provenance matters. */
-export function SourceNote({ children }: { children: ReactNode }) {
-  return <p className="mt-2 text-[11px] leading-snug text-inksoft">{children}</p>;
-}
-
-export function Empty({ children }: { children: ReactNode }) {
-  return <p className="rounded-lg border border-dashed border-line px-4 py-6 text-center text-sm text-inksoft">{children}</p>;
-}
-
-/** Horizontal stacked bar showing where each rupee of the buyer's bill goes. */
-export function BillBar({ parts }: { parts: { label: string; paise: number; color: string }[] }) {
-  const total = parts.reduce((s, p) => s + p.paise, 0) || 1;
+export function Arrow() {
   return (
-    <div>
-      <div className="flex h-3 overflow-hidden rounded-full border border-line">
-        {parts.map((p) => (
-          <div key={p.label} style={{ width: `${(p.paise / total) * 100}%`, background: p.color }} title={p.label} />
-        ))}
-      </div>
-      <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-inksoft">
-        {parts.map((p) => (
-          <li key={p.label} className="flex items-center gap-1.5">
-            <span className="inline-block h-2 w-2 rounded-full" style={{ background: p.color }} />
-            {p.label} {Math.round((p.paise / total) * 100)}%
-          </li>
-        ))}
-      </ul>
-    </div>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+      <path d="M5 12h14" />
+      <path d="m12 5 7 7-7 7" />
+    </svg>
   );
 }
 
+/** Small print that names where a number came from. Used wherever provenance matters. */
+export function MicroNote({ children }: { children: ReactNode }) {
+  return <p className="micro-note">{children}</p>;
+}
+
 /**
- * Observed history followed by a predicted band, drawn as one small chart.
+ * Observed history followed by the predicted band, drawn from real values.
  * The shaded region is the holdout-residual band, not a confidence interval
- * from a distributional assumption.
+ * derived from a distributional assumption.
  */
 export function Spark({
   history,
   forecast,
-  width = 260,
-  height = 56,
 }: {
   history: number[];
   forecast: { mid: number; lo: number; hi: number }[];
-  width?: number;
-  height?: number;
 }) {
   const all = [...history, ...forecast.flatMap((f) => [f.lo, f.hi])];
-  if (all.length < 2) return null;
+  if (all.length < 3) return null;
+
+  const W = 100;
+  const H = 40;
   const min = Math.min(...all);
   const max = Math.max(...all);
   const span = max - min || 1;
   const n = history.length + forecast.length;
-  const x = (i: number) => (i / (n - 1)) * (width - 2) + 1;
-  const y = (v: number) => height - 2 - ((v - min) / span) * (height - 4);
+  const x = (i: number) => (i / (n - 1)) * W;
+  const y = (v: number) => H - ((v - min) / span) * H;
 
-  const histPath = history.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
-  const joinIndex = history.length - 1;
-  const midPath = [history.at(-1)!, ...forecast.map((f) => f.mid)]
-    .map((v, i) => `${i ? "L" : "M"}${x(joinIndex + i).toFixed(1)},${y(v).toFixed(1)}`)
+  const observed = history.map((v, i) => `${x(i).toFixed(2)},${y(v).toFixed(2)}`).join(" ");
+  const join = history.length - 1;
+  const predicted = [history.at(-1)!, ...forecast.map((f) => f.mid)]
+    .map((v, i) => `${x(join + i).toFixed(2)},${y(v).toFixed(2)}`)
     .join(" ");
-  const bandPath =
-    `M${x(joinIndex).toFixed(1)},${y(history.at(-1)!).toFixed(1)} ` +
-    forecast.map((f, i) => `L${x(joinIndex + 1 + i).toFixed(1)},${y(f.hi).toFixed(1)}`).join(" ") +
+  const band =
+    forecast.map((f, i) => `${x(join + 1 + i).toFixed(2)},${y(f.hi).toFixed(2)}`).join(" ") +
     " " +
     forecast
-      .map((f, i) => `L${x(joinIndex + forecast.length - i).toFixed(1)},${y(forecast[forecast.length - 1 - i].lo).toFixed(1)}`)
-      .join(" ") +
-    " Z";
+      .map((_, i) => {
+        const f = forecast[forecast.length - 1 - i];
+        return `${x(join + forecast.length - i).toFixed(2)},${y(f.lo).toFixed(2)}`;
+      })
+      .join(" ");
 
   return (
-    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Observed demand followed by the predicted range">
-      <path d={bandPath} fill="var(--brand)" opacity="0.16" />
-      <path d={histPath} fill="none" stroke="var(--ink-soft)" strokeWidth="1.5" />
-      <path d={midPath} fill="none" stroke="var(--brand)" strokeWidth="2" strokeDasharray="4 3" />
-    </svg>
+    <div className="spark">
+      <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img" aria-label="Observed demand followed by the predicted range">
+        <polygon points={band} fill="var(--green-light)" opacity="0.28" />
+        <polyline points={observed} fill="none" stroke="var(--muted)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+        <polyline
+          points={predicted}
+          fill="none"
+          stroke="var(--green)"
+          strokeWidth="1.6"
+          strokeDasharray="4 3"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+    </div>
   );
 }

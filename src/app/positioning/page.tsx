@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Nav, Shell } from "@/components/nav";
-import { Card, SourceNote } from "@/components/ui";
+import { Footer, Nav, Shell } from "@/components/nav";
+import { Card, MicroNote, PageTitle } from "@/components/ui";
 import { ECONOMICS } from "@/lib/config";
 
 /**
@@ -64,27 +64,27 @@ export default function Positioning() {
     <>
       <Nav />
       <Shell>
-        <h1 className="text-2xl font-semibold tracking-tight">Where we differ, and where we do not</h1>
-        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-inksoft">
-          Ninjacart, DeHaat, AgriBazaar, WayCool and Arya.ag already connect farmers with buyers and already run
-          logistics. Our review identified seven weaknesses worth attacking. For each one below: what we actually
-          built, and where it stops. A capability we have not shipped is written as not shipped, and an absence on a
-          competitor&apos;s public page is not treated as evidence that they lack it.
-        </p>
+        <PageTitle
+          eyebrow="POSITIONING"
+          title="Where we differ, and where we do not"
+          subtitle="Ninjacart, DeHaat, AgriBazaar, WayCool and Arya.ag already connect farmers with buyers and already run logistics. Our review identified seven weaknesses worth attacking. For each one below: what we actually built, and where it stops. A capability we have not shipped is written as not shipped, and an absence on a competitor's public page is not treated as evidence that they lack it."
+        />
 
-        <div className="mt-6 space-y-4">
-          {GAPS.map((g) => (
-            <Card key={g.gap} title={g.gap} subtitle={g.claim}>
-              <p className="text-sm leading-relaxed">{g.ours}</p>
-              <p className="mt-2 text-sm leading-relaxed text-inksoft">
-                <span className="font-medium text-ink">Where it stops.</span> {g.limit}
-              </p>
-            </Card>
-          ))}
-        </div>
+        {GAPS.map((g) => (
+          <Card key={g.gap}>
+            <div className="eyebrow">{g.gap.toUpperCase()}</div>
+            <h2>{g.claim}</h2>
+            <p>{g.ours}</p>
+            <p className="method" style={{ marginTop: 12 }}>
+              <b>Where it stops.</b> {g.limit}
+            </p>
+          </Card>
+        ))}
 
-        <Card className="mt-6" title="The claim we are willing to defend">
-          <p className="text-sm leading-relaxed text-inksoft">
+        <Card>
+          <div className="eyebrow">THE CLAIM WE WILL DEFEND</div>
+          <h2>Narrow, and testable</h2>
+          <p className="method">
             Not that we are better than every competitor: we have no comparable pilot evidence, and saying otherwise
             would be a claim we cannot support. What we will defend is narrower and testable. Form a shipment across
             several real constraints at once, explain every order that did not fit, replan before dispatch and freeze
@@ -93,15 +93,16 @@ export default function Positioning() {
             net realisation, buyer landed price, vehicle fill and waste against a real baseline is what would turn it
             into evidence.
           </p>
-          <SourceNote>
-            Read the money model in <code className="rounded bg-panel2 px-1">docs/UNIT_ECONOMICS.md</code>, or open{" "}
-            <Link href="/admin/economics" className="text-brand hover:underline">
+          <MicroNote>
+            Read the money model in <code>docs/UNIT_ECONOMICS.md</code>, or open{" "}
+            <Link href="/admin/economics" className="text-link">
               the operator economics screen
             </Link>{" "}
             to see break-even computed against the orders currently in the database, including the shortfall.
-          </SourceNote>
+          </MicroNote>
         </Card>
       </Shell>
+      <Footer />
     </>
   );
 }

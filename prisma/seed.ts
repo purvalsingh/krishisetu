@@ -94,6 +94,8 @@ function weekStart(d: Date) {
 async function main() {
   console.log("Clearing existing demonstration data");
   await prisma.$transaction([
+    prisma.notification.deleteMany(),
+    prisma.qualityReport.deleteMany(),
     prisma.auditLog.deleteMany(),
     prisma.batchStop.deleteMany(),
     prisma.allocation.deleteMany(),

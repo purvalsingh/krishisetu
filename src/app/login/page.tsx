@@ -1,14 +1,14 @@
 import { redirect } from "next/navigation";
-import { Nav, Shell } from "@/components/nav";
+import { Footer, Nav, Shell } from "@/components/nav";
 import { getSession, homeFor } from "@/lib/auth";
 import { LoginForm } from "./form";
 
 const DEMO_ACCOUNTS = [
-  { phone: "9800000101", name: "Sanjay Patil", role: "Farmer", note: "Khalapur, Raigad · listings and pooled runs" },
+  { phone: "9800000101", name: "Sanjay Patil", role: "Farmer", note: "Raigad Bhaji Utpadak FPO" },
   { phone: "9800000301", name: "Anjali Deshpande", role: "Household buyer", note: "Nerul Sector 6 pickup point" },
-  { phone: "9800000306", name: "Hotel Anand Bhavan", role: "Bulk buyer", note: "Vashi · large standing requirement" },
-  { phone: "9800000201", name: "Imran Shaikh", role: "Transporter", note: "Tata Ace, 750 kg, Panvel base" },
-  { phone: "9800000001", name: "Platform operator", role: "Administrator", note: "Run planning and economics" },
+  { phone: "9800000306", name: "Hotel Anand Bhavan", role: "Bulk buyer", note: "Vashi · standing requirement" },
+  { phone: "9800000201", name: "Imran Shaikh", role: "Transporter", note: "Tata Ace · MH43 AB 1234" },
+  { phone: "9800000001", name: "Platform operator", role: "Operator", note: "Run planning desk" },
 ];
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ as?: string }> }) {
@@ -16,49 +16,53 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   if (session) redirect(homeFor(session.role));
   const { as } = await searchParams;
 
+  const accounts = DEMO_ACCOUNTS.map((a) => ({
+    ...a,
+    initials: a.name
+      .split(" ")
+      .slice(0, 2)
+      .map((w) => w[0]?.toUpperCase())
+      .join(""),
+  }));
+
   return (
     <>
       <Nav />
       <Shell>
-        <div className="mx-auto grid max-w-4xl gap-6 py-8 md:grid-cols-2">
+        <div className="login-layout">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Sign in</h1>
-            <p className="mt-2 text-sm text-inksoft">
-              One account per person. The role attached to the account decides what the site shows: produce and
-              proceeds for a farmer, a basket for a buyer, runs for a transporter, planning for the operator.
+            <div className="eyebrow">DEMONSTRATION ACCESS</div>
+            <h1>Choose the desk you want to enter.</h1>
+            <p className="subtitle">
+              Four roles, one shared transaction. The role attached to the account decides what the site shows:
+              produce and proceeds for a farmer, a basket for a buyer, runs for a transporter, planning for the
+              operator.
             </p>
-            <div className="mt-5">
-              <LoginForm defaultPhone={as ?? ""} />
-            </div>
+            <LoginForm accounts={accounts} defaultPhone={as ?? accounts[0].phone} />
           </div>
 
-          <div className="rounded-xl border border-line bg-panel p-4">
-            <h2 className="text-sm font-semibold">Demonstration accounts</h2>
-            <p className="mt-1 text-xs text-inksoft">
-              Every account below uses the password <code className="rounded bg-panel2 px-1">demo1234</code>. These
-              are synthetic records created by the seed script.
+          <section className="card account-list">
+            <div className="eyebrow">DEMO ACCOUNTS</div>
+            {accounts.map((a) => (
+              <a key={a.phone} href={`/login?as=${a.phone}`} className={`account-row ${as === a.phone ? "selected" : ""}`.trim()}>
+                <span className="account-initial">{a.initials}</span>
+                <span>
+                  <b>{a.name}</b>
+                  <small>
+                    <span>{a.phone}</span> · <span>{a.note}</span>
+                  </small>
+                </span>
+                <span className="tag">{a.role}</span>
+              </a>
+            ))}
+            <p className="micro-note">
+              Every demonstration account uses password <b>demo1234</b>. These are synthetic records created by the
+              seed script; no real person is represented.
             </p>
-            <ul className="mt-3 space-y-2">
-              {DEMO_ACCOUNTS.map((a) => (
-                <li key={a.phone}>
-                  <a
-                    href={`/login?as=${a.phone}`}
-                    className="block rounded-lg border border-line px-3 py-2 transition hover:border-brand"
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-sm font-medium">{a.name}</span>
-                      <span className="text-[11px] text-brand">{a.role}</span>
-                    </div>
-                    <div className="tabular text-[11px] text-inksoft">
-                      {a.phone} · {a.note}
-                    </div>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          </section>
         </div>
       </Shell>
+      <Footer />
     </>
   );
 }

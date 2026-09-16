@@ -91,6 +91,7 @@ model User {
   customer       CustomerProfile?
   auditLogs      AuditLog[]
   qualityReports QualityReport[]
+  notifications  Notification[]
 }
 
 model FarmerProfile {
@@ -414,4 +415,33 @@ model QualityReport {
   createdAt    DateTime      @default(now())
 
   @@index([status, createdAt])
+}
+
+enum NotificationKind {
+  RUN_PLANNED
+  PICKUP_REMINDER
+  RUN_OFFERED
+  RUN_DISPATCHED
+  HANDOVER_RECORDED
+  READY_FOR_COLLECTION
+  PAYMENT_RELEASED
+  RUN_HELD
+}
+
+/**
+ * In-app notice. Nothing is sent over SMS or email in this build, so a notice
+ * is only ever a record the recipient can read on their own screens.
+ */
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kind      NotificationKind
+  title     String
+  body      String
+  link      String?
+  readAt    DateTime?
+  createdAt DateTime         @default(now())
+
+  @@index([userId, readAt, createdAt])
 }

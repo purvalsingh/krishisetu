@@ -1,12 +1,29 @@
 import { Footer, Nav, Shell } from "@/components/nav";
 import { Card, MicroNote, PageTitle, Spark } from "@/components/ui";
 import { requireRole } from "@/lib/auth";
+import { prisma } from "@/lib/db";
+import { availableGrams } from "@/lib/farmer";
 import { getOpportunities } from "@/lib/insights";
+import { surplusPlacements } from "@/lib/surplus";
 import { kg, perKg } from "@/lib/money";
 
 export default async function DemandPage() {
-  await requireRole("FARMER");
+  const session = await requireRole("FARMER");
   const opportunities = await getOpportunities();
+
+  // The lot is already cut: what is still unsold has to go somewhere this week.
+  const profile = await prisma.farmerProfile.findUnique({ where: { userId: session.userId } });
+  const openListings = profile
+    ? (
+        await prisma.listing.findMany({
+          where: { farmerId: profile.id, status: "ACTIVE" },
+          include: { commodity: true },
+        })
+      ).filter((l) => availableGrams(l) > 0)
+    : [];
+  const plans = (await Promise.all(openListings.map((l) => surplusPlacements(l.id)))).filter(
+    (p) => p !== null && p.unsoldGrams > 0,
+  ) as NonNullable<Awaited<ReturnType<typeof surplusPlacements>>>[];
   const newest = opportunities.find((o) => o.latestObservedOn);
 
   return (
@@ -78,6 +95,70 @@ export default async function DemandPage() {
             </div>
           </Card>
         ))}
+
+        {plans.length > 0 && (
+          <Card>
+            <div className="eyebrow">WHERE THE REST SHOULD GO</div>
+            <h2>Your unsold quantity, placed</h2>
+            <p>
+              These are pickup points that can still take what is left of a lot in the next window. A point is only
+              offered when the produce reaches it inside its freshness limit and the forecast there is not already
+              covered by confirmed orders. Nothing here is reserved; it is where to send it, not a sale.
+            </p>
+
+            {plans.map((plan) => {
+              const offered = plan.placements.filter((d) => d.absorbGrams > 0);
+              const dropped = plan.placements.filter((d) => d.rejectedFor);
+              return (
+                <div key={plan.listingId} className="surplus-plan">
+                  <div className="demand-head">
+                    <b>{plan.commodityName}</b>
+                    <span className="pill">{kg(plan.unsoldGrams)} unsold</span>
+                    <span className={`pill ${plan.placeableGrams >= plan.unsoldGrams ? "green" : "amber"}`}>
+                      {kg(plan.placeableGrams)} placeable
+                    </span>
+                  </div>
+
+                  {offered.length === 0 ? (
+                    <small>
+                      No pickup point can take this lot in the next window. Hold it, or drop the asking rate so it
+                      clears where demand already exists.
+                    </small>
+                  ) : (
+                    offered.map((d) => (
+                      <div key={d.clusterId} className="listing-row">
+                        <div>
+                          <b>{d.name.replace(" pickup point", "")}</b> <small>{d.city}</small>
+                        </div>
+                        <span>
+                          {kg(d.absorbGrams)} of {kg(d.unmetGrams)} uncovered
+                          <br />
+                          <small>
+                            {d.roadKm.toFixed(0)} km · {d.hoursToSpare.toFixed(0)} h of freshness to spare
+                          </small>
+                        </span>
+                        <span className={`pill ${d.runConfirmed ? "green" : "amber"}`}>
+                          {d.runConfirmed ? "run confirmed" : `${(d.fillFraction * 100).toFixed(0)}% filled`}
+                        </span>
+                      </div>
+                    ))
+                  )}
+
+                  {dropped.length > 0 && (
+                    <small>
+                      Not offered: {dropped.map((d) => `${d.name.replace(" pickup point", "")} — ${d.rejectedFor}`).join(" · ")}
+                    </small>
+                  )}
+                </div>
+              );
+            })}
+
+            <MicroNote>
+              Order matters: each point is offered only what the ones above it could not take, so the same kilogram is
+              never promised to two places.
+            </MicroNote>
+          </Card>
+        )}
 
         <Card>
           <div className="eyebrow">HOW TO READ THIS</div>

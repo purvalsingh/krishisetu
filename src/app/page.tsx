@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Footer, Nav, Shell } from "@/components/nav";
 import { Arrow, Card, MicroNote, Stat, Stats } from "@/components/ui";
+import { Magnetic } from "@/components/magnetic";
 import { ECONOMICS } from "@/lib/config";
 import { priceStack } from "@/lib/pricing";
 import { perKg, rupees } from "@/lib/money";
@@ -51,9 +52,11 @@ export default function Landing() {
               without losing its margin to a half-empty vehicle.
             </p>
             <div className="hero-actions">
-              <Link href="/market" className="btn btn-primary">
-                Browse today&apos;s produce <Arrow />
-              </Link>
+              <Magnetic>
+                <Link href="/market" className="btn btn-primary">
+                  Browse today&apos;s produce <Arrow />
+                </Link>
+              </Magnetic>
               <Link href="/login" className="btn btn-secondary">
                 Sign in to a demonstration account
               </Link>

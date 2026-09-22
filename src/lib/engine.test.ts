@@ -3,11 +3,12 @@
  * dispatch. Run with: npm test
  */
 import assert from "node:assert/strict";
-import { ECONOMICS } from "./config";
+import { ECONOMICS, REJECTION } from "./config";
 import { lastLegFeeFor, priceStack, suggestFarmerBand } from "./pricing";
 import { proposeBatch, type CandidateListing, type CandidateOrder, type Vehicle } from "./pooling";
 import { planRoute } from "./routing";
 import { fitAndForecast } from "./forecast";
+import { rankPlacements } from "./placement";
 
 const now = new Date("2026-09-15T06:00:00Z");
 const hoursAgo = (h: number) => new Date(now.getTime() - h * 3_600_000);
@@ -269,3 +270,42 @@ const tempo: Vehicle = {
 }
 
 console.log("All engine checks passed.");
+
+// --- surplus placement -----------------------------------------------------
+{
+  const base = {
+    city: "Mumbai",
+    ageHours: 6,
+    freshnessHours: 36,
+    committedGrams: 0,
+    fillFraction: 0.5,
+    runConfirmed: false,
+  };
+  const ranked = rankPlacements(10_000, [
+    // Nearest, but its forecast is already covered by confirmed orders.
+    { ...base, clusterId: "covered", name: "Covered", roadKm: 10, predictedGrams: 4_000, committedGrams: 4_000 },
+    // Inside the radius but too far for this commodity's freshness limit.
+    { ...base, clusterId: "stale", name: "Stale", roadKm: 118, predictedGrams: 9_000, ageHours: 33 },
+    { ...base, clusterId: "far", name: "Far", roadKm: 200, predictedGrams: 9_000 },
+    { ...base, clusterId: "big", name: "Big", roadKm: 40, predictedGrams: 7_000, runConfirmed: true },
+    { ...base, clusterId: "small", name: "Small", roadKm: 20, predictedGrams: 6_000 },
+  ]);
+  const by = Object.fromEntries(ranked.map((p) => [p.clusterId, p]));
+
+  assert.equal(by.far.rejectedFor, REJECTION.DISTANCE);
+  assert.equal(by.stale.rejectedFor, REJECTION.FRESHNESS);
+  assert.ok(by.covered.rejectedFor && by.covered.absorbGrams === 0);
+
+  // Largest uncovered demand is offered first, and the rest gets what is left.
+  assert.equal(ranked[0].clusterId, "big");
+  assert.equal(by.big.absorbGrams, 7_000);
+  assert.equal(by.small.absorbGrams, 3_000);
+
+  // The same kilogram is never promised twice.
+  assert.equal(
+    ranked.reduce((t, p) => t + p.absorbGrams, 0),
+    10_000,
+  );
+}
+
+console.log("surplus placement checks passed");

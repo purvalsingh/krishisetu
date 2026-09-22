@@ -326,3 +326,99 @@ h1{font-size:2.35rem}
 .main-nav::-webkit-scrollbar{display:none}
 .top-actions{flex:none}
 body{overflow-x:hidden}
+
+/* Surplus placement: one block per lot, so several lots stay readable in one card. */
+.surplus-plan{margin-top:18px;padding-top:4px}
+.surplus-plan+.surplus-plan{border-top:1px solid var(--line);margin-top:22px;padding-top:14px}
+.surplus-plan .demand-head{margin-bottom:6px}
+.surplus-plan>small{display:block;color:var(--muted);font-size:11px;margin-top:8px}
+
+/* ───────────────────────────── motion ─────────────────────────────────────
+ * Scroll-driven reveals, hover feedback and press response, built on CSS
+ * scroll timelines rather than an animation library: this app is almost all
+ * server components, and a JS motion library would force them client-side for
+ * effects the platform now does natively. Browsers without scroll timelines
+ * simply show the content — nothing is hidden behind an animation that cannot
+ * run. Every rule here is opacity or transform only, so nothing reflows.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Reveal: fade and lift as the element enters the viewport. */
+  @supports (animation-timeline: view()) {
+    .card,
+    .demand-card,
+    .listing-row,
+    .produce-row,
+    .stat,
+    .surplus-plan {
+      animation: reveal-lift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+
+    /* Stagger: rows inside one card enter in sequence, not as a block. */
+    .listing-row:nth-child(2) { animation-range: entry 2% entry 62%; }
+    .listing-row:nth-child(3) { animation-range: entry 4% entry 64%; }
+    .listing-row:nth-child(4) { animation-range: entry 6% entry 66%; }
+    .listing-row:nth-child(n+5) { animation-range: entry 8% entry 68%; }
+
+    /* Scrub: the hero title tracks scroll progress rather than a fixed time. */
+    .page-title h1 {
+      animation: title-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+
+    /* Clip reveal: the forecast chart draws itself in as it arrives. */
+    .spark {
+      animation: clip-in linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 70%;
+    }
+  }
+
+  @keyframes reveal-lift {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes title-settle {
+    from { opacity: 0; transform: translateY(20px); letter-spacing: -.045em; }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes clip-in {
+    from { clip-path: inset(0 100% 0 0); }
+    to   { clip-path: inset(0 0 0 0); }
+  }
+
+  /* The fill bar grows to its value once, so the threshold reads as a race. */
+  .progress > i { transform-origin: left center; animation: meter-grow .9s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes meter-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
+
+/* Hover: feedback, not decoration. Layout never moves. */
+.card { transition: border-color .2s ease, transform .2s ease; }
+.card:hover { border-color: var(--green-light); transform: translateY(-2px); }
+.demand-card:hover .rank span { background: var(--green); color: #fff; }
+.listing-row, .produce-row { transition: background-color .2s ease; }
+.listing-row:hover, .produce-row:hover { background: color-mix(in srgb, var(--green) 4%, transparent); }
+
+/* Text shift: the arrow in a link leads the eye on hover. */
+.arrow { transition: transform .2s ease; }
+.btn:hover .arrow, .text-btn:hover .arrow, a:hover > .arrow { transform: translateX(3px); }
+
+/* Press: compress on the way down, spring back on release. */
+button, .btn { transition: transform .12s cubic-bezier(.2,.7,.2,1), background-color .2s ease, border-color .2s ease, color .2s ease; }
+button:active, .btn:active { transform: scale(.97); }
+
+/* Pending state: a submitted form says so instead of going quiet. */
+.is-pending { opacity: .72; cursor: progress; }
+.is-pending::after {
+  content: ""; display: inline-block; width: 11px; height: 11px; margin-left: 8px;
+  border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%;
+  vertical-align: -1px; animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .is-pending::after { animation: none; } }
+
+/* The magnetic wrapper only ever moves itself, never its neighbours. */
+.magnetic{display:inline-block;transition:transform .25s cubic-bezier(.2,.7,.2,1);will-change:transform}

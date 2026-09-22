@@ -1,0 +1,520 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap');
+      * { box-sizing: border-box; }
+      text { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+      .num { font-family: 'JetBrains Mono', 'Inter', monospace; font-feature-settings: 'tnum' on, 'lnum' on; }
+    </style>
+  </defs>
+
+  <!-- Slide Canvas Background -->
+  <rect width="1600" height="900" fill="#FAFCF9"/>
+
+  <!-- Subtle clean boundary line around slide edge for frame definition -->
+  <rect x="0.5" y="0.5" width="1599" height="899" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- ================= TOP BAR ================= -->
+  <g transform="translate(64, 48)">
+    <circle cx="6" cy="11" r="5" fill="#2F6B3A"/>
+    <text x="24" y="16" font-size="20" font-weight="700" fill="#1E293B" letter-spacing="-0.3">KrishiSetu — pooled delivery</text>
+  </g>
+
+  <!-- ================= LEFT COLUMN ================= (Width: 640px, Left: 64) -->
+  <!-- 1. LEFT TOP CARD: Cost Breakdown & Buyer Price -->
+  <g transform="translate(64, 88)">
+    <!-- Outer Card container -->
+    <rect width="640" height="428" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+    <!-- Inner content wrapper -->
+    <g transform="translate(32, 28)">
+      <!-- Section Mini Header -->
+      <text x="0" y="0" font-size="11" font-weight="700" fill="#64748B" letter-spacing="1.2">TRANSPARENT COST COMPOSITION PER KG</text>
+      <text x="576" y="0" text-anchor="end" font-size="11" font-weight="600" fill="#94A3B8" class="num">TOTAL 100%</text>
+
+      <!-- Stacked Bar (Total 576px width): 
+           ₹34.00 = 74.46% (~428px)
+           ₹4.70  = 10.29% (~59px)
+           ₹3.96  = 8.67%  (~50px)
+           ₹3.00  = 6.57%  (~39px)
+           Sum = 428 + 59 + 50 + 39 = 576
+      -->
+      <g transform="translate(0, 18)">
+        <!-- Green: ₹34.00 -->
+        <rect x="0" y="0" width="428" height="52" rx="6" fill="#2F6B3A"/>
+        <!-- Slate: ₹4.70 -->
+        <rect x="429" y="0" width="58" height="52" fill="#3B5A7A"/>
+        <!-- Amber: ₹3.96 -->
+        <rect x="488" y="0" width="49" height="52" fill="#D97706"/>
+        <!-- Plum: ₹3.00 -->
+        <rect x="538" y="0" width="38" height="52" rx="6" fill="#7E22CE"/>
+
+        <!-- Fix overlaps / round inner corners visually -->
+        <rect x="424" y="0" width="5" height="52" fill="#2F6B3A"/>
+        <rect x="538" y="0" width="5" height="52" fill="#7E22CE"/>
+
+        <!-- Text inside bar segments -->
+        <text x="214" y="32" text-anchor="middle" font-size="17" font-weight="700" fill="#FFFFFF" class="num">₹34.00</text>
+        <text x="458" y="32" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" class="num">₹4.70</text>
+        <text x="512" y="32" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" class="num">₹3.96</text>
+        <text x="557" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF" class="num">₹3.00</text>
+      </g>
+
+      <!-- Labels under each segment with color indicators -->
+      <g transform="translate(0, 86)">
+        <circle cx="5" cy="-4" r="4" fill="#2F6B3A"/>
+        <text x="15" y="0" font-size="13" font-weight="600" fill="#334155">Farmer</text>
+
+        <circle cx="434" cy="-4" r="4" fill="#3B5A7A"/>
+        <text x="444" y="0" font-size="13" font-weight="600" fill="#334155">Transport</text>
+
+        <circle cx="493" cy="-4" r="4" fill="#D97706"/>
+        <text x="503" y="0" font-size="13" font-weight="600" fill="#334155">Packing</text>
+
+        <circle cx="543" cy="-4" r="4" fill="#7E22CE"/>
+        <text x="553" y="0" font-size="13" font-weight="600" fill="#334155">Fee</text>
+      </g>
+
+      <!-- Subtle separator -->
+      <line x1="0" y1="106" x2="576" y2="106" stroke="#F1F5F9" stroke-width="1.5"/>
+
+      <!-- Large Buyer Price Display Area -->
+      <g transform="translate(0, 154)">
+        <text x="0" y="38" font-size="76" font-weight="800" fill="#0F172A" letter-spacing="-2" class="num">₹45.66</text>
+        
+        <g transform="translate(300, -2)">
+          <text x="0" y="16" font-size="18" font-weight="600" fill="#64748B">buyer pays</text>
+          
+          <rect x="0" y="28" width="108" height="28" rx="6" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1"/>
+          <text x="10" y="47" font-size="14" font-weight="700" fill="#B45309" class="num">vs ₹55.00</text>
+        </g>
+      </g>
+
+      <!-- Explanatory decorative flow graphic to fill the bottom cleanly -->
+      <g transform="translate(0, 240)">
+        <rect width="576" height="114" rx="8" fill="#F8FAFC" stroke="#EEF2F6" stroke-width="1"/>
+        
+        <!-- Step 1: Farm Gate -->
+        <g transform="translate(24, 18)">
+          <rect width="78" height="78" rx="8" fill="#EBF5EE" stroke="#2F6B3A" stroke-width="1.2"/>
+          <!-- Farmer crate mini vector -->
+          <rect x="23" y="44" width="32" height="18" rx="2" fill="#D97706" stroke="#92400E" stroke-width="1"/>
+          <circle cx="31" cy="40" r="5" fill="#EF4444"/>
+          <circle cx="39" cy="38" r="6" fill="#22C55E"/>
+          <circle cx="47" cy="41" r="5" fill="#F59E0B"/>
+          <text x="100" y="34" font-size="14" font-weight="700" fill="#1E293B">Direct Farm Gate</text>
+          <text x="100" y="54" font-size="12" font-weight="600" fill="#2F6B3A" class="num">₹34.00/kg guaranteed</text>
+        </g>
+
+        <!-- Arrow connector -->
+        <path d="M 284 57 L 306 57 M 300 51 L 306 57 L 300 63" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- Step 2: Consumer Hub -->
+        <g transform="translate(326, 18)">
+          <rect width="78" height="78" rx="8" fill="#EFF6FF" stroke="#3B5A7A" stroke-width="1.2"/>
+          <!-- Hub building mini vector -->
+          <rect x="25" y="28" width="28" height="34" rx="2" fill="#3B5A7A"/>
+          <rect x="29" y="34" width="6" height="6" fill="#FFFFFF" opacity="0.8"/>
+          <rect x="39" y="34" width="6" height="6" fill="#FFFFFF" opacity="0.8"/>
+          <rect x="29" y="44" width="6" height="6" fill="#FFFFFF" opacity="0.8"/>
+          <rect x="39" y="44" width="6" height="6" fill="#FFFFFF" opacity="0.8"/>
+          <text x="100" y="34" font-size="14" font-weight="700" fill="#1E293B">Neighbourhood Drop</text>
+          <text x="100" y="54" font-size="12" font-weight="600" fill="#D97706" class="num">17% saved vs retail</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- 2. LEFT BOTTOM CARD: Farmer Producer Rows (Height: 290px, Y: 532) -->
+  <g transform="translate(64, 532)">
+    <rect width="640" height="290" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+    <g transform="translate(24, 22)">
+      <!-- Row 1: Sanjay Patil -->
+      <g transform="translate(0, 0)">
+        <rect width="592" height="114" rx="10" fill="#FAFCF9" stroke="#E2E8F0" stroke-width="1.2"/>
+        
+        <!-- Sanjay Patil Illustrated Portrait (Man in saffron turban) -->
+        <g transform="translate(20, 13)">
+          <circle cx="44" cy="44" r="42" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+          <!-- Farmer illustration -->
+          <!-- Shoulders / Kurta -->
+          <path d="M 18 78 Q 44 62 70 78 L 70 86 L 18 86 Z" fill="#F1F5F9" stroke="#334155" stroke-width="1.5"/>
+          <path d="M 22 78 L 32 68 L 36 86" fill="#2F6B3A"/>
+          <path d="M 66 78 L 56 68 L 52 86" fill="#2F6B3A"/>
+          <!-- Neck & Face -->
+          <rect x="38" y="54" width="12" height="14" fill="#C28E67"/>
+          <circle cx="44" cy="46" r="16" fill="#D49B70" stroke="#334155" stroke-width="1.5"/>
+          <!-- Mustache -->
+          <path d="M 36 50 Q 44 54 52 50 Q 44 48 36 50" fill="#1E293B"/>
+          <!-- Eyes & Eyebrows -->
+          <circle cx="39" cy="43" r="1.5" fill="#1E293B"/>
+          <circle cx="49" cy="43" r="1.5" fill="#1E293B"/>
+          <!-- Traditional Safa / Turban (Warm Amber / Saffron) -->
+          <path d="M 26 42 C 24 24 40 18 56 22 C 64 24 66 32 64 42 C 58 45 32 46 26 42 Z" fill="#D97706" stroke="#92400E" stroke-width="1.5"/>
+          <path d="M 28 34 Q 44 26 60 36" fill="none" stroke="#B45309" stroke-width="2"/>
+          <path d="M 30 28 Q 46 22 56 30" fill="none" stroke="#FEF3C7" stroke-width="1.5"/>
+          <!-- Turban tail flap -->
+          <path d="M 26 38 Q 22 48 24 58" fill="none" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+        </g>
+
+        <!-- Exact Label Required: Sanjay Patil · 3.0 kg · ₹102.00 -->
+        <text x="124" y="66" font-size="21" font-weight="700" fill="#1E293B" class="num">Sanjay Patil · 3.0 kg · ₹102.00</text>
+      </g>
+
+      <!-- Row 2: Meena Bhoir -->
+      <g transform="translate(0, 126)">
+        <rect width="592" height="114" rx="10" fill="#FAFCF9" stroke="#E2E8F0" stroke-width="1.2"/>
+
+        <!-- Meena Bhoir Illustrated Portrait (Woman in saree) -->
+        <g transform="translate(20, 13)">
+          <circle cx="44" cy="44" r="42" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+          <!-- Woman Farmer illustration -->
+          <!-- Shoulders / Blouse -->
+          <path d="M 18 78 Q 44 64 70 78 L 70 86 L 18 86 Z" fill="#2F6B3A" stroke="#334155" stroke-width="1.5"/>
+          <!-- Neck & Face -->
+          <rect x="38" y="53" width="12" height="15" fill="#C28E67"/>
+          <circle cx="44" cy="45" r="16" fill="#D49B70" stroke="#334155" stroke-width="1.5"/>
+          <!-- Hair parted -->
+          <path d="M 28 42 C 28 28 44 24 44 24 C 44 24 60 28 60 42 C 55 35 44 33 28 42 Z" fill="#1E293B"/>
+          <!-- Red Bindi -->
+          <circle cx="44" cy="40" r="1.8" fill="#DC2626"/>
+          <!-- Eyes -->
+          <circle cx="39" cy="44" r="1.5" fill="#1E293B"/>
+          <circle cx="49" cy="44" r="1.5" fill="#1E293B"/>
+          <path d="M 41 49 Q 44 52 47 49" fill="none" stroke="#92400E" stroke-width="1.2" stroke-linecap="round"/>
+          <!-- Saree Pallu draped over head & shoulder (Plum / Maroon with gold trim) -->
+          <path d="M 24 48 C 22 28 32 18 44 18 C 58 18 66 28 64 48 C 62 30 52 22 44 22 C 34 22 26 32 24 48 Z" fill="#7E22CE" stroke="#581C87" stroke-width="1.5"/>
+          <path d="M 23 48 C 21 64 26 78 34 86" fill="none" stroke="#7E22CE" stroke-width="6" stroke-linecap="round"/>
+          <path d="M 23 48 C 21 64 26 78 34 86" fill="none" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Nose stud accent -->
+          <circle cx="41.5" cy="46" r="1" fill="#F59E0B"/>
+        </g>
+
+        <!-- Exact Label Required: Meena Bhoir · 2.0 kg · ₹68.00 -->
+        <text x="124" y="66" font-size="21" font-weight="700" fill="#1E293B" class="num">Meena Bhoir · 2.0 kg · ₹68.00</text>
+      </g>
+    </g>
+  </g>
+
+
+  <!-- ================= RIGHT COLUMN ================= (Width: 808px, Left: 728) -->
+  
+  <!-- 1. RIGHT TOP: 6 TILES IN A 3 BY 2 GRID -->
+  <!-- Grid Dimensions:
+       Col width: (808 - 2*16) / 3 = 258px
+       Row height: (428 - 16) / 2 = 206px
+  -->
+  <g transform="translate(728, 88)">
+
+    <!-- TILE (0, 0): Net rate (Farmer holding a phone) -->
+    <g transform="translate(0, 0)">
+      <rect width="258" height="206" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <!-- Embedded Vector Illustration -->
+      <g transform="translate(74, 18)">
+        <circle cx="55" cy="55" r="50" fill="#EBF5EE"/>
+        <!-- Farmer holding phone -->
+        <!-- Farmer head & safa -->
+        <circle cx="46" cy="42" r="14" fill="#D49B70" stroke="#1E293B" stroke-width="1.5"/>
+        <path d="M 34 38 C 33 24 46 20 58 24 C 64 26 64 34 60 40 Z" fill="#D97706" stroke="#92400E" stroke-width="1.5"/>
+        <!-- Torso -->
+        <path d="M 28 68 Q 46 58 64 68 L 64 88 L 28 88 Z" fill="#2F6B3A" stroke="#1E293B" stroke-width="1.5"/>
+        <!-- Arm holding phone -->
+        <path d="M 52 64 L 72 58 L 74 66 L 56 72 Z" fill="#C28E67"/>
+        <!-- Smartphone showing green net payout screen -->
+        <rect x="70" y="38" width="22" height="40" rx="4" fill="#0F172A" stroke="#1E293B" stroke-width="1.5"/>
+        <rect x="72" y="42" width="18" height="32" rx="2" fill="#FFFFFF"/>
+        <rect x="75" y="46" width="12" height="6" rx="1" fill="#2F6B3A"/>
+        <rect x="75" y="55" width="12" height="3" rx="0.5" fill="#94A3B8"/>
+        <rect x="75" y="60" width="8" height="3" rx="0.5" fill="#94A3B8"/>
+        <circle cx="81" cy="69" r="2" fill="#22C55E"/>
+      </g>
+      <!-- Label -->
+      <text x="129" y="176" text-anchor="middle" font-size="18" font-weight="700" fill="#1E293B">Net rate</text>
+    </g>
+
+    <!-- TILE (1, 0): Pooled by place (Loaded tempo truck) -->
+    <g transform="translate(274, 0)">
+      <rect width="258" height="206" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <!-- Embedded Vector Illustration -->
+      <g transform="translate(64, 20)">
+        <circle cx="65" cy="55" r="50" fill="#EFF6FF"/>
+        <!-- Delivery mini tempo truck -->
+        <!-- Truck bed/cargo container -->
+        <rect x="22" y="36" width="60" height="42" rx="2" fill="#3B5A7A" stroke="#1E293B" stroke-width="1.5"/>
+        <!-- Crates inside bed -->
+        <rect x="26" y="42" width="16" height="14" rx="1.5" fill="#D97706" stroke="#92400E" stroke-width="1"/>
+        <circle cx="34" cy="40" r="3" fill="#EF4444"/>
+        <rect x="45" y="42" width="16" height="14" rx="1.5" fill="#2F6B3A" stroke="#14532D" stroke-width="1"/>
+        <circle cx="53" cy="40" r="3" fill="#22C55E"/>
+        <rect x="64" y="42" width="14" height="14" rx="1.5" fill="#7E22CE" stroke="#581C87" stroke-width="1"/>
+        <!-- Truck cabin -->
+        <path d="M 82 78 L 108 78 Q 112 78 112 72 L 112 52 Q 112 42 100 38 L 82 38 Z" fill="#2F6B3A" stroke="#1E293B" stroke-width="1.5"/>
+        <!-- Windshield -->
+        <path d="M 86 42 L 98 42 Q 104 44 104 52 L 86 52 Z" fill="#E2E8F0" stroke="#1E293B" stroke-width="1"/>
+        <!-- Bumper & chassis -->
+        <rect x="18" y="78" width="94" height="5" fill="#1E293B"/>
+        <!-- Wheels -->
+        <circle cx="38" cy="85" r="10" fill="#1E293B"/>
+        <circle cx="38" cy="85" r="4" fill="#94A3B8"/>
+        <circle cx="94" cy="85" r="10" fill="#1E293B"/>
+        <circle cx="94" cy="85" r="4" fill="#94A3B8"/>
+      </g>
+      <!-- Label -->
+      <text x="129" y="176" text-anchor="middle" font-size="18" font-weight="700" fill="#1E293B">Pooled by place</text>
+    </g>
+
+    <!-- TILE (2, 0): Sold before loaded (Crate with a tick) -->
+    <g transform="translate(548, 0)">
+      <rect width="258" height="206" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <!-- Embedded Vector Illustration -->
+      <g transform="translate(74, 18)">
+        <circle cx="55" cy="55" r="50" fill="#FEF3C7"/>
+        <!-- Wooden harvest crate -->
+        <rect x="22" y="46" width="66" height="42" rx="4" fill="#D97706" stroke="#92400E" stroke-width="1.5"/>
+        <rect x="26" y="52" width="58" height="6" fill="#B45309"/>
+        <rect x="26" y="64" width="58" height="6" fill="#B45309"/>
+        <rect x="26" y="76" width="58" height="6" fill="#B45309"/>
+        <!-- Produce tops -->
+        <circle cx="36" cy="40" r="8" fill="#EF4444" stroke="#B91C1C" stroke-width="1"/>
+        <circle cx="50" cy="38" r="9" fill="#F59E0B" stroke="#D97706" stroke-width="1"/>
+        <circle cx="64" cy="40" r="8" fill="#22C55E" stroke="#16A34A" stroke-width="1"/>
+        <circle cx="76" cy="43" r="6" fill="#EF4444" stroke="#B91C1C" stroke-width="1"/>
+        <!-- Prominent Badge with Checkmark / Tick -->
+        <circle cx="75" cy="30" r="18" fill="#2F6B3A" stroke="#FFFFFF" stroke-width="2.5"/>
+        <path d="M 68 30 L 73 35 L 82 25" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <!-- Label -->
+      <text x="129" y="176" text-anchor="middle" font-size="18" font-weight="700" fill="#1E293B">Sold before loaded</text>
+    </g>
+
+    <!-- TILE (0, 1): Fresher, cheaper (Vegetable basket) -->
+    <g transform="translate(0, 222)">
+      <rect width="258" height="206" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <!-- Embedded Vector Illustration -->
+      <g transform="translate(74, 18)">
+        <circle cx="55" cy="55" r="50" fill="#EBF5EE"/>
+        <!-- Woven bamboo basket with farm produce -->
+        <!-- Basket handle -->
+        <path d="M 28 54 C 28 20 82 20 82 54" fill="none" stroke="#92400E" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- Produce spilling over rim -->
+        <circle cx="40" cy="46" r="10" fill="#EF4444" stroke="#991B1B" stroke-width="1.2"/>
+        <circle cx="54" cy="42" r="11" fill="#F97316" stroke="#C2410C" stroke-width="1.2"/>
+        <circle cx="68" cy="44" r="10" fill="#22C55E" stroke="#15803D" stroke-width="1.2"/>
+        <!-- Leafy sprig -->
+        <path d="M 50 36 Q 58 24 64 28 Q 66 36 54 38 Z" fill="#16A34A" stroke="#14532D" stroke-width="1"/>
+        <!-- Woven basket base -->
+        <path d="M 24 54 Q 55 58 86 54 L 78 86 Q 55 90 32 86 Z" fill="#B45309" stroke="#78350F" stroke-width="1.5"/>
+        <line x1="36" y1="56" x2="42" y2="87" stroke="#78350F" stroke-width="1.5"/>
+        <line x1="55" y1="57" x2="55" y2="88" stroke="#78350F" stroke-width="1.5"/>
+        <line x1="74" y1="56" x2="68" y2="87" stroke="#78350F" stroke-width="1.5"/>
+        <line x1="26" y1="68" x2="84" y2="68" stroke="#78350F" stroke-width="1.5"/>
+        <line x1="30" y1="78" x2="80" y2="78" stroke="#78350F" stroke-width="1.5"/>
+      </g>
+      <!-- Label -->
+      <text x="129" y="176" text-anchor="middle" font-size="18" font-weight="700" fill="#1E293B">Fresher, cheaper</text>
+    </g>
+
+    <!-- TILE (1, 1): Demand by place (City map with pins) -->
+    <g transform="translate(274, 222)">
+      <rect width="258" height="206" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <!-- Embedded Vector Illustration -->
+      <g transform="translate(64, 18)">
+        <circle cx="65" cy="55" r="50" fill="#EFF6FF"/>
+        <!-- Isometric folded map -->
+        <g transform="translate(20, 26)">
+          <!-- Map folds (3 segments) -->
+          <polygon points="0,18 30,8 30,68 0,78" fill="#E2E8F0" stroke="#64748B" stroke-width="1.2"/>
+          <polygon points="30,8 60,18 60,78 30,68" fill="#F1F5F9" stroke="#64748B" stroke-width="1.2"/>
+          <polygon points="60,18 90,8 90,68 60,78" fill="#E2E8F0" stroke="#64748B" stroke-width="1.2"/>
+          <!-- Grid routes on map -->
+          <path d="M 8 36 Q 30 30 45 42 T 82 34" fill="none" stroke="#94A3B8" stroke-width="2" stroke-dasharray="3 3"/>
+          <path d="M 18 56 Q 40 50 60 56" fill="none" stroke="#94A3B8" stroke-width="1.5"/>
+          <!-- Map Location Pins -->
+          <!-- Pin 1 (Green) -->
+          <g transform="translate(18, 14)">
+            <path d="M 8 0 C 3.6 0 0 3.6 0 8 C 0 14 8 22 8 22 C 8 22 16 14 16 8 C 16 3.6 12.4 0 8 0 Z" fill="#2F6B3A" stroke="#1E293B" stroke-width="1"/>
+            <circle cx="8" cy="8" r="3" fill="#FFFFFF"/>
+          </g>
+          <!-- Pin 2 (Amber) -->
+          <g transform="translate(42, 22)">
+            <path d="M 8 0 C 3.6 0 0 3.6 0 8 C 0 14 8 22 8 22 C 8 22 16 14 16 8 C 16 3.6 12.4 0 8 0 Z" fill="#D97706" stroke="#1E293B" stroke-width="1"/>
+            <circle cx="8" cy="8" r="3" fill="#FFFFFF"/>
+          </g>
+          <!-- Pin 3 (Slate Blue) -->
+          <g transform="translate(68, 8)">
+            <path d="M 8 0 C 3.6 0 0 3.6 0 8 C 0 14 8 22 8 22 C 8 22 16 14 16 8 C 16 3.6 12.4 0 8 0 Z" fill="#3B5A7A" stroke="#1E293B" stroke-width="1"/>
+            <circle cx="8" cy="8" r="3" fill="#FFFFFF"/>
+          </g>
+        </g>
+      </g>
+      <!-- Label -->
+      <text x="129" y="176" text-anchor="middle" font-size="18" font-weight="700" fill="#1E293B">Demand by place</text>
+    </g>
+
+    <!-- TILE (2, 1): Surplus re-placed (Crate with three arrows) -->
+    <g transform="translate(548, 222)">
+      <rect width="258" height="206" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <!-- Embedded Vector Illustration -->
+      <g transform="translate(74, 18)">
+        <circle cx="55" cy="55" r="50" fill="#FAF5FF"/>
+        <!-- Central Produce Crate -->
+        <rect x="30" y="44" width="50" height="34" rx="3" fill="#7E22CE" stroke="#581C87" stroke-width="1.5"/>
+        <rect x="34" y="50" width="42" height="4" fill="#A855F7"/>
+        <rect x="34" y="60" width="42" height="4" fill="#A855F7"/>
+        <!-- Produce peaking out -->
+        <circle cx="42" cy="40" r="5" fill="#EF4444"/>
+        <circle cx="52" cy="38" r="6" fill="#22C55E"/>
+        <circle cx="62" cy="40" r="5" fill="#F59E0B"/>
+        <!-- Three dynamic curved routing arrows -->
+        <!-- Arrow Left -->
+        <path d="M 28 54 Q 14 54 10 40" fill="none" stroke="#2F6B3A" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 6 46 L 10 38 L 16 43" fill="none" stroke="#2F6B3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Arrow Top -->
+        <path d="M 55 30 Q 55 16 68 14" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 62 10 L 72 14 L 66 22" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Arrow Right -->
+        <path d="M 82 54 Q 96 54 100 68" fill="none" stroke="#3B5A7A" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 94 65 L 100 72 L 105 63" fill="none" stroke="#3B5A7A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <!-- Label -->
+      <text x="129" y="176" text-anchor="middle" font-size="18" font-weight="700" fill="#1E293B">Surplus re-placed</text>
+    </g>
+  </g>
+
+
+  <!-- 2. RIGHT BOTTOM: THREE WIDE TILES (Height: 290px, Y: 532) -->
+  <!-- Col width: (808 - 2*16) / 3 = 258px -->
+  <g transform="translate(728, 532)">
+
+    <!-- WIDE TILE 1: Kirana shopfront - Cluster pickup ₹10 -->
+    <g transform="translate(0, 0)">
+      <rect width="258" height="290" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+      <!-- Kirana Shopfront Illustration (Top/Left portion) -->
+      <g transform="translate(49, 24)">
+        <rect width="160" height="130" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+        
+        <!-- Awning (Striped Green & White) -->
+        <path d="M 16 32 L 144 32 L 148 48 L 12 48 Z" fill="#2F6B3A" stroke="#1E293B" stroke-width="1.5"/>
+        <path d="M 28 32 L 44 32 L 42 48 L 26 48 Z" fill="#FFFFFF"/>
+        <path d="M 60 32 L 76 32 L 74 48 L 58 48 Z" fill="#FFFFFF"/>
+        <path d="M 92 32 L 108 32 L 106 48 L 90 48 Z" fill="#FFFFFF"/>
+        <path d="M 124 32 L 140 32 L 138 48 L 122 48 Z" fill="#FFFFFF"/>
+        
+        <!-- Shop sign board -->
+        <rect x="36" y="14" width="88" height="16" rx="2" fill="#FEF3C7" stroke="#D97706" stroke-width="1"/>
+        <line x1="44" y1="22" x2="116" y2="22" stroke="#B45309" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- Counter & Goods Shelves -->
+        <rect x="28" y="58" width="104" height="58" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+        <!-- Shelves inside shop -->
+        <line x1="32" y1="74" x2="128" y2="74" stroke="#E2E8F0" stroke-width="1.5"/>
+        <line x1="32" y1="90" x2="128" y2="90" stroke="#E2E8F0" stroke-width="1.5"/>
+        <!-- Produce crates outside shop -->
+        <rect x="34" y="94" width="26" height="18" rx="2" fill="#D97706" stroke="#92400E" stroke-width="1"/>
+        <circle cx="42" cy="92" r="3" fill="#EF4444"/>
+        <circle cx="50" cy="92" r="3.5" fill="#22C55E"/>
+        <rect x="66" y="94" width="26" height="18" rx="2" fill="#2F6B3A" stroke="#14532D" stroke-width="1"/>
+        <circle cx="74" cy="92" r="3" fill="#F59E0B"/>
+        <circle cx="82" cy="92" r="3" fill="#EF4444"/>
+        
+        <!-- Pick-up Point Indicator flag -->
+        <circle cx="118" cy="96" r="10" fill="#2F6B3A"/>
+        <path d="M 114 96 L 117 99 L 123 93" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <!-- Label & Large Fee on the right/bottom -->
+      <g transform="translate(24, 186)">
+        <text x="0" y="24" font-size="16" font-weight="600" fill="#64748B">Cluster pickup</text>
+        <text x="0" y="74" font-size="44" font-weight="800" fill="#1E293B" class="num">₹10</text>
+      </g>
+    </g>
+
+    <!-- WIDE TILE 2: Hand cart - Last 300 m ₹20 -->
+    <g transform="translate(274, 0)">
+      <rect width="258" height="290" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+      <!-- Hand Cart Illustration -->
+      <g transform="translate(49, 24)">
+        <rect width="160" height="130" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+
+        <!-- Indian street hand cart (Thela) with wooden bed and bicycle spoke wheels -->
+        <g transform="translate(18, 22)">
+          <!-- Push handles -->
+          <line x1="8" y1="46" x2="26" y2="58" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
+          <line x1="8" y1="52" x2="26" y2="62" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
+          <!-- Wooden bed platform -->
+          <rect x="24" y="52" width="86" height="14" rx="2" fill="#D97706" stroke="#92400E" stroke-width="1.5"/>
+          <!-- Legs / stand -->
+          <line x1="28" y1="66" x2="26" y2="82" stroke="#334155" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Stack of fresh vegetables & cloth sack on cart -->
+          <!-- Burlap sack -->
+          <path d="M 32 52 C 30 36 50 34 52 52 Z" fill="#D49B70" stroke="#92400E" stroke-width="1.2"/>
+          <!-- Fresh produce mounds -->
+          <circle cx="62" cy="46" r="10" fill="#EF4444" stroke="#991B1B" stroke-width="1"/>
+          <circle cx="76" cy="44" r="11" fill="#22C55E" stroke="#15803D" stroke-width="1"/>
+          <circle cx="88" cy="48" r="9" fill="#F59E0B" stroke="#D97706" stroke-width="1"/>
+          <circle cx="98" cy="50" r="7" fill="#EF4444" stroke="#991B1B" stroke-width="1"/>
+          <!-- Large cart wheel with spokes -->
+          <circle cx="68" cy="78" r="22" fill="#F8FAFC" stroke="#1E293B" stroke-width="2.5"/>
+          <circle cx="68" cy="78" r="4" fill="#1E293B"/>
+          <line x1="68" y1="56" x2="68" y2="100" stroke="#64748B" stroke-width="1.2"/>
+          <line x1="46" y1="78" x2="90" y2="78" stroke="#64748B" stroke-width="1.2"/>
+          <line x1="52" y1="62" x2="84" y2="94" stroke="#64748B" stroke-width="1.2"/>
+          <line x1="52" y1="94" x2="84" y2="62" stroke="#64748B" stroke-width="1.2"/>
+        </g>
+      </g>
+
+      <!-- Label & Large Fee on the right/bottom -->
+      <g transform="translate(24, 186)">
+        <text x="0" y="24" font-size="16" font-weight="600" fill="#64748B">Last 300 m</text>
+        <text x="0" y="74" font-size="44" font-weight="800" fill="#1E293B" class="num">₹20</text>
+      </g>
+    </g>
+
+    <!-- WIDE TILE 3: Crossed-out scooter - Express — not offered (dimmed) -->
+    <g transform="translate(548, 0)" opacity="0.48">
+      <rect width="258" height="290" rx="12" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+      <!-- Crossed-out Delivery Scooter Illustration -->
+      <g transform="translate(49, 24)">
+        <rect width="160" height="130" rx="8" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.2"/>
+
+        <g transform="translate(26, 26)">
+          <!-- Delivery Scooter -->
+          <!-- Delivery box on back -->
+          <rect x="8" y="24" width="28" height="26" rx="3" fill="#94A3B8" stroke="#475569" stroke-width="1.2"/>
+          <!-- Seat -->
+          <path d="M 36 34 L 54 34 L 52 42 L 36 42 Z" fill="#334155"/>
+          <!-- Scooter chassis & footboard -->
+          <path d="M 24 54 L 56 54 L 64 42 L 72 26 L 68 24 L 62 38 L 48 48 L 24 48 Z" fill="#64748B" stroke="#475569" stroke-width="1.2"/>
+          <!-- Front handlebar -->
+          <line x1="68" y1="24" x2="74" y2="22" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Wheels -->
+          <circle cx="24" cy="58" r="13" fill="#334155" stroke="#1E293B" stroke-width="1.5"/>
+          <circle cx="24" cy="58" r="5" fill="#94A3B8"/>
+          <circle cx="76" cy="58" r="13" fill="#334155" stroke="#1E293B" stroke-width="1.5"/>
+          <circle cx="76" cy="58" r="5" fill="#94A3B8"/>
+
+          <!-- High-visibility Red Prohibition / Crossed-out Circle -->
+          <circle cx="54" cy="42" r="38" fill="none" stroke="#EF4444" stroke-width="4"/>
+          <line x1="28" y1="16" x2="80" y2="68" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+        </g>
+      </g>
+
+      <!-- Label & Fee: Express — not offered -->
+      <g transform="translate(24, 186)">
+        <text x="0" y="24" font-size="16" font-weight="600" fill="#94A3B8">Single-rider speed</text>
+        <text x="0" y="68" font-size="20" font-weight="700" fill="#64748B">Express — not offered</text>
+      </g>
+    </g>
+  </g>
+
+
+  <!-- ================= FOOTNOTE ================= -->
+  <g transform="translate(64, 856)">
+    <text x="0" y="0" font-size="13" font-style="italic" font-weight="400" fill="#94A3B8">Free above a ₹500 basket. ₹55/kg is an assumed reference.</text>
+  </g>
+
+</svg>

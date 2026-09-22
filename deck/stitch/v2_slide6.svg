@@ -1,0 +1,422 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700;800&amp;display=swap');
+      * { box-sizing: border-box; }
+      text { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+      .mono { font-family: 'JetBrains Mono', monospace; font-feature-settings: 'tnum' on; }
+    </style>
+  </defs>
+
+  <!-- Full 16:9 Canvas Background -->
+  <rect width="1600" height="900" fill="#FAFCF9"/>
+  <!-- Perimeter boundary line -->
+  <rect x="0.5" y="0.5" width="1599" height="899" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- ================= TOP BAR ================= -->
+  <!-- Title, small, top left: "Research and references" -->
+  <g transform="translate(64, 46)">
+    <circle cx="6" cy="11" r="5" fill="#2F6B3A"/>
+    <text x="24" y="16" font-size="20" font-weight="700" fill="#1E293B" letter-spacing="-0.3">Research and references</text>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- EIGHT TILES IN A TWO COLUMN, FOUR ROW GRID                                -->
+  <!--
+       Canvas 1600 x 900.
+       Left margin: 64, Right margin: 64 -> Width = 1472.
+       2 Columns: (1472 - 20) / 2 = 726px each.
+       Gap X = 20px.
+       Grid Top: Y = 84, Grid Bottom: Y = 844 -> Available Height = 760px.
+       4 Rows: 3 gaps of 16px = 48px -> (760 - 48) / 4 = 178px per tile.
+  -->
+  <!-- ========================================================================= -->
+  <g transform="translate(64, 84)">
+
+    <!-- ========================= ROW 1 ========================= -->
+
+    <!-- TILE 1 (Col 1, Row 1): Government open data portal · data.gov.in · LIVE IN APP (green) -->
+    <!-- Illustration: Government building with a flag -->
+    <g transform="translate(0, 0)">
+      <rect width="726" height="178" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+      <!-- Illustration container on the left -->
+      <g transform="translate(24, 25)">
+        <circle cx="64" cy="64" r="54" fill="#EBF5EE" stroke="#DDE7DF" stroke-width="1"/>
+
+        <!-- Government building with flag (thin outlines, no text) -->
+        <g transform="translate(24, 24)">
+          <!-- Pediment / Triangular Gable -->
+          <polygon points="40,8 78,26 2,26" fill="#2F6B3A" stroke="#1E4624" stroke-width="1.2"/>
+          <circle cx="40" cy="19" r="3.5" fill="#FFFFFF"/>
+          <!-- Entablature beam -->
+          <rect x="5" y="26" width="70" height="7" rx="1" fill="#FFFFFF" stroke="#334155" stroke-width="1.2"/>
+          <!-- 4 Pillars -->
+          <rect x="9" y="33" width="9" height="34" rx="1.5" fill="#DDE7DF" stroke="#2F6B3A" stroke-width="1"/>
+          <rect x="27" y="33" width="9" height="34" rx="1.5" fill="#DDE7DF" stroke="#2F6B3A" stroke-width="1"/>
+          <rect x="44" y="33" width="9" height="34" rx="1.5" fill="#DDE7DF" stroke="#2F6B3A" stroke-width="1"/>
+          <rect x="62" y="33" width="9" height="34" rx="1.5" fill="#DDE7DF" stroke="#2F6B3A" stroke-width="1"/>
+          <!-- Base plinth / Steps -->
+          <rect x="2" y="67" width="76" height="6" rx="1" fill="#FFFFFF" stroke="#334155" stroke-width="1.2"/>
+          <rect x="-3" y="73" width="86" height="6" rx="1" fill="#CBD5E1" stroke="#334155" stroke-width="1.2"/>
+          <!-- Flagpole & Flag atop pediment -->
+          <line x1="40" y1="8" x2="40" y2="-4" stroke="#334155" stroke-width="1.8"/>
+          <polygon points="40,-4 54,1 40,6" fill="#D97706" stroke="#B45309" stroke-width="1"/>
+        </g>
+      </g>
+
+      <!-- Bold Short Name & Monospace Link -->
+      <g transform="translate(172, 64)">
+        <text x="0" y="0" font-size="20" font-weight="700" fill="#1E293B">Government open data portal</text>
+        <text x="0" y="32" font-size="16" font-weight="600" fill="#2F6B3A" class="mono">data.gov.in</text>
+      </g>
+
+      <!-- Right-aligned uppercase tag: LIVE IN APP in green -->
+      <g transform="translate(578, 70)">
+        <rect width="124" height="38" rx="8" fill="#EBF5EE" stroke="#A7D7B5" stroke-width="1.5"/>
+        <text x="62" y="24" text-anchor="middle" font-size="13" font-weight="800" fill="#2F6B3A" class="mono">LIVE IN APP</text>
+      </g>
+    </g>
+
+
+    <!-- TILE 2 (Col 2, Row 1): eNAM · enam.gov.in · INCUMBENT -->
+    <!-- Illustration: a laptop -->
+    <g transform="translate(746, 0)">
+      <rect width="726" height="178" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+      <!-- Illustration container -->
+      <g transform="translate(24, 25)">
+        <circle cx="64" cy="64" r="54" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+
+        <!-- Laptop vector illustration -->
+        <g transform="translate(26, 30)">
+          <!-- Screen lid -->
+          <rect x="8" y="2" width="60" height="42" rx="3.5" fill="#1E293B" stroke="#0F172A" stroke-width="1.5"/>
+          <rect x="11" y="5" width="54" height="36" rx="2" fill="#FFFFFF"/>
+          <!-- Browser top bar -->
+          <rect x="11" y="5" width="54" height="7" fill="#F1F5F9"/>
+          <circle cx="16" cy="8.5" r="1.2" fill="#EF4444"/>
+          <circle cx="20" cy="8.5" r="1.2" fill="#F59E0B"/>
+          <circle cx="24" cy="8.5" r="1.2" fill="#22C55E"/>
+          <!-- Graphic elements inside screen (NO text) -->
+          <rect x="16" y="17" width="20" height="3" rx="1.5" fill="#2F6B3A"/>
+          <rect x="16" y="23" width="30" height="2.5" rx="1" fill="#94A3B8"/>
+          <rect x="16" y="28.5" width="24" height="2.5" rx="1" fill="#CBD5E1"/>
+          <rect x="16" y="34" width="18" height="2.5" rx="1" fill="#CBD5E1"/>
+          <!-- Chart pane on right -->
+          <rect x="42" y="17" width="18" height="18" rx="2" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="0.8"/>
+          <line x1="45" y1="30" x2="48" y2="24" stroke="#2F6B3A" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="48" y1="24" x2="52" y2="27" stroke="#2F6B3A" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="52" y1="27" x2="57" y2="20" stroke="#2F6B3A" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Laptop keyboard base -->
+          <path d="M 0 44 L 76 44 L 70 54 L 6 54 Z" fill="#CBD5E1" stroke="#94A3B8" stroke-width="1.5"/>
+          <rect x="32" y="46" width="12" height="2.5" rx="0.8" fill="#94A3B8"/>
+        </g>
+      </g>
+
+      <!-- Bold Short Name & Monospace Link -->
+      <g transform="translate(172, 64)">
+        <text x="0" y="0" font-size="20" font-weight="700" fill="#1E293B">eNAM</text>
+        <text x="0" y="32" font-size="16" font-weight="600" fill="#2F6B3A" class="mono">enam.gov.in</text>
+      </g>
+
+      <!-- Right-aligned uppercase tag: INCUMBENT -->
+      <g transform="translate(590, 70)">
+        <rect width="112" height="38" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.2"/>
+        <text x="56" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#64748B" class="mono">INCUMBENT</text>
+      </g>
+    </g>
+
+
+    <!-- ========================= ROW 2 ========================= -->
+
+    <!-- TILE 3 (Col 1, Row 2): Ninjacart · ninjacart.com · INCUMBENT -->
+    <!-- Illustration: a delivery truck -->
+    <g transform="translate(0, 194)">
+      <rect width="726" height="178" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+      <!-- Illustration container -->
+      <g transform="translate(24, 25)">
+        <circle cx="64" cy="64" r="54" fill="#EFF6FF" stroke="#DBEAFE" stroke-width="1"/>
+
+        <!-- Delivery tempo truck vector illustration -->
+        <g transform="translate(20, 36)">
+          <!-- Cargo box (Slate Blue) -->
+          <rect x="0" y="6" width="56" height="36" rx="2.5" fill="#3B5A7A" stroke="#1E293B" stroke-width="1.4"/>
+          <line x1="14" y1="8" x2="14" y2="40" stroke="#2D4660" stroke-width="1.4"/>
+          <line x1="28" y1="8" x2="28" y2="40" stroke="#2D4660" stroke-width="1.4"/>
+          <line x1="42" y1="8" x2="42" y2="40" stroke="#2D4660" stroke-width="1.4"/>
+          <!-- Stacked harvest crates inside cargo bed -->
+          <rect x="8" y="14" width="12" height="9" rx="1.5" fill="#D97706" stroke="#92400E" stroke-width="0.8"/>
+          <circle cx="14" cy="12" r="2.5" fill="#EF4444"/>
+          <rect x="23" y="14" width="12" height="9" rx="1.5" fill="#2F6B3A" stroke="#15803D" stroke-width="0.8"/>
+          <circle cx="29" cy="12" r="2.5" fill="#22C55E"/>
+          <!-- Driver Cab (Sage Green) -->
+          <path d="M 56 42 L 80 42 Q 85 42 85 36 L 85 22 Q 85 14 74 10 L 56 10 Z" fill="#2F6B3A" stroke="#1E293B" stroke-width="1.4"/>
+          <!-- Windshield -->
+          <path d="M 60 14 L 72 14 Q 76 16 76 24 L 60 24 Z" fill="#E2E8F0" stroke="#1E293B" stroke-width="1.2"/>
+          <rect x="83" y="27" width="2" height="6" rx="1" fill="#FBBF24"/>
+          <!-- Chassis base -->
+          <rect x="-4" y="42" width="92" height="4.5" fill="#1E293B"/>
+          <!-- Wheels -->
+          <circle cx="16" cy="48" r="9.5" fill="#1E293B"/>
+          <circle cx="16" cy="48" r="4" fill="#94A3B8"/>
+          <circle cx="68" cy="48" r="9.5" fill="#1E293B"/>
+          <circle cx="68" cy="48" r="4" fill="#94A3B8"/>
+        </g>
+      </g>
+
+      <!-- Bold Short Name & Monospace Link -->
+      <g transform="translate(172, 64)">
+        <text x="0" y="0" font-size="20" font-weight="700" fill="#1E293B">Ninjacart</text>
+        <text x="0" y="32" font-size="16" font-weight="600" fill="#2F6B3A" class="mono">ninjacart.com</text>
+      </g>
+
+      <!-- Right-aligned uppercase tag: INCUMBENT -->
+      <g transform="translate(590, 70)">
+        <rect width="112" height="38" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.2"/>
+        <text x="56" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#64748B" class="mono">INCUMBENT</text>
+      </g>
+    </g>
+
+
+    <!-- TILE 4 (Col 2, Row 2): agribazaar · agribazaar.com · INCUMBENT -->
+    <!-- Illustration: a shopfront -->
+    <g transform="translate(746, 194)">
+      <rect width="726" height="178" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+      <!-- Illustration container -->
+      <g transform="translate(24, 25)">
+        <circle cx="64" cy="64" r="54" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1"/>
+
+        <!-- Shopfront vector illustration -->
+        <g transform="translate(24, 26)">
+          <!-- Striped Awning (Amber & White) -->
+          <path d="M 2 20 L 78 20 L 80 32 L 0 32 Z" fill="#D97706" stroke="#92400E" stroke-width="1.4"/>
+          <path d="M 9 20 L 18 20 L 17 32 L 8 32 Z" fill="#FFFFFF"/>
+          <path d="M 27 20 L 36 20 L 35 32 L 26 32 Z" fill="#FFFFFF"/>
+          <path d="M 45 20 L 54 20 L 53 32 L 44 32 Z" fill="#FFFFFF"/>
+          <path d="M 63 20 L 72 20 L 71 32 L 62 32 Z" fill="#FFFFFF"/>
+          <!-- Shop sign board (Blank, graphical) -->
+          <rect x="14" y="6" width="52" height="12" rx="2" fill="#FFFFFF" stroke="#334155" stroke-width="1.2"/>
+          <rect x="22" y="11" width="36" height="2.5" rx="1" fill="#D97706"/>
+          <!-- Storefront Wall & Windows -->
+          <rect x="6" y="32" width="68" height="38" fill="#F8FAFC" stroke="#334155" stroke-width="1.4"/>
+          <!-- Glass display counter / door -->
+          <rect x="12" y="40" width="24" height="30" fill="#EFF6FF" stroke="#334155" stroke-width="1.2"/>
+          <rect x="42" y="42" width="26" height="18" rx="1" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+          <!-- Crates outside with fresh produce -->
+          <circle cx="48" cy="51" r="3.5" fill="#EF4444"/>
+          <circle cx="58" cy="51" r="3.5" fill="#22C55E"/>
+        </g>
+      </g>
+
+      <!-- Bold Short Name & Monospace Link -->
+      <g transform="translate(172, 64)">
+        <text x="0" y="0" font-size="20" font-weight="700" fill="#1E293B">agribazaar</text>
+        <text x="0" y="32" font-size="16" font-weight="600" fill="#2F6B3A" class="mono">agribazaar.com</text>
+      </g>
+
+      <!-- Right-aligned uppercase tag: INCUMBENT -->
+      <g transform="translate(590, 70)">
+        <rect width="112" height="38" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.2"/>
+        <text x="56" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#64748B" class="mono">INCUMBENT</text>
+      </g>
+    </g>
+
+
+    <!-- ========================= ROW 3 ========================= -->
+
+    <!-- TILE 5 (Col 1, Row 3): Samunnati · samunnati.com · INCUMBENT -->
+    <!-- Illustration: a stack of coins -->
+    <g transform="translate(0, 388)">
+      <rect width="726" height="178" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+      <!-- Illustration container -->
+      <g transform="translate(24, 25)">
+        <circle cx="64" cy="64" r="54" fill="#FAF5FF" stroke="#F3E8FF" stroke-width="1"/>
+
+        <!-- Stack of coins vector illustration (Plum, Amber, Sage - clean graphic, no text) -->
+        <g transform="translate(34, 28)">
+          <!-- Coin 1 (Bottom, Plum) -->
+          <ellipse cx="30" cy="50" rx="28" ry="9" fill="#581C87"/>
+          <rect x="2" y="43" width="56" height="7" fill="#7E22CE"/>
+          <ellipse cx="30" cy="43" rx="28" ry="9" fill="#A855F7" stroke="#581C87" stroke-width="1.2"/>
+          <ellipse cx="30" cy="43" rx="20" ry="6" fill="#7E22CE"/>
+
+          <!-- Coin 2 (Middle, Warm Amber) -->
+          <ellipse cx="30" cy="35" rx="28" ry="9" fill="#B45309"/>
+          <rect x="2" y="28" width="56" height="7" fill="#D97706"/>
+          <ellipse cx="30" cy="28" rx="28" ry="9" fill="#F59E0B" stroke="#92400E" stroke-width="1.2"/>
+          <ellipse cx="30" cy="28" rx="20" ry="6" fill="#D97706"/>
+
+          <!-- Coin 3 (Top, Sage Green) -->
+          <ellipse cx="30" cy="20" rx="28" ry="9" fill="#1E4624"/>
+          <rect x="2" y="13" width="56" height="7" fill="#2F6B3A"/>
+          <ellipse cx="30" cy="13" rx="28" ry="9" fill="#A7D7B5" stroke="#15803D" stroke-width="1.2"/>
+          <ellipse cx="30" cy="13" rx="20" ry="6" fill="#2F6B3A"/>
+          <circle cx="30" cy="13" r="3.5" fill="#EBF5EE"/>
+        </g>
+      </g>
+
+      <!-- Bold Short Name & Monospace Link -->
+      <g transform="translate(172, 64)">
+        <text x="0" y="0" font-size="20" font-weight="700" fill="#1E293B">Samunnati</text>
+        <text x="0" y="32" font-size="16" font-weight="600" fill="#2F6B3A" class="mono">samunnati.com</text>
+      </g>
+
+      <!-- Right-aligned uppercase tag: INCUMBENT -->
+      <g transform="translate(590, 70)">
+        <rect width="112" height="38" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.2"/>
+        <text x="56" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#64748B" class="mono">INCUMBENT</text>
+      </g>
+    </g>
+
+
+    <!-- TILE 6 (Col 2, Row 3): Google OR-Tools, VRP · developers.google.com · METHOD in green -->
+    <!-- Illustration: a winding route with pins -->
+    <g transform="translate(746, 388)">
+      <rect width="726" height="178" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+      <!-- Illustration container -->
+      <g transform="translate(24, 25)">
+        <circle cx="64" cy="64" r="54" fill="#EBF5EE" stroke="#A7D7B5" stroke-width="1"/>
+
+        <!-- Winding route with pins (thin outlines, no text) -->
+        <g transform="translate(22, 22)">
+          <!-- Winding Route path -->
+          <path d="M 12 66 Q 30 26 48 38 T 78 14" fill="none" stroke="#2F6B3A" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 12 66 Q 30 26 48 38 T 78 14" fill="none" stroke="#A7D7B5" stroke-width="1.8" stroke-dasharray="4 3" stroke-linecap="round"/>
+
+          <!-- Origin Pin (Sage Green) -->
+          <g transform="translate(5, 52)">
+            <path d="M 7 0 C 3.1 0 0 3.1 0 7 C 0 12.5 7 18 7 18 C 7 18 14 12.5 14 7 C 14 3.1 10.9 0 7 0 Z" fill="#2F6B3A" stroke="#1E4624" stroke-width="1.2"/>
+            <circle cx="7" cy="7" r="2.8" fill="#FFFFFF"/>
+          </g>
+
+          <!-- Intermediate Waypoint Pin (Amber) -->
+          <g transform="translate(41, 24)">
+            <path d="M 7 0 C 3.1 0 0 3.1 0 7 C 0 12.5 7 18 7 18 C 7 18 14 12.5 14 7 C 14 3.1 10.9 0 7 0 Z" fill="#D97706" stroke="#92400E" stroke-width="1.2"/>
+            <circle cx="7" cy="7" r="2.8" fill="#FFFFFF"/>
+          </g>
+
+          <!-- Destination Hub Pin (Slate Blue) -->
+          <g transform="translate(71, 0)">
+            <path d="M 7 0 C 3.1 0 0 3.1 0 7 C 0 12.5 7 18 7 18 C 7 18 14 12.5 14 7 C 14 3.1 10.9 0 7 0 Z" fill="#3B5A7A" stroke="#1E293B" stroke-width="1.2"/>
+            <circle cx="7" cy="7" r="2.8" fill="#FFFFFF"/>
+          </g>
+        </g>
+      </g>
+
+      <!-- Bold Short Name & Monospace Link -->
+      <g transform="translate(172, 64)">
+        <text x="0" y="0" font-size="20" font-weight="700" fill="#1E293B">Google OR-Tools, VRP</text>
+        <text x="0" y="32" font-size="16" font-weight="600" fill="#2F6B3A" class="mono">developers.google.com</text>
+      </g>
+
+      <!-- Right-aligned uppercase tag: METHOD in green -->
+      <g transform="translate(600, 70)">
+        <rect width="102" height="38" rx="8" fill="#EBF5EE" stroke="#A7D7B5" stroke-width="1.5"/>
+        <text x="51" y="24" text-anchor="middle" font-size="13" font-weight="800" fill="#2F6B3A" class="mono">METHOD</text>
+      </g>
+    </g>
+
+
+    <!-- ========================= ROW 4 ========================= -->
+
+    <!-- TILE 7 (Col 1, Row 4): PIB, agricultural marketing · pib.gov.in · POLICY -->
+    <!-- Illustration: a government building -->
+    <g transform="translate(0, 582)">
+      <rect width="726" height="178" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+      <!-- Illustration container -->
+      <g transform="translate(24, 25)">
+        <circle cx="64" cy="64" r="54" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+
+        <!-- Government building vector illustration (Slate Blue & subtle accents) -->
+        <g transform="translate(24, 24)">
+          <!-- Pediment / Triangular Gable -->
+          <polygon points="40,8 78,26 2,26" fill="#3B5A7A" stroke="#1E293B" stroke-width="1.2"/>
+          <circle cx="40" cy="19" r="3.5" fill="#FFFFFF"/>
+          <!-- Entablature beam -->
+          <rect x="5" y="26" width="70" height="7" rx="1" fill="#FFFFFF" stroke="#334155" stroke-width="1.2"/>
+          <!-- 4 Classical Columns -->
+          <rect x="9" y="33" width="9" height="34" rx="1.5" fill="#F1F5F9" stroke="#334155" stroke-width="1"/>
+          <rect x="27" y="33" width="9" height="34" rx="1.5" fill="#F1F5F9" stroke="#334155" stroke-width="1"/>
+          <rect x="44" y="33" width="9" height="34" rx="1.5" fill="#F1F5F9" stroke="#334155" stroke-width="1"/>
+          <rect x="62" y="33" width="9" height="34" rx="1.5" fill="#F1F5F9" stroke="#334155" stroke-width="1"/>
+          <!-- Base plinth -->
+          <rect x="2" y="67" width="76" height="6" rx="1" fill="#FFFFFF" stroke="#334155" stroke-width="1.2"/>
+          <rect x="-3" y="73" width="86" height="6" rx="1" fill="#CBD5E1" stroke="#334155" stroke-width="1.2"/>
+          <!-- Small flag atop -->
+          <line x1="40" y1="8" x2="40" y2="-4" stroke="#334155" stroke-width="1.8"/>
+          <polygon points="40,-4 54,1 40,6" fill="#D97706" stroke="#B45309" stroke-width="1"/>
+        </g>
+      </g>
+
+      <!-- Bold Short Name & Monospace Link -->
+      <g transform="translate(172, 64)">
+        <text x="0" y="0" font-size="20" font-weight="700" fill="#1E293B">PIB, agricultural marketing</text>
+        <text x="0" y="32" font-size="16" font-weight="600" fill="#2F6B3A" class="mono">pib.gov.in</text>
+      </g>
+
+      <!-- Right-aligned uppercase tag: POLICY -->
+      <g transform="translate(610, 70)">
+        <rect width="92" height="38" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.2"/>
+        <text x="46" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#64748B" class="mono">POLICY</text>
+      </g>
+    </g>
+
+
+    <!-- TILE 8 (Col 2, Row 4): SIH 2026 idea format · sih.gov.in · FORMAT -->
+    <!-- Illustration: a clipboard -->
+    <g transform="translate(746, 582)">
+      <rect width="726" height="178" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+      <!-- Illustration container -->
+      <g transform="translate(24, 25)">
+        <circle cx="64" cy="64" r="54" fill="#FAF5FF" stroke="#F3E8FF" stroke-width="1"/>
+
+        <!-- Clipboard vector illustration (clean graphical, no text) -->
+        <g transform="translate(28, 20)">
+          <!-- Clipboard Board -->
+          <rect x="8" y="12" width="56" height="74" rx="5" fill="#F1F5F9" stroke="#334155" stroke-width="1.5"/>
+          <!-- Clip top -->
+          <rect x="22" y="5" width="28" height="12" rx="2.5" fill="#D49B70" stroke="#92400E" stroke-width="1.2"/>
+          <rect x="29" y="3" width="14" height="6" rx="1.5" fill="#CBD5E1" stroke="#334155" stroke-width="1"/>
+          <!-- Document paper -->
+          <rect x="15" y="21" width="42" height="58" rx="2" fill="#FFFFFF"/>
+          <!-- Graphical lines representing format checklist (NO text) -->
+          <rect x="20" y="30" width="24" height="3" rx="1.5" fill="#7E22CE"/>
+          <rect x="20" y="39" width="32" height="2.5" rx="1" fill="#CBD5E1"/>
+          <rect x="20" y="47" width="28" height="2.5" rx="1" fill="#CBD5E1"/>
+          <rect x="20" y="55" width="30" height="2.5" rx="1" fill="#CBD5E1"/>
+          <!-- Small green verification check badge in corner -->
+          <circle cx="48" cy="65" r="11" fill="#2F6B3A" stroke="#FFFFFF" stroke-width="1.8"/>
+          <path d="M 44 65 L 47 68 L 53 62" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </g>
+
+      <!-- Bold Short Name & Monospace Link -->
+      <g transform="translate(172, 64)">
+        <text x="0" y="0" font-size="20" font-weight="700" fill="#1E293B">SIH 2026 idea format</text>
+        <text x="0" y="32" font-size="16" font-weight="600" fill="#2F6B3A" class="mono">sih.gov.in</text>
+      </g>
+
+      <!-- Right-aligned uppercase tag: FORMAT -->
+      <g transform="translate(610, 70)">
+        <rect width="92" height="38" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.2"/>
+        <text x="46" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#64748B" class="mono">FORMAT</text>
+      </g>
+    </g>
+
+  </g>
+
+
+  <!-- ================= FOOTNOTE ================= -->
+  <!-- Foot, one line only, small grey italic: "Demand history in the prototype is synthetic and labelled so on screen." -->
+  <g transform="translate(64, 878)">
+    <text x="0" y="0" font-size="13" font-style="italic" font-weight="400" fill="#94A3B8">Demand history in the prototype is synthetic and labelled so on screen.</text>
+  </g>
+
+</svg>

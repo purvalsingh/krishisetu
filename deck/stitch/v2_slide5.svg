@@ -1,0 +1,498 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700;800&amp;display=swap');
+      * { box-sizing: border-box; }
+      text { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+      .num { font-family: 'JetBrains Mono', 'Inter', monospace; font-feature-settings: 'tnum' on, 'lnum' on; }
+    </style>
+  </defs>
+
+  <!-- Full 16:9 Canvas Background -->
+  <rect width="1600" height="900" fill="#FAFCF9"/>
+  <!-- Crisp boundary line -->
+  <rect x="0.5" y="0.5" width="1599" height="899" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- ================= TOP TITLE BAR ================= -->
+  <g transform="translate(64, 48)">
+    <circle cx="6" cy="11" r="5" fill="#2F6B3A"/>
+    <text x="24" y="16" font-size="20" font-weight="700" fill="#1E293B" letter-spacing="-0.3">Impact and benefits</text>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- LEFT HALF (Width: 712px, from X: 64 to 776)                               -->
+  <!-- ========================================================================= -->
+  <g transform="translate(64, 86)">
+    <!-- Container Card (Height: 494px) -->
+    <rect width="712" height="494" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+    <!-- Small Header Label: "Farmer's share of what the buyer pays" -->
+    <g transform="translate(32, 28)">
+      <text x="0" y="0" font-size="11" font-weight="700" fill="#64748B" letter-spacing="1.2">FARMER’S SHARE OF WHAT THE BUYER PAYS</text>
+    </g>
+
+    <!-- Three thick horizontal bars with labels above and percentage at the end -->
+    <!-- BAR 1: Fragmented mandi chain 30.0% in pale grey-green -->
+    <g transform="translate(32, 52)">
+      <text x="0" y="0" font-size="15" font-weight="600" fill="#334155">Fragmented mandi chain</text>
+      <!-- Track + Bar (Width: 540px, 30% = 162px) -->
+      <g transform="translate(0, 10)">
+        <rect width="540" height="28" rx="6" fill="#F1F5F9"/>
+        <rect width="162" height="28" rx="6" fill="#CBD5E1"/>
+        <text x="560" y="21" font-size="20" font-weight="800" fill="#64748B" class="num">30.0%</text>
+      </g>
+    </g>
+
+    <!-- BAR 2: KrishiSetu · 126 orders 64.2% in green -->
+    <g transform="translate(32, 126)">
+      <circle cx="4" cy="-4" r="3.5" fill="#2F6B3A"/>
+      <text x="14" y="0" font-size="15" font-weight="700" fill="#1E293B">KrishiSetu · 126 orders</text>
+      <!-- Track + Bar (Width: 540px, 64.2% = 346.7px) -->
+      <g transform="translate(0, 10)">
+        <rect width="540" height="28" rx="6" fill="#F1F5F9"/>
+        <rect width="347" height="28" rx="6" fill="#2F6B3A"/>
+        <text x="560" y="21" font-size="20" font-weight="800" fill="#2F6B3A" class="num">64.2%</text>
+      </g>
+    </g>
+
+    <!-- BAR 3: KrishiSetu · tomato example 74.0% in green -->
+    <g transform="translate(32, 200)">
+      <circle cx="4" cy="-4" r="3.5" fill="#2F6B3A"/>
+      <text x="14" y="0" font-size="15" font-weight="700" fill="#1E293B">KrishiSetu · tomato example</text>
+      <!-- Track + Bar (Width: 540px, 74.0% = 399.6px) -->
+      <g transform="translate(0, 10)">
+        <rect width="540" height="28" rx="6" fill="#F1F5F9"/>
+        <rect width="400" height="28" rx="6" fill="#2F6B3A"/>
+        <text x="560" y="21" font-size="20" font-weight="800" fill="#2F6B3A" class="num">74.0%</text>
+      </g>
+    </g>
+
+    <!-- Beside/beneath the bars: Farmer holding a full crate of vegetables, sized to fill the space cleanly -->
+    <!-- Positioned across the bottom of the card (Height: 200px) -->
+    <g transform="translate(32, 280)">
+      <!-- Soft ambient backdrop -->
+      <rect width="648" height="186" rx="10" fill="#F4F8F5" stroke="#E2E8F0" stroke-width="1.2"/>
+      
+      <!-- Farmland ambient horizon & rolling green mounds -->
+      <g transform="translate(0, 0)">
+        <path d="M 0 140 Q 160 110 320 130 T 648 120 L 648 186 L 0 186 Z" fill="#E8F1EB" opacity="0.7"/>
+        <path d="M 0 155 Q 220 135 440 150 T 648 145 L 648 186 L 0 186 Z" fill="#DDE7DF" opacity="0.6"/>
+      </g>
+
+      <!-- Farmer illustration standing proudly holding a large full crate of fresh harvest -->
+      <g transform="translate(180, 8)">
+        <!-- Ambient halo -->
+        <circle cx="140" cy="85" r="76" fill="#FFFFFF" opacity="0.8"/>
+
+        <!-- Farmer Figure -->
+        <!-- Shadow -->
+        <ellipse cx="140" cy="168" rx="80" ry="6" fill="#0F172A" opacity="0.08"/>
+
+        <!-- Legs / Dhoti Pajama -->
+        <rect x="122" y="130" width="14" height="34" rx="2" fill="#F1F5F9" stroke="#334155" stroke-width="1.2"/>
+        <rect x="144" y="130" width="14" height="34" rx="2" fill="#F1F5F9" stroke="#334155" stroke-width="1.2"/>
+        <rect x="119" y="162" width="18" height="6" rx="2" fill="#78350F"/>
+        <rect x="143" y="162" width="18" height="6" rx="2" fill="#78350F"/>
+
+        <!-- Torso & Kurta (White khadi kurta with Nehru collar) -->
+        <path d="M 112 60 L 168 60 L 164 132 L 116 132 Z" fill="#FFFFFF" stroke="#334155" stroke-width="1.5"/>
+        <line x1="140" y1="60" x2="140" y2="95" stroke="#CBD5E1" stroke-width="1.5"/>
+
+        <!-- Sage Green Nehru Vest / Jacket -->
+        <path d="M 112 62 L 126 62 L 124 122 L 114 122 Z" fill="#2F6B3A"/>
+        <path d="M 168 62 L 154 62 L 156 122 L 166 122 Z" fill="#2F6B3A"/>
+
+        <!-- Neck & Face -->
+        <rect x="134" y="44" width="12" height="16" fill="#C28E67"/>
+        <circle cx="140" cy="38" r="16" fill="#D49B70" stroke="#334155" stroke-width="1.5"/>
+        <!-- Eyes & Mustache -->
+        <circle cx="135" cy="36" r="1.5" fill="#1E293B"/>
+        <circle cx="145" cy="36" r="1.5" fill="#1E293B"/>
+        <path d="M 132 42 Q 140 45 148 42 Q 140 40 132 42" fill="#1E293B"/>
+
+        <!-- Warm Saffron / Amber Safa (Turban) -->
+        <path d="M 122 34 C 120 16 136 10 152 14 C 160 16 162 24 160 34 C 154 37 128 38 122 34 Z" fill="#D97706" stroke="#92400E" stroke-width="1.5"/>
+        <path d="M 124 26 Q 140 18 156 28" fill="none" stroke="#B45309" stroke-width="2"/>
+        <path d="M 126 20 Q 142 14 152 22" fill="none" stroke="#FEF3C7" stroke-width="1.5"/>
+        <path d="M 122 30 Q 118 40 120 50" fill="none" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Large Full Crate of Fresh Vegetables Held in Hands -->
+        <!-- Farmer Arms Reaching under crate -->
+        <path d="M 114 74 L 88 94 L 98 104 L 118 84 Z" fill="#C28E67"/>
+        <path d="M 166 74 L 192 94 L 182 104 L 162 84 Z" fill="#C28E67"/>
+
+        <!-- Wooden Harvest Crate (Warm Ochre / Timber Slats) -->
+        <rect x="74" y="86" width="132" height="48" rx="4" fill="#D97706" stroke="#92400E" stroke-width="1.75"/>
+        <rect x="80" y="92" width="120" height="7" fill="#B45309"/>
+        <rect x="80" y="107" width="120" height="7" fill="#B45309"/>
+        <rect x="80" y="122" width="120" height="7" fill="#B45309"/>
+        <!-- Handle cutouts -->
+        <rect x="80" y="98" width="10" height="4" rx="2" fill="#78350F"/>
+        <rect x="190" y="98" width="10" height="4" rx="2" fill="#78350F"/>
+
+        <!-- Fresh Produce Overflowing inside the crate -->
+        <!-- Bright Red Ripe Tomatoes -->
+        <circle cx="98" cy="80" r="11" fill="#DC2626" stroke="#991B1B" stroke-width="1.2"/>
+        <circle cx="114" cy="74" r="12" fill="#EF4444" stroke="#B91C1C" stroke-width="1.2"/>
+        <circle cx="166" cy="74" r="12" fill="#EF4444" stroke="#B91C1C" stroke-width="1.2"/>
+        <circle cx="182" cy="80" r="11" fill="#DC2626" stroke="#991B1B" stroke-width="1.2"/>
+        <path d="M 114 62 L 115 58 M 111 61 L 108 59 M 117 61 L 120 59" stroke="#15803D" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 166 62 L 167 58 M 163 61 L 160 59 M 169 61 L 172 59" stroke="#15803D" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- Crisp Golden Onions -->
+        <circle cx="130" cy="78" r="11" fill="#D97706" stroke="#92400E" stroke-width="1.2"/>
+        <circle cx="150" cy="78" r="11" fill="#F59E0B" stroke="#D97706" stroke-width="1.2"/>
+        <path d="M 130 67 L 130 63" stroke="#78350F" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 150 67 L 150 63" stroke="#78350F" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- Plump Eggplants / Brinjal (Deep Plum) -->
+        <ellipse cx="140" cy="70" rx="9" ry="12" fill="#7E22CE" stroke="#581C87" stroke-width="1.2" transform="rotate(-15 140 70)"/>
+        <path d="M 136 58 Q 140 54 144 58" fill="#15803D"/>
+
+        <!-- Leafy Greens / Coriander sprigs -->
+        <path d="M 86 76 Q 92 62 102 68 Q 102 76 94 78 Z" fill="#22C55E"/>
+        <path d="M 174 72 Q 182 60 192 66 Q 192 76 182 76 Z" fill="#16A34A"/>
+        <path d="M 124 70 Q 134 56 142 62 Q 140 72 130 72 Z" fill="#2F6B3A"/>
+      </g>
+
+      <!-- Descriptive graphic badges on sides for visual density -->
+      <g transform="translate(24, 24)">
+        <rect width="116" height="32" rx="6" fill="#FFFFFF" stroke="#DDE7DF" stroke-width="1"/>
+        <circle cx="16" cy="16" r="4" fill="#2F6B3A"/>
+        <text x="28" y="21" font-size="12" font-weight="700" fill="#2F6B3A" class="num">DIRECT NET</text>
+      </g>
+      <g transform="translate(508, 24)">
+        <rect width="116" height="32" rx="6" fill="#FFFFFF" stroke="#DDE7DF" stroke-width="1"/>
+        <circle cx="16" cy="16" r="4" fill="#D97706"/>
+        <text x="28" y="21" font-size="12" font-weight="700" fill="#B45309" class="num">NO COMMISSION</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- RIGHT HALF (Width: 728px, from X: 808 to 1536)                            -->
+  <!-- ========================================================================= -->
+  <!-- Tinted panel headed "Where our money comes from", with coin-stack at top  -->
+  <g transform="translate(808, 86)">
+    <!-- Tinted panel body -->
+    <rect width="728" height="494" rx="14" fill="#F4F8F5" stroke="#DDE7DF" stroke-width="1.5"/>
+
+    <!-- Coin-stack illustration at top -->
+    <g transform="translate(36, 26)">
+      <!-- Illustration circular emblem -->
+      <g transform="translate(0, 0)">
+        <circle cx="36" cy="36" r="32" fill="#EBF5EE" stroke="#A7D7B5" stroke-width="1.2"/>
+        
+        <!-- Stack of Gold/Amber & Sage Green Indian Rupee Coins -->
+        <g transform="translate(18, 14)">
+          <!-- Coin 1 (Bottom, Amber) -->
+          <ellipse cx="18" cy="36" rx="16" ry="6" fill="#B45309"/>
+          <rect x="2" y="32" width="32" height="4" fill="#D97706"/>
+          <ellipse cx="18" cy="32" rx="16" ry="6" fill="#F59E0B" stroke="#92400E" stroke-width="1"/>
+
+          <!-- Coin 2 (Middle, Amber) -->
+          <ellipse cx="18" cy="27" rx="16" ry="6" fill="#B45309"/>
+          <rect x="2" y="23" width="32" height="4" fill="#D97706"/>
+          <ellipse cx="18" cy="23" rx="16" ry="6" fill="#FDE68A" stroke="#92400E" stroke-width="1"/>
+
+          <!-- Coin 3 (Top, Sage Green with Rupee symbol) -->
+          <ellipse cx="18" cy="18" rx="16" ry="6" fill="#1E4624"/>
+          <rect x="2" y="14" width="32" height="4" fill="#2F6B3A"/>
+          <ellipse cx="18" cy="14" rx="16" ry="6" fill="#A7D7B5" stroke="#15803D" stroke-width="1"/>
+          <ellipse cx="18" cy="14" rx="12" ry="4.5" fill="#2F6B3A"/>
+          <text x="18" y="17" text-anchor="middle" font-size="10" font-weight="800" fill="#FFFFFF" class="num">₹</text>
+
+          <!-- Small companion coin stack beside it -->
+          <g transform="translate(20, 10)">
+            <ellipse cx="12" cy="26" rx="10" ry="4" fill="#B45309"/>
+            <rect x="2" y="23" width="20" height="3" fill="#D97706"/>
+            <ellipse cx="12" cy="23" rx="10" ry="4" fill="#F59E0B" stroke="#92400E" stroke-width="0.8"/>
+            <ellipse cx="12" cy="18" rx="10" ry="4" fill="#B45309"/>
+            <rect x="2" y="15" width="20" height="3" fill="#D97706"/>
+            <ellipse cx="12" cy="15" rx="10" ry="4" fill="#FDE68A" stroke="#92400E" stroke-width="0.8"/>
+          </g>
+        </g>
+      </g>
+
+      <!-- Title beside coin-stack -->
+      <g transform="translate(86, 18)">
+        <text x="0" y="10" font-size="11" font-weight="700" fill="#64748B" letter-spacing="1.2">REVENUE MODEL</text>
+        <text x="0" y="34" font-size="22" font-weight="800" fill="#1E293B">Where our money comes from</text>
+      </g>
+    </g>
+
+    <!-- Five rows, label left, amount right:
+         Row 1: Buyer-side fee, per order / ₹19.89
+         Row 2: Gateway and support / − ₹5.60
+         Row 3: Contribution per order / ₹14.29 (emphasised green)
+         Row 4: Monthly fixed cost / ₹60,000
+         Row 5: Break even / 4,199 orders (emphasised green)
+    -->
+    <g transform="translate(36, 120)">
+
+      <!-- ROW 1: Buyer-side fee, per order ₹19.89 -->
+      <g transform="translate(0, 0)">
+        <rect width="656" height="60" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.2"/>
+        <text x="24" y="36" font-size="17" font-weight="600" fill="#1E293B">Buyer-side fee, per order</text>
+        <text x="632" y="37" text-anchor="end" font-size="22" font-weight="800" fill="#1E293B" class="num">₹19.89</text>
+      </g>
+
+      <!-- ROW 2: Gateway and support − ₹5.60 -->
+      <g transform="translate(0, 72)">
+        <rect width="656" height="60" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.2"/>
+        <text x="24" y="36" font-size="17" font-weight="600" fill="#64748B">Gateway and support</text>
+        <text x="632" y="37" text-anchor="end" font-size="22" font-weight="700" fill="#64748B" class="num">− ₹5.60</text>
+      </g>
+
+      <!-- ROW 3: Contribution per order ₹14.29 (EMPHASISED GREEN) -->
+      <g transform="translate(0, 144)">
+        <rect width="656" height="64" rx="10" fill="#EBF5EE" stroke="#2F6B3A" stroke-width="2"/>
+        <circle cx="28" cy="32" r="5" fill="#2F6B3A"/>
+        <text x="44" y="38" font-size="18" font-weight="700" fill="#1E293B">Contribution per order</text>
+        <text x="632" y="40" text-anchor="end" font-size="26" font-weight="800" fill="#2F6B3A" class="num">₹14.29</text>
+      </g>
+
+      <!-- ROW 4: Monthly fixed cost ₹60,000 -->
+      <g transform="translate(0, 220)">
+        <rect width="656" height="60" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.2"/>
+        <text x="24" y="36" font-size="17" font-weight="600" fill="#1E293B">Monthly fixed cost</text>
+        <text x="632" y="37" text-anchor="end" font-size="22" font-weight="800" fill="#1E293B" class="num">₹60,000</text>
+      </g>
+
+      <!-- ROW 5: Break even 4,199 orders (EMPHASISED GREEN) -->
+      <g transform="translate(0, 292)">
+        <rect width="656" height="64" rx="10" fill="#EBF5EE" stroke="#2F6B3A" stroke-width="2"/>
+        <circle cx="28" cy="32" r="5" fill="#2F6B3A"/>
+        <text x="44" y="38" font-size="18" font-weight="700" fill="#1E293B">Break even</text>
+        <text x="632" y="40" text-anchor="end" font-size="26" font-weight="800" fill="#2F6B3A" class="num">4,199 orders</text>
+      </g>
+
+    </g>
+  </g>
+
+
+  <!-- ========================================================================= -->
+  <!-- BOTTOM STRIP: FOUR WIDE TILES (Height: 240px, Y: 602 to 842)             -->
+  <!-- 
+       Total Width = 1600 - 128 = 1472px
+       4 tiles: width = (1472 - 3*16) / 4 = (1472 - 48) / 4 = 1424 / 4 = 356px
+       Gap = 16px
+  -->
+  <!-- ========================================================================= -->
+  <g transform="translate(64, 602)">
+
+    <!-- TILE 1: Woman farmer with a crate "Farmer / ₹34.00 per kg" -->
+    <g transform="translate(0, 0)">
+      <rect width="356" height="240" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+      <!-- Illustration on the Left (120px circular frame) -->
+      <g transform="translate(20, 24)">
+        <circle cx="60" cy="96" r="56" fill="#F4F8F5" stroke="#DDE7DF" stroke-width="1"/>
+        
+        <!-- Woman Farmer Vector Illustration -->
+        <g transform="translate(18, 40)">
+          <!-- Ambient circular shadow -->
+          <ellipse cx="42" cy="106" rx="36" ry="5" fill="#0F172A" opacity="0.08"/>
+
+          <!-- Body / Blouse (Sage Green) -->
+          <path d="M 18 80 Q 42 66 66 80 L 66 102 L 18 102 Z" fill="#2F6B3A" stroke="#334155" stroke-width="1.2"/>
+
+          <!-- Neck & Face -->
+          <rect x="36" y="52" width="12" height="16" fill="#C28E67"/>
+          <circle cx="42" cy="44" r="16" fill="#D49B70" stroke="#334155" stroke-width="1.5"/>
+          <!-- Parted black hair -->
+          <path d="M 26 42 C 26 28 42 24 42 24 C 42 24 58 28 58 42 C 53 35 42 33 26 42 Z" fill="#1E293B"/>
+          <!-- Red Bindi -->
+          <circle cx="42" cy="38" r="1.8" fill="#DC2626"/>
+          <!-- Eyes & Smile -->
+          <circle cx="37" cy="43" r="1.4" fill="#1E293B"/>
+          <circle cx="47" cy="43" r="1.4" fill="#1E293B"/>
+          <path d="M 39 48 Q 42 51 45 48" fill="none" stroke="#92400E" stroke-width="1.2" stroke-linecap="round"/>
+
+          <!-- Plum/Maroon Saree Pallu over head & shoulder with gold border -->
+          <path d="M 22 46 C 20 26 30 16 42 16 C 56 16 64 26 62 46 C 60 28 50 20 42 20 C 32 20 24 30 22 46 Z" fill="#7E22CE" stroke="#581C87" stroke-width="1.2"/>
+          <path d="M 21 46 C 19 62 24 76 32 86" fill="none" stroke="#7E22CE" stroke-width="6" stroke-linecap="round"/>
+          <path d="M 21 46 C 19 62 24 76 32 86" fill="none" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+
+          <!-- Crate with produce in front -->
+          <g transform="translate(10, 68)">
+            <rect width="64" height="28" rx="2.5" fill="#D97706" stroke="#92400E" stroke-width="1.2"/>
+            <rect x="4" y="7" width="56" height="4" fill="#B45309"/>
+            <rect x="4" y="17" width="56" height="4" fill="#B45309"/>
+            <circle cx="20" cy="3" r="6" fill="#EF4444"/>
+            <circle cx="32" cy="1" r="7" fill="#22C55E"/>
+            <circle cx="44" cy="3" r="6.5" fill="#F59E0B"/>
+          </g>
+        </g>
+      </g>
+
+      <!-- Bold Name & Short Amount on Right -->
+      <g transform="translate(160, 56)">
+        <rect width="66" height="24" rx="5" fill="#EBF5EE" stroke="#A7D7B5" stroke-width="1"/>
+        <text x="33" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#2F6B3A" class="num">PRODUCER</text>
+        <text x="0" y="56" font-size="24" font-weight="800" fill="#1E293B">Farmer</text>
+        <text x="0" y="96" font-size="28" font-weight="800" fill="#2F6B3A" class="num">₹34.00</text>
+        <text x="0" y="122" font-size="14" font-weight="600" fill="#64748B">per kg, paid in full</text>
+      </g>
+    </g>
+
+    <!-- TILE 2: Shopper with a cloth bag "Buyer / ₹45.66 per kg" -->
+    <g transform="translate(372, 0)">
+      <rect width="356" height="240" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+      <!-- Illustration on the Left -->
+      <g transform="translate(20, 24)">
+        <circle cx="60" cy="96" r="56" fill="#EFF6FF" stroke="#DBEAFE" stroke-width="1"/>
+
+        <!-- Shopper holding cloth bag vector illustration -->
+        <g transform="translate(24, 38)">
+          <!-- Shadow -->
+          <ellipse cx="36" cy="108" rx="30" ry="5" fill="#0F172A" opacity="0.08"/>
+
+          <!-- Body / Casual shirt (Slate Blue) -->
+          <path d="M 16 78 Q 36 64 56 78 L 54 104 L 18 104 Z" fill="#3B5A7A" stroke="#1E293B" stroke-width="1.2"/>
+
+          <!-- Neck & Head -->
+          <rect x="30" y="52" width="12" height="15" fill="#C28E67"/>
+          <circle cx="36" cy="44" r="15" fill="#D49B70" stroke="#1E293B" stroke-width="1.5"/>
+          <!-- Modern haircut -->
+          <path d="M 22 40 C 22 26 36 24 44 24 C 52 24 52 32 50 40 Z" fill="#1E293B"/>
+          <!-- Glasses -->
+          <rect x="28" y="38" width="7" height="6" rx="1.5" fill="none" stroke="#1E293B" stroke-width="1.2"/>
+          <rect x="38" y="38" width="7" height="6" rx="1.5" fill="none" stroke="#1E293B" stroke-width="1.2"/>
+          <line x1="35" y1="41" x2="38" y2="41" stroke="#1E293B" stroke-width="1"/>
+
+          <!-- Arm holding shopping cloth bag -->
+          <path d="M 48 76 L 62 88 L 56 94 L 44 82 Z" fill="#C28E67"/>
+
+          <!-- Eco cloth bag with greens poking out -->
+          <g transform="translate(46, 72)">
+            <!-- Bag handle loop -->
+            <path d="M 12 12 Q 12 -4 20 -4 Q 28 -4 28 12" fill="none" stroke="#78350F" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Cloth tote bag body -->
+            <path d="M 6 12 L 34 12 L 30 46 L 10 46 Z" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.5"/>
+            <!-- Stitched detail -->
+            <line x1="8" y1="16" x2="32" y2="16" stroke="#CBD5E1" stroke-width="1"/>
+            <!-- Leek / carrot / greens poking from bag -->
+            <path d="M 14 12 Q 10 -2 6 2 Q 8 10 16 12 Z" fill="#22C55E"/>
+            <circle cx="24" cy="8" r="5" fill="#EF4444"/>
+            <path d="M 26 10 Q 32 -6 38 -2 Q 36 8 28 10 Z" fill="#16A34A"/>
+          </g>
+        </g>
+      </g>
+
+      <!-- Bold Name & Short Amount on Right -->
+      <g transform="translate(160, 56)">
+        <rect width="52" height="24" rx="5" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+        <text x="26" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#2563EB" class="num">BUYER</text>
+        <text x="0" y="56" font-size="24" font-weight="800" fill="#1E293B">Buyer</text>
+        <text x="0" y="96" font-size="28" font-weight="800" fill="#1E293B" class="num">₹45.66</text>
+        <text x="0" y="122" font-size="14" font-weight="600" fill="#64748B">per kg, vs ₹55 retail</text>
+      </g>
+    </g>
+
+    <!-- TILE 3: Tempo truck "Transporter / ₹4,016 a run" -->
+    <g transform="translate(744, 0)">
+      <rect width="356" height="240" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+      <!-- Illustration on the Left -->
+      <g transform="translate(20, 24)">
+        <circle cx="60" cy="96" r="56" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1"/>
+
+        <!-- Tempo Delivery Truck Vector Illustration -->
+        <g transform="translate(10, 56)">
+          <!-- Cargo body (Slate Blue) -->
+          <rect x="4" y="18" width="58" height="36" rx="2" fill="#3B5A7A" stroke="#1E293B" stroke-width="1.2"/>
+          <line x1="18" y1="20" x2="18" y2="52" stroke="#2D4660" stroke-width="1.2"/>
+          <line x1="32" y1="20" x2="32" y2="52" stroke="#2D4660" stroke-width="1.2"/>
+          <line x1="46" y1="20" x2="46" y2="52" stroke="#2D4660" stroke-width="1.2"/>
+
+          <!-- Crates stacked inside bed -->
+          <rect x="8" y="24" width="14" height="10" rx="1.2" fill="#D97706" stroke="#92400E" stroke-width="0.8"/>
+          <circle cx="15" cy="22" r="2" fill="#EF4444"/>
+          <rect x="25" y="24" width="14" height="10" rx="1.2" fill="#2F6B3A" stroke="#15803D" stroke-width="0.8"/>
+          <circle cx="32" cy="22" r="2" fill="#22C55E"/>
+          <rect x="42" y="24" width="14" height="10" rx="1.2" fill="#7E22CE" stroke="#581C87" stroke-width="0.8"/>
+
+          <!-- Cab (Sage Green) -->
+          <path d="M 62 54 L 86 54 Q 90 54 90 48 L 90 34 Q 90 24 80 20 L 62 20 Z" fill="#2F6B3A" stroke="#1E293B" stroke-width="1.2"/>
+          <path d="M 66 24 L 76 24 Q 82 26 82 34 L 66 34 Z" fill="#E2E8F0" stroke="#1E293B" stroke-width="1"/>
+          <rect x="88" y="42" width="2" height="6" rx="1" fill="#FBBF24"/>
+
+          <!-- Chassis -->
+          <rect x="0" y="54" width="94" height="4" fill="#1E293B"/>
+
+          <!-- Wheels -->
+          <circle cx="18" cy="60" r="9" fill="#1E293B"/>
+          <circle cx="18" cy="60" r="3.5" fill="#94A3B8"/>
+          <circle cx="74" cy="60" r="9" fill="#1E293B"/>
+          <circle cx="74" cy="60" r="3.5" fill="#94A3B8"/>
+        </g>
+      </g>
+
+      <!-- Bold Name & Short Amount on Right -->
+      <g transform="translate(160, 56)">
+        <rect width="84" height="24" rx="5" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1"/>
+        <text x="42" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#B45309" class="num">LOGISTICS</text>
+        <text x="0" y="56" font-size="24" font-weight="800" fill="#1E293B">Transporter</text>
+        <text x="0" y="96" font-size="28" font-weight="800" fill="#1E293B" class="num">₹4,016</text>
+        <text x="0" y="122" font-size="14" font-weight="600" fill="#64748B">a run, agreed first</text>
+      </g>
+    </g>
+
+    <!-- TILE 4: Laptop with charts "Platform / ₹14.29 per order" -->
+    <g transform="translate(1116, 0)">
+      <rect width="356" height="240" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+      <!-- Illustration on the Left -->
+      <g transform="translate(20, 24)">
+        <circle cx="60" cy="96" r="56" fill="#FAF5FF" stroke="#F3E8FF" stroke-width="1"/>
+
+        <!-- Laptop with Charts Vector Illustration -->
+        <g transform="translate(12, 52)">
+          <!-- Laptop Body / Screen frame -->
+          <rect x="14" y="8" width="72" height="48" rx="3.5" fill="#1E293B" stroke="#0F172A" stroke-width="1.2"/>
+          <rect x="18" y="12" width="64" height="40" rx="2" fill="#FFFFFF"/>
+
+          <!-- Window UI & Charts -->
+          <rect x="18" y="12" width="64" height="6" fill="#F1F5F9"/>
+          <circle cx="22" cy="15" r="1" fill="#EF4444"/>
+          <circle cx="25" cy="15" r="1" fill="#F59E0B"/>
+          <circle cx="28" cy="15" r="1" fill="#22C55E"/>
+
+          <!-- Mini Bar Chart on Laptop screen -->
+          <rect x="24" y="36" width="4" height="12" rx="1" fill="#2F6B3A"/>
+          <rect x="31" y="28" width="4" height="20" rx="1" fill="#3B5A7A"/>
+          <rect x="38" y="32" width="4" height="16" rx="1" fill="#D97706"/>
+          <rect x="45" y="24" width="4" height="24" rx="1" fill="#7E22CE"/>
+
+          <!-- Trend line on Laptop screen -->
+          <path d="M 52 42 L 58 36 L 66 38 L 74 26" fill="none" stroke="#2F6B3A" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="74" cy="26" r="1.5" fill="#D97706"/>
+
+          <!-- Laptop Base / Keyboard -->
+          <path d="M 4 56 L 96 56 L 88 64 L 12 64 Z" fill="#CBD5E1" stroke="#94A3B8" stroke-width="1.2"/>
+          <rect x="42" y="58" width="16" height="2" rx="0.5" fill="#94A3B8"/>
+        </g>
+      </g>
+
+      <!-- Bold Name & Short Amount on Right -->
+      <g transform="translate(160, 56)">
+        <rect width="78" height="24" rx="5" fill="#FAF5FF" stroke="#E9D5FF" stroke-width="1"/>
+        <text x="39" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#7E22CE" class="num">NETWORK</text>
+        <text x="0" y="56" font-size="24" font-weight="800" fill="#1E293B">Platform</text>
+        <text x="0" y="96" font-size="28" font-weight="800" fill="#2F6B3A" class="num">₹14.29</text>
+        <text x="0" y="122" font-size="14" font-weight="600" fill="#64748B">per order, disclosed fee</text>
+      </g>
+    </g>
+
+  </g>
+
+
+  <!-- ================= FOOTNOTE ================= -->
+  <!-- Foot, one line only, small grey italic: "Computed over synthetic demonstration orders." -->
+  <g transform="translate(64, 868)">
+    <text x="0" y="0" font-size="13" font-style="italic" font-weight="400" fill="#94A3B8">Computed over synthetic demonstration orders.</text>
+  </g>
+
+</svg>

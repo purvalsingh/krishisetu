@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KrishiSetu — Pooled Delivery Slide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            agriGreen: '#2f6b3a',
+            agriGreenLight: '#eef6f0',
+            slateBlue: '#4b6584',
+            amberFee: '#d97706',
+            plumFee: '#7c3aed',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .slide-canvas {
+      width: 1333px;
+      height: 750px;
+      background-color: #ffffff;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+    }
+    .tabular {
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+
+<style id="deck-fix">
+  html,body{background:#fff !important;margin:0 !important;padding:0 !important}
+  body>*{box-shadow:none !important}
+</style>
+</head>
+<body>
+
+  <div class="slide-canvas p-14 flex flex-col justify-between select-none">
+    
+    <!-- Top Header Area -->
+    <header class="flex items-start justify-between border-b border-neutral-200/80 pb-6">
+      <div>
+        <div class="flex items-center gap-2.5 mb-1.5">
+          <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#2f6b3a]"></span>
+          <h1 class="text-[26px] font-bold tracking-tight text-neutral-900">
+            KrishiSetu <span class="font-normal text-neutral-400 mx-1.5">—</span> pooled delivery
+          </h1>
+        </div>
+        <p class="text-[14px] text-neutral-500 font-medium tracking-tight">
+          The farmer’s rate is an input to the price, never the leftover
+        </p>
+      </div>
+      <div class="text-right">
+        <span class="inline-flex items-center px-2.5 py-1 rounded bg-neutral-100 border border-neutral-200 text-[11px] font-mono font-medium text-neutral-600 uppercase tracking-wider">
+          Unit Economics · Model 2026
+        </span>
+      </div>
+    </header>
+
+    <!-- Main 2-Column Body -->
+    <main class="grid grid-cols-12 gap-10 flex-1 my-7 items-stretch">
+      
+      <!-- Left Column (Proportional Stacked Bar & Economics) -->
+      <section class="col-span-6 flex flex-col justify-between pr-4 border-r border-neutral-100">
+        
+        <!-- : Stacked Bar & Legend -->
+        <div>
+          <div class="flex items-center justify-between mb-2.5">
+            <span class="text-[12px] font-semibold uppercase tracking-wider text-neutral-500 font-mono">
+              Transparent cost composition per kg
+            </span>
+            <span class="text-[12px] font-mono text-neutral-400">Total 100%</span>
+          </div>
+
+          <!-- Proportional Bar (Green: 74.46%, Slate Blue: 10.29%, Amber: 8.67%, Plum: 6.57%) -->
+          <div class="w-full h-8 rounded-lg overflow-hidden flex border border-neutral-200/80 p-0.5 bg-neutral-50 shadow-inner">
+            <div style="width: 74.46%;" class="h-full bg-[#2f6b3a] rounded-l flex items-center justify-center text-[11px] font-bold text-white tracking-wide">
+              ₹34.00
+            </div>
+            <div style="width: 10.29%;" class="h-full bg-[#4b6584] ml-0.5 flex items-center justify-center text-[10px] font-bold text-white">
+              ₹4.70
+            </div>
+            <div style="width: 8.67%;" class="h-full bg-[#d97706] ml-0.5 flex items-center justify-center text-[10px] font-bold text-white">
+              ₹3.96
+            </div>
+            <div style="width: 6.57%;" class="h-full bg-[#7c3aed] ml-0.5 rounded-r flex items-center justify-center text-[10px] font-bold text-white">
+              ₹3.00
+            </div>
+          </div>
+
+          <!-- Coloured Dot Legend -->
+          <div class="grid grid-cols-4 gap-2 mt-3 pt-1 border-b border-neutral-100 pb-4 font-sans">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#2f6b3a] shrink-0"></span>
+              <span class="text-[12px] text-neutral-700 font-medium">Farmer <strong class="font-mono text-neutral-900 font-semibold tabular">₹34.00</strong></span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#4b6584] shrink-0"></span>
+              <span class="text-[12px] text-neutral-700 font-medium">Transport <strong class="font-mono text-neutral-900 font-semibold tabular">₹4.70</strong></span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#d97706] shrink-0"></span>
+              <span class="text-[12px] text-neutral-700 font-medium">Packing <strong class="font-mono text-neutral-900 font-semibold tabular">₹3.96</strong></span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#7c3aed] shrink-0"></span>
+              <span class="text-[12px] text-neutral-700 font-medium">Site fee <strong class="font-mono text-neutral-900 font-semibold tabular">₹3.00</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- : Big Number Display -->
+        <div class="py-2">
+          <div class="flex items-baseline gap-3">
+            <span class="text-[52px] font-extrabold tracking-tight text-neutral-900 font-mono tabular leading-none">
+              ₹45.66
+            </span>
+            <div class="flex flex-col">
+              <span class="text-[13px] font-medium text-neutral-500 uppercase tracking-wide">
+                buyer pays
+              </span>
+              <span class="text-[13px] font-semibold text-amber-700 tracking-tight font-mono tabular">
+                vs ₹55.00 quick-commerce
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- : Farmer Settlement Rows (Soft Cards) -->
+        <div class="space-y-2 mt-1">
+          <div class="text-[11px] font-mono uppercase tracking-wider text-neutral-400 font-medium">
+            Producer payout ledger · Khalapur &amp; Panvel cluster
+          </div>
+          
+          <div class="bg-neutral-50/80 border border-neutral-200/90 rounded-lg px-4 py-3 flex items-center justify-between text-[13px]">
+            <div class="flex items-center gap-2">
+              <span class="font-semibold text-neutral-900">Sanjay Patil</span>
+              <span class="text-neutral-400">·</span>
+              <span class="text-neutral-600">Khalapur Raigad</span>
+            </div>
+            <div class="flex items-center gap-4 font-mono tabular">
+              <span class="text-neutral-600 font-medium">3.0 kg</span>
+              <span class="text-neutral-300">/</span>
+              <span class="font-bold text-[#2f6b3a] bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded text-[13px]">₹102.00</span>
+            </div>
+          </div>
+
+          <div class="bg-neutral-50/80 border border-neutral-200/90 rounded-lg px-4 py-3 flex items-center justify-between text-[13px]">
+            <div class="flex items-center gap-2">
+              <span class="font-semibold text-neutral-900">Meena Bhoir</span>
+              <span class="text-neutral-400">·</span>
+              <span class="text-neutral-600">Panvel Rural Raigad</span>
+            </div>
+            <div class="flex items-center gap-4 font-mono tabular">
+              <span class="text-neutral-600 font-medium">2.0 kg</span>
+              <span class="text-neutral-300">/</span>
+              <span class="font-bold text-[#2f6b3a] bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded text-[13px]">₹68.00</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Right Column (3x2 Grid + Delivery Tiers) -->
+      <section class="col-span-6 flex flex-col justify-between pl-2">
+        
+        <!-- 3x2 Grid of Feature Tiles -->
+        <div class="grid grid-cols-3 gap-3">
+          
+          <!-- Tile 1 -->
+          <div class="border border-neutral-200/90 rounded-lg p-3 bg-white hover:border-neutral-300 transition-colors">
+            <div class="w-7 h-7 rounded bg-emerald-50 text-[#2f6b3a] flex items-center justify-center mb-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="text-[12px] font-bold text-neutral-900 leading-snug">Net rate</h3>
+            <p class="text-[11px] text-neutral-500 mt-0.5 leading-tight">nothing deducted, ever</p>
+          </div>
+
+          <!-- Tile 2 -->
+          <div class="border border-neutral-200/90 rounded-lg p-3 bg-white hover:border-neutral-300 transition-colors">
+            <div class="w-7 h-7 rounded bg-blue-50 text-[#4b6584] flex items-center justify-center mb-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+            </div>
+            <h3 class="text-[12px] font-bold text-neutral-900 leading-snug">Pooled by place</h3>
+            <p class="text-[11px] text-neutral-500 mt-0.5 leading-tight">one neighbourhood, one vehicle</p>
+          </div>
+
+          <!-- Tile 3 -->
+          <div class="border border-neutral-200/90 rounded-lg p-3 bg-white hover:border-neutral-300 transition-colors">
+            <div class="w-7 h-7 rounded bg-amber-50 text-amber-700 flex items-center justify-center mb-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="text-[12px] font-bold text-neutral-900 leading-snug">Sold before loaded</h3>
+            <p class="text-[11px] text-neutral-500 mt-0.5 leading-tight">no stock written off</p>
+          </div>
+
+          <!-- Tile 4 -->
+          <div class="border border-neutral-200/90 rounded-lg p-3 bg-white hover:border-neutral-300 transition-colors">
+            <div class="w-7 h-7 rounded bg-emerald-50 text-[#2f6b3a] flex items-center justify-center mb-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+            </div>
+            <h3 class="text-[12px] font-bold text-neutral-900 leading-snug">Fresher, cheaper</h3>
+            <p class="text-[11px] text-neutral-500 mt-0.5 leading-tight">shorter chain, lower price</p>
+          </div>
+
+          <!-- Tile 5 -->
+          <div class="border border-neutral-200/90 rounded-lg p-3 bg-white hover:border-neutral-300 transition-colors">
+            <div class="w-7 h-7 rounded bg-indigo-50 text-indigo-600 flex items-center justify-center mb-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <h3 class="text-[12px] font-bold text-neutral-900 leading-snug">Demand by place</h3>
+            <p class="text-[11px] text-neutral-500 mt-0.5 leading-tight font-mono">Nerul 246 · Kharghar 207</p>
+          </div>
+
+          <!-- Tile 6 -->
+          <div class="border border-neutral-200/90 rounded-lg p-3 bg-white hover:border-neutral-300 transition-colors">
+            <div class="w-7 h-7 rounded bg-purple-50 text-[#7c3aed] flex items-center justify-center mb-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+              </svg>
+            </div>
+            <h3 class="text-[12px] font-bold text-neutral-900 leading-snug">Surplus re-placed</h3>
+            <p class="text-[11px] text-neutral-500 mt-0.5 leading-tight">151 kg split across three</p>
+          </div>
+
+        </div>
+
+        <!-- 3 Wide Tiles: Delivery Options -->
+        <div class="mt-4 pt-3 border-t border-neutral-100">
+          <div class="text-[11px] font-mono uppercase tracking-wider text-neutral-400 font-medium mb-2.5">
+            Fulfillment and last-mile dispatch
+          </div>
+          <div class="grid grid-cols-3 gap-3">
+            
+            <!-- Tier 1: Cluster pickup -->
+            <div class="border border-neutral-200/90 rounded-lg p-3.5 bg-neutral-50/50 flex flex-col justify-between">
+              <span class="text-[11px] uppercase tracking-wider text-neutral-500 font-medium">Standard</span>
+              <div class="flex items-baseline justify-between mt-1">
+                <span class="text-[13px] font-bold text-neutral-900">Cluster pickup</span>
+                <span class="text-[14px] font-mono font-bold text-[#2f6b3a] tabular">₹10</span>
+              </div>
+            </div>
+
+            <!-- Tier 2: Last 300 m -->
+            <div class="border border-neutral-200/90 rounded-lg p-3.5 bg-neutral-50/50 flex flex-col justify-between">
+              <span class="text-[11px] uppercase tracking-wider text-neutral-500 font-medium">Doorstep drop</span>
+              <div class="flex items-baseline justify-between mt-1">
+                <span class="text-[13px] font-bold text-neutral-900">Last 300 m</span>
+                <span class="text-[14px] font-mono font-bold text-neutral-900 tabular">₹20</span>
+              </div>
+            </div>
+
+            <!-- Tier 3: Express (Greyed out) -->
+            <div class="border border-dashed border-neutral-200 rounded-lg p-3.5 bg-neutral-100/50 opacity-60 flex flex-col justify-between">
+              <span class="text-[11px] uppercase tracking-wider text-neutral-400 font-medium">Single-rider speed</span>
+              <div class="flex items-baseline justify-between mt-1">
+                <span class="text-[13px] font-medium text-neutral-400 line-through">Express</span>
+                <span class="text-[11px] font-mono font-medium text-neutral-400 italic">not offered</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Slide Footer -->
+    <footer class="pt-3 border-t border-neutral-200/80 flex items-center justify-between text-neutral-400 text-[12px]">
+      <p class="italic text-neutral-500">
+        Free above a ₹500 basket on the last 300 m. ₹55/kg is an assumed reference.
+      </p>
+      <div class="font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
+        
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

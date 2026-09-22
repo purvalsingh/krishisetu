@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical approach — D-COA · KrishiSetu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Newsreader:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .font-serif-italic {
+      font-family: 'Newsreader', Georgia, serif;
+      font-style: italic;
+    }
+    /* 16:9 fixed presentation slide aspect ratio container */
+    .slide-canvas {
+      width: 1366px;
+      height: 768px;
+      max-width: 100%;
+    }
+  </style>
+
+<style id="deck-fix">
+  html,body{background:#fff !important;margin:0 !important;padding:0 !important}
+  body>*{box-shadow:none !important}
+</style>
+</head>
+<body class="bg-neutral-100 flex items-center justify-center min-h-screen p-0 sm:p-6 text-neutral-900 selection:bg-emerald-100 selection:text-emerald-900">
+
+  <!-- 16:9 Slide Root Card -->
+  <main class="slide-canvas bg-white relative flex flex-col justify-between p-12 sm:p-14 shadow-none border border-neutral-200/80 rounded-none overflow-hidden mx-auto">
+    
+    <!-- Top Meta / Slide Header -->
+    <header class="w-full mb-6">
+      <div class="flex items-start justify-between">
+        <div>
+          <!-- Heading top left -->
+          <h1 class="text-3xl font-bold tracking-tight text-neutral-950 flex items-center gap-2">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#2f6b3a]"></span>
+            Technical approach
+          </h1>
+          <!-- Subheading -->
+          <div class="mt-1 flex items-baseline gap-2">
+            <h2 class="text-base font-semibold text-neutral-800 tracking-tight">
+              D-COA — Decision &amp; Coordination Optimisation Algorithm
+            </h2>
+          </div>
+          <!-- Tiny grey line under it -->
+          <p class="text-xs font-normal text-neutral-400 mt-0.5 tracking-normal">
+            Our own engine’s working name, not a claim of a new published algorithm.
+          </p>
+        </div>
+
+        <!-- Section / Deck tracker tag -->
+        <div class="text-right">
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded border border-neutral-200 bg-neutral-50/70 text-[11px] font-mono text-neutral-500 uppercase tracking-wider">
+            <span>KRISHISETU</span>
+            <span class="text-neutral-300">·</span>
+            <span class="text-neutral-700 font-semibold">CORE ARCHITECTURE</span>
+            <span class="text-neutral-300">·</span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Top Band: Six Stages joined by thin arrows -->
+    <section class="w-full mb-7" aria-label="Pipeline Stages">
+      <div class="flex items-center justify-between gap-1.5 w-full">
+        
+        <!-- Stage 1 -->
+        <div class="flex-1 min-w-0 bg-white border border-neutral-200/90 rounded px-3 py-3 flex flex-col items-center justify-center text-center transition-all">
+          <div class="w-7 h-7 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-700 mb-2 border border-neutral-200/60">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 11l3 3L22 4"/>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            </svg>
+          </div>
+          <span class="text-[12px] font-semibold text-neutral-900 leading-snug tracking-tight">Confirmed orders</span>
+          <span class="text-[10px] font-mono text-neutral-400 mt-0.5">01 / Ingestion</span>
+        </div>
+
+        <!-- Connector Arrow -->
+        <div class="flex-shrink-0 text-neutral-300 px-0.5">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+          </svg>
+        </div>
+
+        <!-- Stage 2 -->
+        <div class="flex-1 min-w-0 bg-white border border-neutral-200/90 rounded px-3 py-3 flex flex-col items-center justify-center text-center transition-all">
+          <div class="w-7 h-7 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-700 mb-2 border border-neutral-200/60">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </div>
+          <span class="text-[12px] font-semibold text-neutral-900 leading-snug tracking-tight">Compatibility</span>
+          <span class="text-[10px] font-mono text-neutral-400 mt-0.5">02 / Filter</span>
+        </div>
+
+        <!-- Connector Arrow -->
+        <div class="flex-shrink-0 text-neutral-300 px-0.5">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+          </svg>
+        </div>
+
+        <!-- Stage 3 -->
+        <div class="flex-1 min-w-0 bg-white border border-neutral-200/90 rounded px-3 py-3 flex flex-col items-center justify-center text-center transition-all">
+          <div class="w-7 h-7 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-700 mb-2 border border-neutral-200/60">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+          </div>
+          <span class="text-[12px] font-semibold text-neutral-900 leading-snug tracking-tight">Lot allocation</span>
+          <span class="text-[10px] font-mono text-neutral-400 mt-0.5">03 / Packing</span>
+        </div>
+
+        <!-- Connector Arrow -->
+        <div class="flex-shrink-0 text-neutral-300 px-0.5">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+          </svg>
+        </div>
+
+        <!-- Stage 4 -->
+        <div class="flex-1 min-w-0 bg-white border border-neutral-200/90 rounded px-3 py-3 flex flex-col items-center justify-center text-center transition-all">
+          <div class="w-7 h-7 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-700 mb-2 border border-neutral-200/60">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <span class="text-[12px] font-semibold text-neutral-900 leading-snug tracking-tight">Capacity &amp; freshness</span>
+          <span class="text-[10px] font-mono text-neutral-400 mt-0.5">04 / Bounds</span>
+        </div>
+
+        <!-- Connector Arrow -->
+        <div class="flex-shrink-0 text-neutral-300 px-0.5">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+          </svg>
+        </div>
+
+        <!-- Stage 5 -->
+        <div class="flex-1 min-w-0 bg-white border border-neutral-200/90 rounded px-3 py-3 flex flex-col items-center justify-center text-center transition-all">
+          <div class="w-7 h-7 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-700 mb-2 border border-neutral-200/60">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+            </svg>
+          </div>
+          <span class="text-[12px] font-semibold text-neutral-900 leading-snug tracking-tight">Route plan</span>
+          <span class="text-[10px] font-mono text-neutral-400 mt-0.5">05 / Routing</span>
+        </div>
+
+        <!-- Connector Arrow -->
+        <div class="flex-shrink-0 text-neutral-300 px-0.5">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+          </svg>
+        </div>
+
+        <!-- Stage 6 (Emphasised in green) -->
+        <div class="flex-1 min-w-0 bg-emerald-50/70 border-2 border-[#2f6b3a] rounded px-3 py-3 flex flex-col items-center justify-center text-center shadow-xs">
+          <div class="w-7 h-7 rounded-full bg-[#2f6b3a] text-white flex items-center justify-center mb-2 shadow-xs">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
+          <span class="text-[12px] font-bold text-[#1f4a27] leading-snug tracking-tight">Explained batch</span>
+          <span class="text-[10px] font-mono font-medium text-[#2f6b3a] mt-0.5">06 / Audit output</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Main Content Area: Lower Left & Lower Right -->
+    <div class="grid grid-cols-12 gap-8 items-stretch flex-1">
+      
+      <!-- Lower Left: Eight considerations, every run (7 cols) -->
+      <section class="col-span-7 flex flex-col justify-between" aria-label="Eight considerations">
+        <div>
+          <!-- Subheader label -->
+          <div class="flex items-center justify-between pb-2 mb-3 border-b border-neutral-200">
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-neutral-500 font-mono">
+              Eight considerations, every run
+            </h3>
+            <span class="text-[11px] font-mono text-neutral-400">Feasibility first, then ranking</span>
+          </div>
+
+          <!-- Two columns grid of compact rows -->
+          <div class="grid grid-cols-2 gap-x-4 gap-y-2">
+            
+            <!-- Item 1 (green hard) -->
+            <div class="flex items-center justify-between bg-white border border-neutral-200/80 rounded px-2.5 py-2">
+              <div class="flex items-center gap-2 min-w-0 pr-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                <span class="text-[12.5px] font-medium text-neutral-800 truncate">Product compatibility</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-emerald-100/70 text-emerald-800 border border-emerald-200/60">hard</span>
+            </div>
+
+            <!-- Item 2 (green hard) -->
+            <div class="flex items-center justify-between bg-white border border-neutral-200/80 rounded px-2.5 py-2">
+              <div class="flex items-center gap-2 min-w-0 pr-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                <span class="text-[12.5px] font-medium text-neutral-800 truncate">Pickup &amp; delivery geo</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-emerald-100/70 text-emerald-800 border border-emerald-200/60">hard</span>
+            </div>
+
+            <!-- Item 3 (green hard) -->
+            <div class="flex items-center justify-between bg-white border border-neutral-200/80 rounded px-2.5 py-2">
+              <div class="flex items-center gap-2 min-w-0 pr-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                <span class="text-[12.5px] font-medium text-neutral-800 truncate">Quantity vs capacity</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-emerald-100/70 text-emerald-800 border border-emerald-200/60">hard</span>
+            </div>
+
+            <!-- Item 4 (green hard) -->
+            <div class="flex items-center justify-between bg-white border border-neutral-200/80 rounded px-2.5 py-2">
+              <div class="flex items-center gap-2 min-w-0 pr-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                <span class="text-[12.5px] font-medium text-neutral-800 truncate">Delivery time windows</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-emerald-100/70 text-emerald-800 border border-emerald-200/60">hard</span>
+            </div>
+
+            <!-- Item 5 (green hard) -->
+            <div class="flex items-center justify-between bg-white border border-neutral-200/80 rounded px-2.5 py-2">
+              <div class="flex items-center gap-2 min-w-0 pr-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                <span class="text-[12.5px] font-medium text-neutral-800 truncate">Perishability &amp; freshness</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-emerald-100/70 text-emerald-800 border border-emerald-200/60">hard</span>
+            </div>
+
+            <!-- Item 6 (amber ranking) -->
+            <div class="flex items-center justify-between bg-white border border-neutral-200/80 rounded px-2.5 py-2">
+              <div class="flex items-center gap-2 min-w-0 pr-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
+                <span class="text-[12.5px] font-medium text-neutral-800 truncate">Estimated transport cost</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-amber-100/80 text-amber-800 border border-amber-200/70">ranking</span>
+            </div>
+
+            <!-- Item 7 (amber ranking) -->
+            <div class="flex items-center justify-between bg-white border border-neutral-200/80 rounded px-2.5 py-2">
+              <div class="flex items-center gap-2 min-w-0 pr-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
+                <span class="text-[12.5px] font-medium text-neutral-800 truncate">Order priority</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-amber-100/80 text-amber-800 border border-amber-200/70">ranking</span>
+            </div>
+
+            <!-- Item 8 (slate replan) -->
+            <div class="flex items-center justify-between bg-white border border-neutral-200/80 rounded px-2.5 py-2">
+              <div class="flex items-center gap-2 min-w-0 pr-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-500 flex-shrink-0"></span>
+                <span class="text-[12.5px] font-medium text-neutral-800 truncate">Cancellations &amp; new orders</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200/70">replan</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Legend / Key hint below grid -->
+        <div class="mt-3 pt-2.5 border-t border-neutral-100 flex items-center gap-5 text-[11px] font-mono text-neutral-500">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+            <span>Hard constraint (zero-violation policy)</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+            <span>Weight-ranked objective</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-slate-500"></span>
+            <span>Dynamic event trigger</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Lower Right: Soft tinted panel (5 cols) -->
+      <section class="col-span-5 flex flex-col" aria-label="Runtime & Rules">
+        <div class="bg-neutral-50/90 border border-neutral-200 rounded p-4 h-full flex flex-col justify-between">
+          
+          <div>
+            <!-- Header: small laptop-and-chart icon + stack line -->
+            <div class="flex items-start gap-3 pb-3 mb-3 border-b border-neutral-200/70">
+              <div class="w-8 h-8 rounded bg-white border border-neutral-200 flex items-center justify-center text-neutral-700 flex-shrink-0 mt-0.5">
+                <!-- Laptop-and-chart SVG icon -->
+                <svg class="w-4 h-4 text-[#2f6b3a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="13" rx="2"/>
+                  <path d="M2 17h20"/>
+                  <path d="M6 21h12"/>
+                  <path d="M6 12l3-3 2 2 4-4"/>
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <div class="text-[10px] font-mono uppercase tracking-wider text-neutral-400 font-medium">Production stack</div>
+                <div class="text-[12px] font-mono font-medium text-neutral-900 leading-snug">
+                  Next.js 16 · PostgreSQL · Prisma · Vercel · live mandi prices, daily
+                </div>
+              </div>
+            </div>
+
+            <!-- Rules header -->
+            <div class="mb-2">
+              <span class="text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-600">
+                Rules the code enforces
+              </span>
+            </div>
+
+            <!-- Three bullets -->
+            <ul class="space-y-2 text-[12.5px] text-neutral-700">
+              <li class="flex items-start gap-2.5">
+                <span class="text-[#2f6b3a] font-mono font-bold mt-0.5 text-xs">01</span>
+                <div>
+                  <span class="font-medium text-neutral-900">Under 70% fill, the run is held</span>
+                  <p class="text-[11px] text-neutral-500 leading-tight mt-0.5">No tempo leaves the cluster half-empty at producer expense.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-[#2f6b3a] font-mono font-bold mt-0.5 text-xs">02</span>
+                <div>
+                  <span class="font-medium text-neutral-900">Atomic reservations: no kilogram twice</span>
+                  <p class="text-[11px] text-neutral-500 leading-tight mt-0.5">Strict row-level locks prevent double-booking on pooled inventory.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-[#2f6b3a] font-mono font-bold mt-0.5 text-xs">03</span>
+                <div>
+                  <span class="font-medium text-neutral-900">A forecast shows only if it beats the baseline</span>
+                  <p class="text-[11px] text-neutral-500 leading-tight mt-0.5">Guards against erratic advisory outputs on farmer dashboards.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Bottom micro-badge -->
+          >
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Foot: one small grey italic line -->
+    <footer class="w-full mt-6 pt-3 border-t border-neutral-200/80 flex items-center justify-between text-xs">
+      <p class="font-serif-italic text-neutral-500 text-[13px] tracking-normal">
+        “Routing returns a feasible nearest-neighbour plan measured against a fixed-order baseline. We claim no global optimum.”
+      </p>
+      <div class="font-mono text-[11px] text-neutral-400">
+        SIH26033 · KrishiSetu
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+</html>

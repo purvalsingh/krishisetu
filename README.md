@@ -176,3 +176,35 @@ What is still not implemented: real payment collection or escrow, any government
 record integration, return-load matching, and negotiation as a separate structured flow. Demand
 history and the price series used for fitting are synthetic and labelled as such in the database and
 on screen.
+
+## Repository and deployment
+
+The application is the root of this repository, with two extra directories carried alongside it:
+
+- `docs/` — the unit economics, the design prompt and the deck image briefs
+- `deck/` — the presentation generators (`build.js`, `build_sih.py`), the SIH format checker
+  (`check_sih.py`), and the current submission deck in `deck/output/`
+
+GitHub: `purvalsingh/krishisetu`. The Vercel project of the same name is connected to it, so every push
+to `main` deploys, and a pull request gets its own preview URL. Environment variables live in the Vercel
+project, never in the repository; `.env.example` lists the names.
+
+Two checks are worth running before a push:
+
+```bash
+npm test                              # pricing, pooling, routing, forecasting, surplus placement
+python3 deck/check_sih.py deck/output/KrishiSetu_SIH2026_Illustrated_v6.pptx
+```
+
+The local database is a container: `docker start krishisetu-pg`, then `npm run db:seed`. The seed's
+harvest dates age out after a few days, at which point every lot fails the freshness check and the
+placement card is empty — re-seed before a demonstration.
+
+## Motion
+
+Reveals, stagger, hover feedback and press response are CSS scroll-driven animations in
+`src/app/globals.css`, not an animation library: the pages are server components and a JS motion library
+would pull them client-side for effects the platform does natively. The magnetic hero button
+(`src/components/magnetic.tsx`) is the only client-side piece, and it checks for a fine pointer and for
+`prefers-reduced-motion` before it does anything. Browsers without scroll timelines show the content
+normally rather than hiding it behind an animation that cannot run.

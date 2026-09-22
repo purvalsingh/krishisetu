@@ -69,7 +69,13 @@ def check(path):
         if i > 1:
             if not any("@SIH Idea submission" in t for t in texts):
                 problems.append(f"slide {i}: template footer removed")
-            if not any(t.strip() == str(i) for t in texts):
+            # The slide number is a field inside its placeholder, so it has no
+            # ordinary runs to read; check the placeholder's rendered text.
+            numbered = any(
+                sh.is_placeholder and sh.has_text_frame and sh.text_frame.text.strip() == str(i)
+                for sh in slide.shapes
+            )
+            if not numbered and not any(t.strip() == str(i) for t in texts):
                 problems.append(f"slide {i}: slide number removed")
             if any(t.strip() == "Your Team Name" for t in texts):
                 problems.append(f"slide {i}: team name still says 'Your Team Name'")

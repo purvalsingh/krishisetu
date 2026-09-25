@@ -1,17 +1,33 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Noto_Sans_Devanagari } from "next/font/google";
+import { Fraunces, IBM_Plex_Sans, IBM_Plex_Mono, IBM_Plex_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
+// Display serif for headings, Plex for reading and for figures, and Plex's own
+// Devanagari cut so Marathi and Hindi labels sit on the same body as English.
+const display = Fraunces({
   subsets: ["latin"],
-  weight: ["400", "500", "700", "800"],
+  axes: ["opsz", "SOFT"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const sans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const devanagari = Noto_Sans_Devanagari({
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+const devanagari = IBM_Plex_Sans_Devanagari({
   subsets: ["devanagari"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-devanagari",
   display: "swap",
 });
@@ -36,7 +52,7 @@ try {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${devanagari.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable} ${devanagari.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>

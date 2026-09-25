@@ -45,9 +45,9 @@ export default async function CartPage() {
 
   const split = [
     { label: "Farmers", paise: farmerProceeds, color: "var(--green)" },
-    { label: "Transport", paise: logistics, color: "#6b8cae" },
+    { label: "Transport", paise: logistics, color: "var(--c-transport)" },
     { label: "Packing & pickup point", paise: handling + cluster.hostCommissionPaise, color: "var(--amber)" },
-    { label: "Site fee", paise: siteFee, color: "#8a7fae" },
+    { label: "Site fee", paise: siteFee, color: "var(--c-fee)" },
   ];
   const splitTotal = split.reduce((s, p) => s + p.paise, 0) || 1;
 
